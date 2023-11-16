@@ -1,0 +1,109 @@
+[gd_scene load_steps=15 format=3 uid="uid://ccyqiq553cmvo"]
+
+[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_i2a3l"]
+[ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="2_0sh0e"]
+[ext_resource type="Script" path="res://scripts/CharacterAnimator.gd" id="2_mgur1"]
+[ext_resource type="Texture2D" uid="uid://5s3efhbv6yoi" path="res://assets/character/HumanHeadCombined.png" id="3_noeje"]
+[ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="4_fk1ah"]
+[ext_resource type="Script" path="res://scenes/SpriteAnimator.gd" id="4_r7phc"]
+[ext_resource type="Texture2D" uid="uid://opakgi61ej0w" path="res://assets/character/HumanBodyCombined.png" id="5_h1ohj"]
+[ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
+[ext_resource type="AnimationLibrary" uid="uid://batughvjkhr3q" path="res://assets/animations/headanimations.res" id="6_wtvw5"]
+[ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
+[ext_resource type="AnimationLibrary" uid="uid://b4sgs0eo17ef6" path="res://assets/animations/bodyanimations.res" id="9_yba1c"]
+[ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="11_8i66a"]
+[ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="13_5juc2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqhjq"]
+radius = 6.0
+height = 26.0
+
+[node name="Character" type="CharacterBody2D"]
+position = Vector2(200, 200)
+script = ExtResource("1_i2a3l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"animations": ExtResource("2_0sh0e")
+}
+script = ExtResource("2_mgur1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xqhjq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+texture_filter = 1
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -264.0
+offset_top = -140.0
+offset_right = -224.0
+offset_bottom = -114.0
+text = "Text"
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+z_as_relative = false
+texture_filter = 1
+hframes = 6
+vframes = 6
+frame = 32
+script = ExtResource("4_r7phc")
+
+[node name="Head" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("3_noeje")
+hframes = 6
+vframes = 10
+frame = 53
+
+[node name="HeadAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Head"]
+libraries = {
+"headanimations": ExtResource("6_wtvw5")
+}
+
+[node name="BackArm" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("4_fk1ah")
+hframes = 6
+vframes = 10
+frame = 47
+
+[node name="BackArmAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/BackArm"]
+libraries = {
+"backarmanimations": ExtResource("2_0sh0e")
+}
+
+[node name="Body" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("5_h1ohj")
+hframes = 6
+vframes = 10
+frame = 59
+
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Body"]
+libraries = {
+"bodyanimations": ExtResource("9_yba1c")
+}
+
+[node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("6_urt3x")
+hframes = 6
+vframes = 10
+frame = 59
+
+[node name="FrontArmAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/FrontArm"]
+libraries = {
+"frontarmanimations": ExtResource("11_8i66a")
+}
+
+[node name="Legs" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("7_c31yv")
+hframes = 6
+vframes = 10
+frame = 59
+
+[node name="LegsAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Legs"]
+libraries = {
+"legsanimations": ExtResource("13_5juc2")
+}

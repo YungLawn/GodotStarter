@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccyqiq553cmvo"]
+
+[ext_resource type="Texture2D" uid="uid://c2a6civcl35kv" path="res://assets/character/HumanCombined.png" id="1_88tw8"]
+[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_i2a3l"]
+[ext_resource type="Script" path="res://scenes/CharacterAnimator.gd" id="2_0i6hm"]
+
+[sub_resource type="Animation" id="Animation_1dkae"]
+resource_name = "walk_east"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_l4gcx"]
+resource_name = "walk_north"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ie8ep"]
+resource_name = "walk_south"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_psjk7"]
+_data = {
+"walk_east": SubResource("Animation_1dkae"),
+"walk_north": SubResource("Animation_l4gcx"),
+"walk_south": SubResource("Animation_ie8ep")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqhjq"]
+radius = 6.0
+height = 26.0
+
+[node name="Character" type="CharacterBody2D"]
+position = Vector2(200, 200)
+script = ExtResource("1_i2a3l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_psjk7")
+}
+script = ExtResource("2_0i6hm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_88tw8")
+hframes = 6
+vframes = 6
+frame = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xqhjq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+position_smoothing_speed = 1.0
