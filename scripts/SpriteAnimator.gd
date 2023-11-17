@@ -16,7 +16,8 @@ var lookDirection = "south"
 var action = "idle_"
 @export var reverse = false
 
-const framerate:float = 1;
+const idleInterval = 3;
+var framerate:float = 1;
 @export var framerateMult:float = 1
 var timer = 0;
 var reverseTimer = 1;
@@ -30,7 +31,7 @@ func _process(delta):
 	moveTime(delta)
 	
 #	$"../Debug".text = str(int(timer * 10))
-#	$"../Debug2".text = str(int(reverseTimer * 10))
+#	$"../Debug2".text = str(int(framerate))
 #	$"../Debug3".text = str(timer) + " | " + str(reverseTimer)
 	
 func togglebool(bool):
@@ -41,6 +42,8 @@ func togglebool(bool):
 	return bool
 	
 func moveTime(delta):
+#	framerate = idleInterval if action == "idle_" else 1
+	
 	timer = reverseTimer if reverse else timer
 	
 	timer += delta * framerateMult
@@ -62,9 +65,9 @@ func backpedal(inputDirection, inputLookDirection):
 		reverse = true
 	else:
 		reverse = false
-	$"../Debug".text = "legs flip_h: " + str(legsSprite.flip_h)
-	$"../Debug2".text = "reverse: " + str(reverse)
-	$"../Debug3".text = "relation: " +str(relation)
+#	$"../Debug".text = "legs flip_h: " + str(legsSprite.flip_h)
+#	$"../Debug2".text = "reverse: " + str(reverse)
+#	$"../Debug3".text = "directions: " + "Legs: " + str(direction) + "Upper: " + str(lookDirection) 
 	
 func flipLegs():
 	legsSprite.flip_h = true
@@ -85,7 +88,8 @@ func unflipLookSprites():
 	bodySprite.flip_h = false
 	
 func animate(inputDirection, inputLookDirection) -> void:
-	if(inputDirection.x == 0 && inputDirection.y == 0):
+	$"../Debug3".text = action
+	if(inputDirection.x == 0 and inputDirection.y == 0):
 		action = "idle_"
 		timer = 0
 		reverseTimer = 0
@@ -116,22 +120,22 @@ func determineDirection(inputDirection, inputLookDirection):
 	elif(abs(inputLookDirection) > 157.5):
 		flipLookSprites()
 		lookDirection = "east"
-	elif(abs(inputLookDirection) > 67.5 && abs(inputLookDirection) < 112.5 && inputLookDirection < 1):
+	elif(abs(inputLookDirection) > 67.5 and abs(inputLookDirection) < 112.5 and inputLookDirection < 1):
 		unflipLookSprites()
 		lookDirection = "north"
-	elif(abs(inputLookDirection) > 67.5 && abs(inputLookDirection) < 112.5 && inputLookDirection > 1):
+	elif(abs(inputLookDirection) > 67.5 and abs(inputLookDirection) < 112.5 and inputLookDirection > 1):
 		unflipLookSprites()
 		lookDirection = "south"
-	elif(inputLookDirection < -22.5 && inputLookDirection > -67.5):
+	elif(inputLookDirection < -22.5 and inputLookDirection > -67.5):
 		unflipLookSprites()
 		lookDirection = "northeast"
-	elif(inputLookDirection > 22.5 && inputLookDirection < 67.5):
+	elif(inputLookDirection > 22.5 and inputLookDirection < 67.5):
 		unflipLookSprites()
 		lookDirection = "southeast"
-	elif(inputLookDirection > 112.5 && inputLookDirection < 157.5):
+	elif(inputLookDirection > 112.5 and inputLookDirection < 157.5):
 		flipLookSprites()
 		lookDirection = "southeast"
-	elif(inputLookDirection < -112.5 && inputLookDirection > -157.5):
+	elif(inputLookDirection < -112.5 and inputLookDirection > -157.5):
 		flipLookSprites()
 		lookDirection = "northeast"
 

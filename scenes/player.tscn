@@ -65,13 +65,14 @@ hframes = 6
 vframes = 6
 frame = 32
 script = ExtResource("3_2c66w")
+framerateMult = 1.125
 
 [node name="Head" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("3_noeje")
 offset = Vector2(0, 1)
 hframes = 6
 vframes = 10
-frame = 54
+frame = 47
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Head"]
 libraries = {
@@ -90,18 +91,6 @@ libraries = {
 "backarmanimations": ExtResource("2_0sh0e")
 }
 
-[node name="Body" type="Sprite2D" parent="BaseSprite"]
-texture = ExtResource("5_h1ohj")
-offset = Vector2(0, 1)
-hframes = 6
-vframes = 10
-frame = 54
-
-[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Body"]
-libraries = {
-"bodyanimations": ExtResource("9_yba1c")
-}
-
 [node name="Legs" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("7_c31yv")
 offset = Vector2(0, 1)
@@ -112,6 +101,18 @@ frame = 23
 [node name="LegsAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Legs"]
 libraries = {
 "legsanimations": ExtResource("13_5juc2")
+}
+
+[node name="Body" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("5_h1ohj")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 47
+
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Body"]
+libraries = {
+"bodyanimations": ExtResource("9_yba1c")
 }
 
 [node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
