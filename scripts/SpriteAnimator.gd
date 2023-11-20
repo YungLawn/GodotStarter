@@ -27,23 +27,14 @@ func _ready():
 	pass
 	
 func _process(delta):
-	reverse = togglebool(reverse)
 	moveTime(delta)
-	
-#	$"../Debug".text = str(int(timer * 10))
-#	$"../Debug2".text = str(int(framerate))
-#	$"../Debug3".text = str(timer) + " | " + str(reverseTimer)
-	
-func togglebool(bool):
-	if Input.is_action_just_pressed("test1") and bool == false:
-		bool = true
-	elif Input.is_action_just_pressed("test1") and bool == true:
-		bool = false
-	return bool
+#	if Input.is_action_just_pressed("test1") and bool == false:
+#		bool = true
+#	elif Input.is_action_just_pressed("test1") and bool == true:
+#		bool = false
+#	return bool
 	
 func moveTime(delta):
-#	framerate = idleInterval if action == "idle_" else 1
-	
 	timer = reverseTimer if reverse else timer
 	
 	timer += delta * framerateMult
@@ -57,17 +48,24 @@ func moveTime(delta):
 		
 func backpedal(inputDirection, inputLookDirection):
 	var relation = abs(int(rad_to_deg(inputDirection.angle()))) + abs(int(inputLookDirection))
-	if(relation in range(135, 225) and action != "idle_"):
-		direction = lookDirection #I HATE THIS!!
+	if(relation in range(112.5, 250) and action != "idle_"):
+		reverse = true
+		
+		if(lookDirection == "northeast"):
+			if(direction == "southeast"):
+				direction = "northeast"
+		elif(lookDirection == "southeast"):
+			if(direction == "northeast"):
+				direction = "southeast"
+			
 		if(legsSprite.flip_h):
 			unflipLegs()
 		else: flipLegs()
-		reverse = true
 	else:
 		reverse = false
-#	$"../Debug".text = "legs flip_h: " + str(legsSprite.flip_h)
-#	$"../Debug2".text = "reverse: " + str(reverse)
-#	$"../Debug3".text = "directions: " + "Legs: " + str(direction) + "Upper: " + str(lookDirection) 
+	$"../Debug".text = "Top Angle: " + str(int(inputLookDirection))
+	$"../Debug2".text = "relation: " + str(relation)
+	$"../Debug3".text = "Legs: " + str(direction) 
 	
 func flipLegs():
 	legsSprite.flip_h = true
@@ -112,7 +110,8 @@ func animate(inputDirection, inputLookDirection) -> void:
 func determineDirection(inputDirection, inputLookDirection):
 	if(abs(inputLookDirection) > 90):
 		flipLegs()
-	else: unflipLegs()
+	else: 
+		unflipLegs()
 	
 	if(abs(inputLookDirection) < 22.5):
 		unflipLookSprites()

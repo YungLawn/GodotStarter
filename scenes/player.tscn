@@ -22,14 +22,14 @@ height = 26.0
 position = Vector2(200, 200)
 script = ExtResource("1_i2a3l")
 SPEED = 50
-SPRINTMULTIPLIER = 2.0
+SPRINTMULTIPLIER = 7.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xqhjq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 position_smoothing_speed = 10.0
 
 [node name="Debug" type="Label" parent="."]

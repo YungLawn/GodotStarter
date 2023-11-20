@@ -23,6 +23,8 @@ func _process(delta):
 #	$Debug2.text = str(lookDirection)
 	$BaseSprite.animate(direction, lookDirection)
 	
+	$Debug3.text = str(Engine.get_frames_per_second())
+	
 func toggleSprint():
 	if Input.is_action_just_pressed("sprint") and isSprinting == false:
 		isSprinting = true
