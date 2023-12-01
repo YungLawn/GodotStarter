@@ -28,11 +28,6 @@ func _ready():
 	
 func _process(delta):
 	moveTime(delta)
-#	if Input.is_action_just_pressed("test1") and bool == false:
-#		bool = true
-#	elif Input.is_action_just_pressed("test1") and bool == true:
-#		bool = false
-#	return bool
 	
 func moveTime(delta):
 	timer = reverseTimer if reverse else timer
@@ -95,17 +90,17 @@ func animate(inputDirection, inputLookDirection) -> void:
 		action = "walk_"
 		
 	determineDirection(inputDirection, inputLookDirection)
-	backpedal(inputDirection, inputLookDirection)
+	#backpedal(inputDirection, inputLookDirection)
 	headAnimator.play("headanimations/head_" + action + lookDirection)
-	headAnimator.seek(reverseTimer if reverse else timer)
+	#headAnimator.seek(reverseTimer if reverse else timer)
 	bodyAnimator.play("bodyanimations/body_" + action + lookDirection)
-	bodyAnimator.seek(reverseTimer if reverse else timer)
+	#bodyAnimator.seek(reverseTimer if reverse else timer)
 	backarmAnimator.play("backarmanimations/backarm_" + action + lookDirection)
-	backarmAnimator.seek(reverseTimer if reverse else timer)
+	#backarmAnimator.seek(reverseTimer if reverse else timer)
 	frontarmAnimator.play("frontarmanimations/frontarm_" + action + lookDirection)
-	frontarmAnimator.seek(reverseTimer if reverse else timer)
+	#frontarmAnimator.seek(reverseTimer if reverse else timer)
 	legsAnimator.play("legsanimations/legs_" + action + (lookDirection if action == "idle_" else direction))
-	legsAnimator.seek(reverseTimer if reverse else timer)
+	#legsAnimator.seek(reverseTimer if reverse else timer)
 		
 func determineDirection(inputDirection, inputLookDirection):
 	if(abs(inputLookDirection) > 90):
