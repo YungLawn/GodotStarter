@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://5nhvucguf0hj"]
+
+[ext_resource type="Script" path="res://scripts/enemymovement.gd" id="1_nh182"]
+[ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="2_yl2l7"]
+[ext_resource type="Texture2D" uid="uid://5s3efhbv6yoi" path="res://assets/character/HumanHeadCombined.png" id="3_hpjsg"]
+[ext_resource type="AnimationLibrary" uid="uid://batughvjkhr3q" path="res://assets/animations/headanimations.res" id="4_dkkh8"]
+[ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="5_nnccr"]
+[ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="6_yi74n"]
+[ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_ncmpg"]
+[ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="8_b4k4a"]
+[ext_resource type="Texture2D" uid="uid://opakgi61ej0w" path="res://assets/character/HumanBodyCombined.png" id="9_ra6tu"]
+[ext_resource type="AnimationLibrary" uid="uid://b4sgs0eo17ef6" path="res://assets/animations/bodyanimations.res" id="10_wxjge"]
+[ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="11_o2uf6"]
+[ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="12_suj35"]
+[ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="13_uxyny"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ksgww"]
+
+[node name="enemy" type="Node2D"]
+position = Vector2(50, 0)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_nh182")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_ksgww")
+
+[node name="BaseSprite" type="Sprite2D" parent="CharacterBody2D"]
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 1
+hframes = 6
+vframes = 6
+frame = 32
+script = ExtResource("2_yl2l7")
+
+[node name="Head" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+texture = ExtResource("3_hpjsg")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 42
+
+[node name="HeadAnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/BaseSprite/Head"]
+libraries = {
+"headanimations": ExtResource("4_dkkh8")
+}
+
+[node name="BackArm" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+texture = ExtResource("5_nnccr")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 54
+
+[node name="BackArmAnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/BaseSprite/BackArm"]
+libraries = {
+"backarmanimations": ExtResource("6_yi74n")
+}
+
+[node name="Legs" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+texture = ExtResource("7_ncmpg")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 23
+
+[node name="LegsAnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/BaseSprite/Legs"]
+libraries = {
+"legsanimations": ExtResource("8_b4k4a")
+}
+
+[node name="Body" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+texture = ExtResource("9_ra6tu")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 47
+
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/BaseSprite/Body"]
+libraries = {
+"bodyanimations": ExtResource("10_wxjge")
+}
+
+[node name="FrontArm" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+texture = ExtResource("11_o2uf6")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 23
+
+[node name="FrontArmAnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/BaseSprite/FrontArm"]
+libraries = {
+"frontarmanimations": ExtResource("12_suj35")
+}
+
+[node name="reference" type="Sprite2D" parent="CharacterBody2D/BaseSprite"]
+visible = false
+texture_filter = 2
+texture = ExtResource("13_uxyny")
+
+[node name="Label" type="Label" parent="CharacterBody2D"]
+offset_left = -8.0
+offset_top = -37.0
+offset_right = 32.0
+offset_bottom = -14.0
+text = "!!!!"

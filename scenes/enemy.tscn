@@ -1,0 +1,146 @@
+[gd_scene load_steps=17 format=3 uid="uid://5nhvucguf0hj"]
+
+[ext_resource type="Script" path="res://scripts/enemymovement.gd" id="1_6b4lo"]
+[ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="2_yl2l7"]
+[ext_resource type="Texture2D" uid="uid://5s3efhbv6yoi" path="res://assets/character/HumanHeadCombined.png" id="3_hpjsg"]
+[ext_resource type="AnimationLibrary" uid="uid://batughvjkhr3q" path="res://assets/animations/headanimations.res" id="4_dkkh8"]
+[ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="5_nnccr"]
+[ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="6_yi74n"]
+[ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_ncmpg"]
+[ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="8_b4k4a"]
+[ext_resource type="Texture2D" uid="uid://opakgi61ej0w" path="res://assets/character/HumanBodyCombined.png" id="9_ra6tu"]
+[ext_resource type="AnimationLibrary" uid="uid://b4sgs0eo17ef6" path="res://assets/animations/bodyanimations.res" id="10_wxjge"]
+[ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="11_o2uf6"]
+[ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="12_suj35"]
+[ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="13_uxyny"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvqyy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m2pi0"]
+font_size = 11
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xv7mo"]
+radius = 15.0
+
+[node name="enemy" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_6b4lo")
+SPEED = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_dvqyy")
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 1
+hframes = 6
+vframes = 6
+frame = 32
+script = ExtResource("2_yl2l7")
+
+[node name="Head" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("3_hpjsg")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 42
+
+[node name="HeadAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Head"]
+libraries = {
+"headanimations": ExtResource("4_dkkh8")
+}
+
+[node name="BackArm" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("5_nnccr")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 54
+
+[node name="BackArmAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/BackArm"]
+libraries = {
+"backarmanimations": ExtResource("6_yi74n")
+}
+
+[node name="Legs" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("7_ncmpg")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 23
+
+[node name="LegsAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Legs"]
+libraries = {
+"legsanimations": ExtResource("8_b4k4a")
+}
+
+[node name="Body" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("9_ra6tu")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 47
+
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Body"]
+libraries = {
+"bodyanimations": ExtResource("10_wxjge")
+}
+
+[node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
+texture = ExtResource("11_o2uf6")
+offset = Vector2(0, 1)
+hframes = 6
+vframes = 10
+frame = 23
+
+[node name="FrontArmAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/FrontArm"]
+libraries = {
+"frontarmanimations": ExtResource("12_suj35")
+}
+
+[node name="reference" type="Sprite2D" parent="BaseSprite"]
+visible = false
+texture_filter = 2
+texture = ExtResource("13_uxyny")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -19.0
+offset_top = -29.0
+offset_right = 21.0
+offset_bottom = -6.0
+text = "Enemy"
+label_settings = SubResource("LabelSettings_m2pi0")
+
+[node name="Debug" type="Label" parent="."]
+texture_filter = 1
+offset_left = -19.0
+offset_top = 14.0
+offset_right = 21.0
+offset_bottom = 37.0
+text = "!"
+label_settings = SubResource("LabelSettings_m2pi0")
+horizontal_alignment = 1
+
+[node name="Debug2" type="Label" parent="."]
+texture_filter = 1
+offset_left = -19.0
+offset_top = 25.0
+offset_right = 21.0
+offset_bottom = 48.0
+text = "!"
+label_settings = SubResource("LabelSettings_m2pi0")
+horizontal_alignment = 1
+
+[node name="detection_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_zone"]
+position = Vector2(0, 9)
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_xv7mo")
+
+[connection signal="body_entered" from="detection_zone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="detection_zone" to="." method="_on_detection_zone_body_exited"]

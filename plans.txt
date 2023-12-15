@@ -1,0 +1,15 @@
+Godot RPG Planning
+
+TODO
+- menu/ui
+- enemies
+- updates to map:
+	- multiple terrains
+	- structures
+	- grass/trees/rocks/etc
+	- collisions
+	- 
+- inventory system:
+	- weapons
+	- consumables
+	- crafting??

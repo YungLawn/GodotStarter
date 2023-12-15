@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqsv5t0eppgy"
-path="res://.godot/imported/WangTileset-export.png-9104e441aedc979a98396aebf507b0e2.ctex"
+uid="uid://bc2tco812u6cw"
+path="res://.godot/imported/Simple_Tilemap.png-b956a38751e85781cf5c7b635c914d3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/WangTileset-export.png"
-dest_files=["res://.godot/imported/WangTileset-export.png-9104e441aedc979a98396aebf507b0e2.ctex"]
+source_file="res://assets/tilesets/blob2/Simple_Tilemap.png"
+dest_files=["res://.godot/imported/Simple_Tilemap.png-b956a38751e85781cf5c7b635c914d3b.ctex"]
 
 [params]
 

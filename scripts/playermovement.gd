@@ -19,11 +19,10 @@ func _process(delta):
 	direction = Input.get_vector("move_west", "move_east", "move_north", "move_south")
 	lookDirection = rad_to_deg(get_angle_to(get_global_mouse_position()))
 	
-#	$Debug.text = str((int)(rad_to_deg(direction.angle())))
-#	$Debug2.text = str(lookDirection)
+	$Debug.text = str(position)
+
 	$BaseSprite.animate(direction, lookDirection)
 	
-	$Debug3.text = str(Engine.get_frames_per_second())
 	
 func toggleSprint():
 	if Input.is_action_just_pressed("sprint") and isSprinting == false:

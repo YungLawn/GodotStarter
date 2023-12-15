@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccyqiq553cmvo"]
+[gd_scene load_steps=17 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_i2a3l"]
 [ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="2_0sh0e"]
@@ -14,65 +14,38 @@
 [ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="11_8i66a"]
 [ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="13_5juc2"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqhjq"]
-radius = 6.0
-height = 26.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
-[node name="Character" type="CharacterBody2D"]
-position = Vector2(200, 200)
+[sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
+font_size = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_coiea"]
+font_size = 11
+
+[node name="player" type="CharacterBody2D"]
 script = ExtResource("1_i2a3l")
-SPEED = 50
-SPRINTMULTIPLIER = 7.0
+SPEED = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_xqhjq")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-texture_filter = 1
-zoom = Vector2(1.5, 1.5)
-position_smoothing_speed = 10.0
-
-[node name="Debug" type="Label" parent="."]
-texture_filter = 1
-offset_left = -143.0
-offset_top = -84.0
-offset_right = -83.0
-offset_bottom = -58.0
-text = "Debug1"
-
-[node name="Debug2" type="Label" parent="."]
-texture_filter = 1
-offset_left = -143.0
-offset_top = -68.0
-offset_right = -83.0
-offset_bottom = -42.0
-text = "Debug2
-"
-
-[node name="Debug3" type="Label" parent="."]
-texture_filter = 1
-offset_left = -142.0
-offset_top = -53.0
-offset_right = -82.0
-offset_bottom = -27.0
-text = "Debug3
-"
+position = Vector2(0, 13)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_4hsne")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 z_as_relative = false
 texture_filter = 1
+texture_repeat = 1
 hframes = 6
 vframes = 6
 frame = 32
 script = ExtResource("3_2c66w")
-framerateMult = 1.125
 
 [node name="Head" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("3_noeje")
 offset = Vector2(0, 1)
 hframes = 6
 vframes = 10
-frame = 47
+frame = 42
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Head"]
 libraries = {
@@ -129,4 +102,28 @@ libraries = {
 
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
+texture_filter = 2
 texture = ExtResource("2_dcgry")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+texture_filter = 2
+zoom = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -16.0
+offset_top = -31.0
+offset_right = 24.0
+offset_bottom = -8.0
+text = "Player"
+label_settings = SubResource("LabelSettings_cbyhx")
+
+[node name="Debug" type="Label" parent="."]
+texture_filter = 1
+offset_left = -19.0
+offset_top = 14.0
+offset_right = 21.0
+offset_bottom = 37.0
+text = "!"
+label_settings = SubResource("LabelSettings_coiea")
+horizontal_alignment = 1
