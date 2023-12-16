@@ -1,9 +1,9 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cb7txw216ykus"]
 
-[ext_resource type="Texture2D" uid="uid://dri7ry57sc0p0" path="res://assets/tilesets/blob1/blob.png" id="1_42fw4"]
+[ext_resource type="Texture2D" uid="uid://dri7ry57sc0p0" path="res://assets/tilesets/blob1/blob.png" id="1_j46y4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qhu8s"]
-texture = ExtResource("1_42fw4")
+texture = ExtResource("1_j46y4")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0

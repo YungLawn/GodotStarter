@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://0mbj5q6wkl3l"]
+
+[ext_resource type="Script" path="res://scripts/menus/in_game_menu.gd" id="1_0o1ea"]
+[ext_resource type="PackedScene" uid="uid://crhy42col2y6i" path="res://scenes/map_gen_menu.tscn" id="2_fp6o8"]
+
+[node name="in_game_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -231.0
+offset_top = -128.0
+offset_right = -191.0
+offset_bottom = -88.0
+script = ExtResource("1_0o1ea")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="toggle_map_gen" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Map Generation"
+
+[node name="map_gen_menu" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_fp6o8")]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/toggle_map_gen" to="." method="_on_toggle_map_gen_pressed"]

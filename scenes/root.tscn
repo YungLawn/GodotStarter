@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2p8b3pxdmj5y"]
+
+[ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://scenes/world.tscn" id="1_noebs"]
+[ext_resource type="PackedScene" uid="uid://kn0cyyo34r6v" path="res://scenes/player.tscn" id="2_m3hkl"]
+[ext_resource type="PackedScene" uid="uid://0mbj5q6wkl3l" path="res://scenes/in_game_menu.tscn" id="3_430tw"]
+[ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="3_udcb1"]
+
+[node name="root" type="Node2D"]
+
+[node name="World" parent="." instance=ExtResource("1_noebs")]
+
+[node name="player" parent="." instance=ExtResource("2_m3hkl")]
+position = Vector2(-886, 30)
+SPRINTMULTIPLIER = 3.0
+
+[node name="in_game_menu" parent="player" instance=ExtResource("3_430tw")]
+
+[node name="enemy" parent="." instance=ExtResource("3_udcb1")]
+position = Vector2(-440, 17)
+collision_layer = 1
+SPEED = 20

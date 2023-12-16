@@ -107,7 +107,6 @@ texture = ExtResource("2_dcgry")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1

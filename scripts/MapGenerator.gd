@@ -11,8 +11,7 @@ var noise = FastNoiseLite.new()
 
 func _ready():
 	pass
-	#noise.seed = seed
-	generate_chunk(player.position)
+	#generate_chunk(player.position, seed, MAP_SIZE)
 	
 func _process(delta):
 		if Engine.is_editor_hint():
@@ -21,22 +20,22 @@ func _process(delta):
 				is_clear = false
 			if is_generating:
 				clear()
-				generate_chunk($"../player".position)
+				generate_chunk($"../player".position, seed, MAP_SIZE)
 				is_generating = false
 
 	
 func _input(event):
 	if(event.is_action_pressed("test1")):
-		generate_chunk(player.position)
+		generate_chunk(player.position, seed, MAP_SIZE)
 	if(event.is_action_pressed("test2")):
 		pass
 	
-func generate_chunk(position):
+func generate_chunk(position, seed, size):
 	var land = []
 	noise.seed = seed
 	var tile_pos = local_to_map(position)
-	for x in MAP_SIZE.x:
-		for y in MAP_SIZE.y:
+	for x in size.x:
+		for y in size.y:
 			var current_pos = Vector2(tile_pos.x-MAP_SIZE.x/2 + x, tile_pos.y-MAP_SIZE.y/2 + y)
 			var a = noise.get_noise_2d(current_pos.x, current_pos.y)
 			if a <= LAND_CAP:

@@ -2,7 +2,9 @@ Godot RPG Planning
 
 TODO
 - menu/ui
-- enemies
+- enemies:
+	- attack
+	- pathfinding
 - updates to map:
 	- multiple terrains
 	- structures
