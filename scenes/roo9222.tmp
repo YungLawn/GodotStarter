@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=21 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
@@ -6,22 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="3_udcb1"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="4_iej7c"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
-[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="5_3856l"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="Script" path="res://scenes/test_control.gd" id="6_o5fg8"]
 [ext_resource type="Texture2D" uid="uid://bt5m8nhwckw3q" path="res://icon.svg" id="7_gamua"]
 [ext_resource type="PackedScene" uid="uid://gp2oduhphuld" path="res://inventory_system/inventory/slot.tscn" id="8_dai3w"]
-[ext_resource type="PackedScene" uid="uid://b0p2p75fvro13" path="res://inventory_system/inventory/hot_bar.tscn" id="9_4q1vj"]
+[ext_resource type="PackedScene" uid="uid://b0p2p75fvro13" path="res://inventory_system/inventory/hot_bar.tscn" id="9_xw81b"]
+[ext_resource type="Script" path="res://inventory_system/inventory/hot_bar.gd" id="10_0osuw"]
 [ext_resource type="PackedScene" uid="uid://bdh05i8slqqbg" path="res://assets/interactables/chest.tscn" id="10_5mgrt"]
-[ext_resource type="Script" path="res://inventory_system/inventory/hot_bar.gd" id="10_i1ksk"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="11_bj8mf"]
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
 [ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://assets/pickups/pick_up.tscn" id="14_f1fuy"]
 [ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/apple.tres" id="14_o7f01"]
-
-[sub_resource type="Resource" id="Resource_65lxk"]
-script = ExtResource("5_3856l")
-slot_datas = Array[ExtResource("13_i1e6e")]([null])
 
 [sub_resource type="Resource" id="Resource_rayu8"]
 script = ExtResource("13_i1e6e")
@@ -30,7 +25,7 @@ quantity = 5
 
 [sub_resource type="Resource" id="Resource_n1cea"]
 script = ExtResource("11_bj8mf")
-slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_rayu8"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_rayu8"), null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_ev4h7"]
 script = ExtResource("13_i1e6e")
@@ -48,7 +43,6 @@ seed = 6931
 position = Vector2(480, 270)
 collision_layer = 2
 inventorydata = ExtResource("4_iej7c")
-equip_inventorydata = SubResource("Resource_65lxk")
 SPRINTMULTIPLIER = 3.0
 
 [node name="enemy" parent="." instance=ExtResource("3_udcb1")]
@@ -59,51 +53,34 @@ collision_mask = 3
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="inventory_interface" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 1
+size_flags_vertical = 0
 script = ExtResource("6_1wdlc")
 
 [node name="player_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -312.0
-offset_top = -148.0
-offset_right = 312.0
-offset_bottom = 0.0
+offset_left = 247.0
+offset_top = 272.0
+offset_right = 247.0
+offset_bottom = 272.0
 grow_horizontal = 2
-grow_vertical = 0
-
-[node name="equip_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 0.0
-grow_vertical = 0
+grow_vertical = 2
+mouse_filter = 1
 
 [node name="external_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
 visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -312.0
-offset_right = 312.0
-grow_horizontal = 2
+layout_mode = 0
+offset_left = 530.0
+offset_top = 10.0
+offset_right = 570.0
+offset_bottom = 50.0
 mouse_filter = 1
 
 [node name="grabbedslot" parent="UI/inventory_interface" instance=ExtResource("8_dai3w")]
@@ -116,20 +93,12 @@ offset_top = 10.0
 offset_right = 74.0
 offset_bottom = 74.0
 
-[node name="HotBar" parent="UI" instance=ExtResource("9_4q1vj")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -312.0
-offset_top = -80.0
-offset_right = 312.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-script = ExtResource("10_i1ksk")
+[node name="HotBar" parent="UI" instance=ExtResource("9_xw81b")]
+offset_left = 427.0
+offset_top = 313.0
+offset_right = 467.0
+offset_bottom = 353.0
+script = ExtResource("10_0osuw")
 
 [node name="test_control" type="Control" parent="."]
 visible = false

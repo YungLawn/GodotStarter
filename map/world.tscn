@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgrv8blv487ts"]
 
 [ext_resource type="TileSet" uid="uid://cb7txw216ykus" path="res://assets/tilesets/blob1/blob.tres" id="1_5pvu5"]
-[ext_resource type="Script" path="res://scripts/MapGenerator.gd" id="2_1ag0a"]
+[ext_resource type="Script" path="res://map/MapGenerator.gd" id="2_1ag0a"]
 
 [node name="World" type="TileMap"]
 texture_filter = 1

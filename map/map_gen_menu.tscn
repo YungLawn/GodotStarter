@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://crhy42col2y6i"]
 
-[ext_resource type="Script" path="res://scripts/menus/map_gen_menu.gd" id="1_76i4o"]
+[ext_resource type="Script" path="res://menus/map_gen_menu.gd" id="1_76i4o"]
 
 [node name="map_gen_menu" type="VBoxContainer"]
 offset_top = 35.0

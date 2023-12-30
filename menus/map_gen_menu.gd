@@ -12,7 +12,7 @@ func _ready():
 
 func _on_generate_pressed():
 	player = in_game_menu.player
-	print(player)
+	#print(player)
 	in_game_menu.world.clear()
 	in_game_menu.world.generate_chunk(player.position, int(seed.text), Vector2(int(width.text),int(height.text)))
 

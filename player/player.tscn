@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=18 format=3 uid="uid://kn0cyyo34r6v"]
 
-[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_i2a3l"]
+[ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="2_0sh0e"]
 [ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="2_dcgry"]
 [ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="3_2c66w"]
@@ -13,6 +13,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://b4sgs0eo17ef6" path="res://assets/animations/bodyanimations.res" id="9_yba1c"]
 [ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="11_8i66a"]
 [ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="13_5juc2"]
+[ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
@@ -23,7 +24,7 @@ font_size = 11
 font_size = 11
 
 [node name="player" type="CharacterBody2D"]
-script = ExtResource("1_i2a3l")
+script = ExtResource("1_2jdc0")
 SPEED = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -107,6 +108,12 @@ texture = ExtResource("2_dcgry")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
+zoom = Vector2(2, 2)
+
+[node name="interact_ray" type="RayCast2D" parent="Camera2D"]
+position = Vector2(0, 10)
+collision_mask = 4
+script = ExtResource("15_sc7ef")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -117,12 +124,12 @@ offset_bottom = -8.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
-[node name="Debug" type="Label" parent="."]
+[node name="HealthLabel" type="Label" parent="."]
 texture_filter = 1
 offset_left = -19.0
 offset_top = 14.0
 offset_right = 21.0
 offset_bottom = 37.0
-text = "!"
+text = "--"
 label_settings = SubResource("LabelSettings_coiea")
 horizontal_alignment = 1

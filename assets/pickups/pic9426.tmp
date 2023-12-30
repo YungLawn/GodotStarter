@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbvg8abfbr53w"]
+
+[ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="1_88ej8"]
+[ext_resource type="Script" path="res://assets/pickups/pick_up.gd" id="1_u1dwv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywpxg"]
+
+[node name="PickUp" type="RigidBody2D"]
+mass = 0.01
+gravity_scale = 0.0
+script = ExtResource("1_u1dwv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_88ej8")
+hframes = 16
+vframes = 22
+frame = 224
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+position = Vector2(0, 2)
+scale = Vector2(1.16595, 1)
+shape = SubResource("CircleShape2D_ywpxg")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+scale = Vector2(1.16595, 1)
+shape = SubResource("CircleShape2D_ywpxg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

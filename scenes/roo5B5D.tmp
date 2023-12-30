@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=21 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="3_udcb1"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="4_iej7c"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
-[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="5_3856l"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="Script" path="res://scenes/test_control.gd" id="6_o5fg8"]
 [ext_resource type="Texture2D" uid="uid://bt5m8nhwckw3q" path="res://icon.svg" id="7_gamua"]
@@ -18,10 +17,6 @@
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
 [ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://assets/pickups/pick_up.tscn" id="14_f1fuy"]
 [ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/apple.tres" id="14_o7f01"]
-
-[sub_resource type="Resource" id="Resource_65lxk"]
-script = ExtResource("5_3856l")
-slot_datas = Array[ExtResource("13_i1e6e")]([null])
 
 [sub_resource type="Resource" id="Resource_rayu8"]
 script = ExtResource("13_i1e6e")
@@ -48,7 +43,6 @@ seed = 6931
 position = Vector2(480, 270)
 collision_layer = 2
 inventorydata = ExtResource("4_iej7c")
-equip_inventorydata = SubResource("Resource_65lxk")
 SPRINTMULTIPLIER = 3.0
 
 [node name="enemy" parent="." instance=ExtResource("3_udcb1")]
@@ -68,7 +62,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-mouse_filter = 1
 script = ExtResource("6_1wdlc")
 
 [node name="player_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
@@ -84,16 +77,7 @@ offset_right = 312.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="equip_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 0.0
-grow_vertical = 0
+mouse_filter = 1
 
 [node name="external_inventory" parent="UI/inventory_interface" instance=ExtResource("5_4xb20")]
 visible = false
@@ -128,7 +112,6 @@ offset_right = 312.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
 script = ExtResource("10_i1ksk")
 
 [node name="test_control" type="Control" parent="."]

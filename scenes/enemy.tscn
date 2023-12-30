@@ -136,6 +136,7 @@ label_settings = SubResource("LabelSettings_m2pi0")
 horizontal_alignment = 1
 
 [node name="detection_zone" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_zone"]
 position = Vector2(0, 9)
