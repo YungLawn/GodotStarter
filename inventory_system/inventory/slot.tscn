@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://gp2oduhphuld"]
+[gd_scene load_steps=4 format=3 uid="uid://gp2oduhphuld"]
 
 [ext_resource type="Script" path="res://inventory_system/inventory/slot.gd" id="1_6hasw"]
+[ext_resource type="StyleBox" uid="uid://cdtdq0q85f7y" path="res://inventory_system/inventory/slot_theme.tres" id="1_texrl"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fhw0v"]
 
 [node name="slot" type="PanelContainer"]
+material = SubResource("CanvasItemMaterial_fhw0v")
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
+theme_override_styles/panel = ExtResource("1_texrl")
 script = ExtResource("1_6hasw")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -29,6 +34,15 @@ size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 text = "x99"
+
+[node name="number_label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+text = "
+"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

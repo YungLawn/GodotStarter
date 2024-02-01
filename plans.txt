@@ -12,6 +12,15 @@ TODO
 	- collisions
 	- 
 - inventory system:
+	*- place items in chest
+	- more equipment slots
+	- *hotbar rework
+		- *add selected slot
+			*- numbers
+			*- cycle with mousewheel
+			*- click to use
+			*- indicate visually
+	- holding items
 	- weapons
-	- consumables
+	*- consumables
 	- crafting??

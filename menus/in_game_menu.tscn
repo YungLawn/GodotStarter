@@ -25,10 +25,12 @@ layout_mode = 2
 text = "Back"
 
 [node name="toggle_map_gen" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Map Generation"
 
 [node name="map_gen_menu" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_fp6o8")]
+visible = false
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

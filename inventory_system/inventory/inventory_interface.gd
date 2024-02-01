@@ -5,7 +5,7 @@ signal force_close
 
 var grabbed_slot_data: SlotData
 var external_inventory_owner
-var mouse_over: bool
+var mouse_over: bool = false
 
 @onready var player_inventory: PanelContainer = $player_inventory
 @onready var grabbedslot: PanelContainer = $grabbedslot
@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton \
 			and event.is_pressed() \
 			and grabbed_slot_data \
-			and mouse_over:
+			and !mouse_over:
 				
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
@@ -92,13 +92,19 @@ func _input(event: InputEvent) -> void:
 		update_grabbed_slot()
 	
 func _on_mouse_entered():
-	mouse_over = true;
+	mouse_over = false;
 
 func _on_mouse_exited():
-	mouse_over = false;
+	mouse_over = 	true;
 
 func _on_visibility_changed():
 	if !visible and grabbed_slot_data:
 		drop_slot_data.emit(grabbed_slot_data)
 		grabbed_slot_data = null
 		update_grabbed_slot()
+
+func _on_external_inventory_mouse_entered():
+	mouse_over = true;
+
+func _on_external_inventory_mouse_exited():
+	mouse_over = false;

@@ -33,7 +33,7 @@ func interact() -> void:
 func heal(heal_value: int) -> void:
 	health += heal_value
 	health_label.text = str(health)
-	print(health)
+	#print(health)
 
 func _physics_process(delta):
 	velocity = direction.normalized() * (SPEED * SPRINTMULTIPLIER if isSprinting else SPEED)

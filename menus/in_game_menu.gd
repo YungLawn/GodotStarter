@@ -9,7 +9,7 @@ func _ready():
 	map_gen.visible = false
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file("res://menus/main_menu.tscn")
 	
 func _on_toggle_map_gen_pressed():
 	print(player)
