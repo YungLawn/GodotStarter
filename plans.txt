@@ -15,12 +15,20 @@ TODO
 	*- place items in chest
 	- more equipment slots
 	- *hotbar rework
-		- *add selected slot
+		*- add selected slot
 			*- numbers
 			*- cycle with mousewheel
 			*- click to use
 			*- indicate visually
-	- holding items
-	- weapons
+	- holding items (sort of done for now)
+		- position in sync with hands
+		- move hands together
+		*- change z-index based on look direction
+		*- adjust shoulder positioning based on look direction
+	- tools
+		- weapons
+		- crafting?
+		- utility stuff?
+		- carryable lights
 	*- consumables
 	- crafting??

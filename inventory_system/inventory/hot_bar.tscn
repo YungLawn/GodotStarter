@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0p2p75fvro13"]
-
-[ext_resource type="Texture2D" uid="uid://bvilcivsqrf6o" path="res://assets/icons/item_atlas.tres" id="1_mij5k"]
+[gd_scene format=3 uid="uid://b0p2p75fvro13"]
 
 [node name="HotBar" type="PanelContainer"]
 offset_right = 40.0
@@ -17,6 +15,3 @@ theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_mij5k")

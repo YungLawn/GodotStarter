@@ -1,28 +1,28 @@
 extends PanelContainer
 
 signal hot_bar_use(index: int)
+signal set_selected_slot(index: int)
 
 const SLOT_THEME = preload("res://inventory_system/inventory/slot_theme.tres")
 const SLOT_THEME_SELECTED = preload("res://inventory_system/inventory/slot_theme_selected.tres")
 
 const slot = preload("res://inventory_system/inventory/slot.tscn")
 @onready var h_box_container = $MarginContainer/HBoxContainer
-@onready var sprite_2d = $Sprite2D
 
-var selected_slot: float
+var selected_slot: int = 0
 
 #func _input(event):
 	#if Input.is_action_just_pressed("test1"):
 		#number_label.text = "1"
 
 func _process(delta):
-	var tex = h_box_container.get_child(0).get_child(0).get_child(0).texture
 	indicate_selected_slot()
-	sprite_2d.texture = tex
 	
 func _input(event: InputEvent) -> void:
+	#indicate_selected_slot()
 	if Input.is_action_just_pressed("left_click"):
 		hot_bar_use.emit(selected_slot + 18)
+
 	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not visible or not event.is_pressed():
@@ -41,15 +41,17 @@ func indicate_selected_slot():
 			slot.add_theme_stylebox_override ("panel", SLOT_THEME)
 	
 	if Input.is_action_just_pressed("scroll_wheel_up"):
-		if selected_slot >= h_box_container.get_children().size():
+		if selected_slot >= h_box_container.get_children().size()-1:
 			selected_slot = 0
 		else:
 			selected_slot += 1
 	elif Input.is_action_just_pressed("scroll_wheel_down"):
-		if selected_slot <= 0:
-			selected_slot = 9
+		if selected_slot == 0:
+			selected_slot = 8
 		else:
 			selected_slot -= 1
+	
+	set_selected_slot.emit(selected_slot + 18)
 
 
 func set_inventory_data(inventory_data: InventoryData) -> void:

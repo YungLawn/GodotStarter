@@ -6,14 +6,6 @@ signal slot_clicked(index: int, button: int)
 @onready var quantity_label = $quantity_label
 @onready var number_label = $number_label
 
-#func _ready():
-	#number_label.text = str("1")
-
-#func _input(event):
-	#if Input.is_action_just_pressed("test1"):
-			#print(modulate)
-
-
 func set_slot_data(slotdata: SlotData) -> void:
 	var item_data = slotdata.item_data
 	texture_rect.texture = item_data.texture

@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=22 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
 [ext_resource type="PackedScene" uid="uid://kn0cyyo34r6v" path="res://player/player.tscn" id="2_m3hkl"]
-[ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="3_udcb1"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="4_iej7c"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="5_3856l"]
@@ -51,11 +50,6 @@ collision_layer = 2
 inventorydata = ExtResource("4_iej7c")
 equip_inventorydata = SubResource("Resource_65lxk")
 SPRINTMULTIPLIER = 3.0
-
-[node name="enemy" parent="." instance=ExtResource("3_udcb1")]
-position = Vector2(197, 167)
-collision_layer = 1
-collision_mask = 3
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -161,3 +155,4 @@ slot_data = SubResource("Resource_ev4h7")
 [connection signal="visibility_changed" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_visibility_changed"]
 [connection signal="mouse_entered" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_entered"]
 [connection signal="mouse_exited" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_exited"]
+[connection signal="set_selected_slot" from="UI/HotBar" to="player" method="_on_hot_bar_set_selected_slot"]

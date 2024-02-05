@@ -4,10 +4,15 @@ signal toggle_inventory()
 
 @onready var interact_ray = $Camera2D/interact_ray
 @onready var health_label = $HealthLabel
+@onready var label = $Label
+@onready var hot_bar = $"../UI/HotBar"
+@onready var held_item = $held_item
 @export var inventorydata: InventoryData
 @export var equip_inventorydata: InventoryDataEquip
 
+
 var health: int = 5
+var hands_empty: bool = true
 
 @export var SPEED = 0
 @export var SPRINTMULTIPLIER = 1.5
@@ -45,10 +50,9 @@ func _process(delta):
 	direction = Input.get_vector("move_west", "move_east", "move_north", "move_south")
 	lookDirection = rad_to_deg(get_angle_to(get_global_mouse_position()))
 	
-	#$Debug.text = str(position)
+	label.text = str(lookDirection)
 
-	$BaseSprite.animate(direction, lookDirection)
-	
+	$BaseSprite.animate(direction, lookDirection, hands_empty)
 	
 func toggleSprint():
 	if Input.is_action_just_pressed("sprint") and isSprinting == false:
@@ -58,3 +62,13 @@ func toggleSprint():
 	if(direction.x == 0 and direction.y == 0):
 		isSprinting = false
 	return isSprinting
+
+
+func _on_hot_bar_set_selected_slot(index):
+	#print(inventorydata.slot_datas[index])
+	if inventorydata.slot_datas[index]:
+		hands_empty = false
+		held_item.texture = inventorydata.slot_datas[index].item_data.texture
+	else:
+		hands_empty = true
+		held_item.texture = null

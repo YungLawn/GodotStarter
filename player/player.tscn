@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=21 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="2_0sh0e"]
@@ -10,12 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="AnimationLibrary" uid="uid://batughvjkhr3q" path="res://assets/animations/headanimations.res" id="6_wtvw5"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
+[ext_resource type="Texture2D" uid="uid://vvdq87fgim4y" path="res://assets/character/back_arm.tres" id="7_s26b3"]
 [ext_resource type="AnimationLibrary" uid="uid://b4sgs0eo17ef6" path="res://assets/animations/bodyanimations.res" id="9_yba1c"]
 [ext_resource type="AnimationLibrary" uid="uid://cirf7nrrbunrx" path="res://assets/animations/frontarmanimations.res" id="11_8i66a"]
 [ext_resource type="AnimationLibrary" uid="uid://cradvce2uqbvu" path="res://assets/animations/legsanimations.res" id="13_5juc2"]
+[ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k02n2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
 font_size = 11
@@ -41,21 +45,34 @@ vframes = 6
 frame = 32
 script = ExtResource("3_2c66w")
 
+[node name="FrontArmHold" type="Sprite2D" parent="BaseSprite"]
+visible = false
+position = Vector2(-5, -4)
+texture = ExtResource("13_nio8j")
+offset = Vector2(0, 5)
+
+[node name="BackArmHold" type="Sprite2D" parent="BaseSprite"]
+visible = false
+position = Vector2(5, -4)
+texture = ExtResource("7_s26b3")
+offset = Vector2(0, 4)
+
 [node name="Head" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("3_noeje")
-offset = Vector2(0, 1)
 hframes = 6
 vframes = 10
-frame = 42
+frame = 54
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Head"]
 libraries = {
+"": SubResource("AnimationLibrary_k02n2"),
 "headanimations": ExtResource("6_wtvw5")
 }
 
 [node name="BackArm" type="Sprite2D" parent="BaseSprite"]
+position = Vector2(5, -5)
 texture = ExtResource("4_fk1ah")
-offset = Vector2(0, 1)
+offset = Vector2(-5, 5)
 hframes = 6
 vframes = 10
 frame = 54
@@ -67,10 +84,9 @@ libraries = {
 
 [node name="Legs" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("7_c31yv")
-offset = Vector2(0, 1)
 hframes = 6
 vframes = 10
-frame = 23
+frame = 54
 
 [node name="LegsAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Legs"]
 libraries = {
@@ -79,10 +95,9 @@ libraries = {
 
 [node name="Body" type="Sprite2D" parent="BaseSprite"]
 texture = ExtResource("5_h1ohj")
-offset = Vector2(0, 1)
 hframes = 6
 vframes = 10
-frame = 47
+frame = 54
 
 [node name="BodyAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/Body"]
 libraries = {
@@ -90,11 +105,12 @@ libraries = {
 }
 
 [node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
+position = Vector2(-5, -5)
 texture = ExtResource("6_urt3x")
-offset = Vector2(0, 1)
+offset = Vector2(5, 5)
 hframes = 6
 vframes = 10
-frame = 23
+frame = 54
 
 [node name="FrontArmAnimationPlayer" type="AnimationPlayer" parent="BaseSprite/FrontArm"]
 libraries = {
@@ -105,6 +121,12 @@ libraries = {
 visible = false
 texture_filter = 2
 texture = ExtResource("2_dcgry")
+
+[node name="anim" type="Label" parent="BaseSprite"]
+offset_left = 11.0
+offset_top = -13.0
+offset_right = 51.0
+offset_bottom = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
@@ -133,3 +155,7 @@ offset_bottom = 37.0
 text = "--"
 label_settings = SubResource("LabelSettings_coiea")
 horizontal_alignment = 1
+
+[node name="held_item" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+scale = Vector2(0.25, 0.25)
