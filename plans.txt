@@ -21,8 +21,8 @@ TODO
 			*- click to use
 			*- indicate visually
 	- holding items (sort of done for now)
-		- position in sync with hands
-		- move hands together
+		*- position in sync with hands
+		*- move hands together
 		*- change z-index based on look direction
 		*- adjust shoulder positioning based on look direction
 	- tools

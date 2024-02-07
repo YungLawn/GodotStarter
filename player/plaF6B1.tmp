@@ -46,17 +46,17 @@ vframes = 6
 frame = 32
 script = ExtResource("3_2c66w")
 
-[node name="held_item" type="Sprite2D" parent="BaseSprite"]
-z_index = 1
-texture_filter = 1
-texture = ExtResource("4_hqnbm")
-offset = Vector2(3.8147e-06, -1.52588e-05)
-
 [node name="BackArmHold" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
 position = Vector2(4, -5)
 texture = ExtResource("7_s26b3")
 offset = Vector2(0, 5)
+
+[node name="held_item" type="Sprite2D" parent="BaseSprite"]
+texture_filter = 1
+position = Vector2(0, -6)
+texture = ExtResource("4_hqnbm")
+offset = Vector2(11, -2.00002)
 
 [node name="FrontArmHold" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
@@ -139,7 +139,6 @@ offset_bottom = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(4, 4)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)

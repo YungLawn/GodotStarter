@@ -1,5 +1,8 @@
 extends Node2D
 
+const TURN_LIMIT: float = 0.33
+
+@onready var player = $".."
 @onready var headAnimator= $Head/HeadAnimationPlayer
 @onready var backarmAnimator = $BackArm/BackArmAnimationPlayer
 @onready var frontarmAnimator = $FrontArm/FrontArmAnimationPlayer
@@ -12,6 +15,7 @@ extends Node2D
 @onready var legsSprite = $Legs
 @onready var back_arm_hold = $BackArmHold
 @onready var front_arm_hold = $FrontArmHold
+@onready var held_item = $held_item
 
 @onready var anim = $anim
 
@@ -38,27 +42,24 @@ func unflipLookSprites():
 	frontarmSprite.flip_h = false
 	bodySprite.flip_h = false
 	
-func animate(inputDirection, inputLookDirection, hands_empty) -> void:
+func animate(inputDirection, inputLookDirection, hands_empty, held_item_offset) -> void:
 	if((inputDirection.x == 0 and inputDirection.y == 0)):
 		action = "idle_"
 		leg_action = "idle_"
 	else:
 		leg_action = "walk_"
-		if !hands_empty:
-			action = "idle_"
-		else:
-			action = "walk_"
+		action = "walk_"
 
-	determineDirection(inputDirection, inputLookDirection)
-	handle_hands(hands_empty, inputLookDirection)
+	determineDirection(inputDirection, inputLookDirection.normalized())
+	handle_hands(hands_empty, held_item_offset)
 	
 	headAnimator.play("headanimations/head_" + action + lookDirection)
 	bodyAnimator.play("bodyanimations/body_" + action + lookDirection)
 	legsAnimator.play("legsanimations/legs_" + leg_action + (lookDirection if leg_action == "idle_" else direction))
 			
-	print(backarmSprite.rotation_degrees)
+	#print(backarmSprite.rotation_degrees)
 	
-func handle_hands(is_empty: bool, look_direction: float):
+func handle_hands(is_empty: bool, held_item_offset: Vector2):
 	if is_empty:
 		backarmSprite.visible = true
 		frontarmSprite.visible = true
@@ -79,32 +80,60 @@ func handle_hands(is_empty: bool, look_direction: float):
 		back_arm_hold.visible = true
 		front_arm_hold.visible = true
 		
-		back_arm_hold.position.x = 5
-		front_arm_hold.position.x = -5
+		back_arm_hold.position.x = 4
+		front_arm_hold.position.x = -4
 		
 		match lookDirection:
 			"north": 
 				back_arm_hold.z_index = 0
 				front_arm_hold.z_index = 0
+				
+				front_arm_hold.flip_h = true
+				back_arm_hold.flip_h = true
+				
 			"south": 
-				back_arm_hold.z_index = 1
-				front_arm_hold.z_index = 1
+				if headSprite.flip_h:
+					front_arm_hold.z_index = 0
+					back_arm_hold.z_index = 1
+				else:
+					back_arm_hold.z_index = 1
+					front_arm_hold.z_index = 1
+				
+				front_arm_hold.flip_h = false
+				back_arm_hold.flip_h = false
+				
 			"east": 
+				if headSprite.flip_h:
+					front_arm_hold.flip_h = true
+					back_arm_hold.flip_h = false
+				else:
+					back_arm_hold.flip_h = true
 				back_arm_hold.z_index = 0
 				back_arm_hold.position.x = 0
 				front_arm_hold.z_index = 1
 				front_arm_hold.position.x = 0
+				
 			"southeast": 
 				if headSprite.flip_h: 
-					back_arm_hold.z_index = 1
-					front_arm_hold.z_index = 0
-				else:
+					front_arm_hold.flip_h = true
+					back_arm_hold.flip_h = true
 					back_arm_hold.z_index = 0
 					front_arm_hold.z_index = 1
-				back_arm_hold.position.x = 3.5
-				front_arm_hold.position.x = -3.5
+					back_arm_hold.position.x = 0
+					front_arm_hold.position.x = 2.5
+				else:
+					back_arm_hold.flip_h = false
+					back_arm_hold.z_index = 0
+					front_arm_hold.z_index = 1
+					back_arm_hold.position.x = 0
+					front_arm_hold.position.x = -2.5
 
 			"northeast": 
+				if headSprite.flip_h:
+					front_arm_hold.flip_h = true
+				else:
+					back_arm_hold.flip_h = true
+					front_arm_hold.flip_h = false
 				if headSprite.flip_h: 
 					back_arm_hold.z_index = 0
 					front_arm_hold.z_index = 1
@@ -112,45 +141,42 @@ func handle_hands(is_empty: bool, look_direction: float):
 					back_arm_hold.z_index = 1
 					front_arm_hold.z_index = 0		
 		
-				back_arm_hold.position.x = 3.5
-				front_arm_hold.position.x = -3.5
+				back_arm_hold.position.x = 3
+				front_arm_hold.position.x = -3
 
-		back_arm_hold.rotation_degrees = look_direction - 90
-		front_arm_hold.rotation_degrees = look_direction - 90
+		#front_arm_hold.flip_h = false
+		#back_arm_hold.flip_h = false
+		var rad_to_item = rad_to_deg(position.angle_to_point(held_item.position + held_item_offset))
 		
-		anim.text = str(back_arm_hold.z_index , front_arm_hold.z_index)
+		back_arm_hold.rotation_degrees = rad_to_item- 90
+		front_arm_hold.rotation_degrees = rad_to_item - 90
+		
+		anim.text = str(position.angle_to_point(held_item.position))
 	
 func determineDirection(inputDirection, inputLookDirection):
-	if(abs(inputLookDirection) > 90):
+	if inputLookDirection.x < 0:
 		flipLegs()
-	else: 
+	else:
 		unflipLegs()
-	
-	if(abs(inputLookDirection) < 22.5):
+		
+	if(inputLookDirection.y > TURN_LIMIT):
 		unflipLookSprites()
+		if abs(inputLookDirection.x) > TURN_LIMIT:
+			if inputLookDirection.x < 0:
+				flipLookSprites()
+			lookDirection = "southeast"
+		else: lookDirection = "south"
+		
+	if(inputLookDirection.y < -TURN_LIMIT):
+		unflipLookSprites()
+		if abs(inputLookDirection.x) > TURN_LIMIT:
+			if inputLookDirection.x < 0:
+				flipLookSprites()
+			lookDirection = "northeast"
+		else: lookDirection = "north"
+		
+	if(abs(inputLookDirection.y) < TURN_LIMIT):
 		lookDirection = "east"
-	elif(abs(inputLookDirection) > 157.5):
-		flipLookSprites()
-		lookDirection = "east"
-	elif(abs(inputLookDirection) > 67.5 and abs(inputLookDirection) < 112.5 and inputLookDirection < 1):
-		unflipLookSprites()
-		lookDirection = "north"
-	elif(abs(inputLookDirection) > 67.5 and abs(inputLookDirection) < 112.5 and inputLookDirection > 1):
-		unflipLookSprites()
-		lookDirection = "south"
-	elif(inputLookDirection < -22.5 and inputLookDirection > -67.5):
-		unflipLookSprites()
-		lookDirection = "northeast"
-	elif(inputLookDirection > 22.5 and inputLookDirection < 67.5):
-		unflipLookSprites()
-		lookDirection = "southeast"
-	elif(inputLookDirection > 112.5 and inputLookDirection < 157.5):
-		flipLookSprites()
-		lookDirection = "southeast"
-	elif(inputLookDirection < -112.5 and inputLookDirection > -157.5):
-		flipLookSprites()
-		lookDirection = "northeast"
-
 	
 	if(inputDirection.y < 0):
 		unflipLegs()

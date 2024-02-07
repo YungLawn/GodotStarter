@@ -1,8 +1,7 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cfevufgcnqg5w"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3opt2"]
-load_path = "res://.godot/imported/HumanFrontArmCombined.png-4f8c74096e35ad46aa51b8e1230a66cf.ctex"
+[ext_resource type="Texture2D" uid="uid://dn2fs6gquywhv" path="res://assets/character/armsholding.png" id="1_523su"]
 
 [resource]
-atlas = SubResource("CompressedTexture2D_3opt2")
-region = Rect2(6, 234, 3, 12)
+atlas = ExtResource("1_523su")
+region = Rect2(2, 2, 6, 11)
