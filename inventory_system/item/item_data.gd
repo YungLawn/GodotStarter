@@ -9,5 +9,5 @@ class_name ItemData
 @export var texture: AtlasTexture
 @export var offset: Vector2 = Vector2(0,8)
 
-func use(target) -> void:
+func use(_target) -> void:
 	pass

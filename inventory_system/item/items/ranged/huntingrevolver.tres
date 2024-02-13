@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=4 format=3 uid="uid://du1i4akjkqwyq"]
+
+[ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_kqcui"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onw34"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_kqcui")
+damage = 40
+fire_mode = 0
+fire_rate = 150
+recoil_strength = 0.9
+max_capacity = 6
+current_capacity = 6
+muzzle_velocity = 2000
+muzzle_flash_offset = 1.7
+reload_time = 3.0
+name = "Hunting Revolver"
+description = "big iron on his hip"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_onw34")
+offset = Vector2(0, 7)

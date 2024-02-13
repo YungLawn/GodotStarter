@@ -27,6 +27,25 @@ TODO
 		*- adjust shoulder positioning based on look direction
 	- tools
 		- weapons
+			- ranged
+				*- fire mode
+					*- semi 
+						*- delay to enforce fire rate
+					*- full
+					- manual?
+				*- muzzle flash
+				- projectile
+					*- targeting
+					- damage
+					- hit effect (shader?)
+					- shotgun
+					- explosive projectile
+				*- reload
+					- UI
+					- manual action?
+			- melee
+			- explosive
+			- traps?
 		- crafting?
 		- utility stuff?
 		- carryable lights

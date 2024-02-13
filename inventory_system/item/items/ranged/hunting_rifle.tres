@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=4 format=3 uid="uid://btcn8tq6ji8x4"]
 
-[ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_3l808"]
+[ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_uxl78"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -10,10 +10,16 @@ atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(16, 0, 16, 16)
 
 [resource]
-script = ExtResource("1_3l808")
-damage = 40
+script = ExtResource("1_uxl78")
+damage = 50
 fire_mode = 0
-fire_rate = 5
+fire_rate = 50
+recoil_strength = 1.0
+max_capacity = 1
+current_capacity = 1
+muzzle_velocity = 3000
+muzzle_flash_offset = 1.7
+reload_time = 3.5
 name = "Hunting Rifle"
 description = "ol reliable"
 stackable = false

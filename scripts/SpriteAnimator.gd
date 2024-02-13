@@ -56,7 +56,7 @@ func animate(inputDirection, inputLookDirection, hands_empty, held_item_offset) 
 	headAnimator.play("headanimations/head_" + action + lookDirection)
 	bodyAnimator.play("bodyanimations/body_" + action + lookDirection)
 	legsAnimator.play("legsanimations/legs_" + leg_action + (lookDirection if leg_action == "idle_" else direction))
-			
+		
 	#print(backarmSprite.rotation_degrees)
 	
 func handle_hands(is_empty: bool, held_item_offset: Vector2):
@@ -85,6 +85,8 @@ func handle_hands(is_empty: bool, held_item_offset: Vector2):
 		
 		match lookDirection:
 			"north": 
+				#held_item.position = held_item.position * 0.95
+				
 				back_arm_hold.z_index = 0
 				front_arm_hold.z_index = 0
 				
@@ -92,13 +94,15 @@ func handle_hands(is_empty: bool, held_item_offset: Vector2):
 				back_arm_hold.flip_h = true
 				
 			"south": 
-				if headSprite.flip_h:
+				bodySprite.z_index = 0
+				
+				if legsSprite.flip_h:
 					front_arm_hold.z_index = 0
 					back_arm_hold.z_index = 1
 				else:
-					back_arm_hold.z_index = 1
 					front_arm_hold.z_index = 1
-				
+					back_arm_hold.z_index = 0
+					
 				front_arm_hold.flip_h = false
 				back_arm_hold.flip_h = false
 				
@@ -146,7 +150,7 @@ func handle_hands(is_empty: bool, held_item_offset: Vector2):
 
 		#front_arm_hold.flip_h = false
 		#back_arm_hold.flip_h = false
-		var rad_to_item = rad_to_deg(position.angle_to_point(held_item.position + held_item_offset))
+		var rad_to_item = rad_to_deg(position.angle_to_point(held_item.position + (held_item_offset + Vector2(0,1.5))))
 		
 		back_arm_hold.rotation_degrees = rad_to_item- 90
 		front_arm_hold.rotation_degrees = rad_to_item - 90

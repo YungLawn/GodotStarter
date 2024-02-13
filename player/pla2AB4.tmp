@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
 [ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="2_dcgry"]
 [ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="3_2c66w"]
-[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="3_n1sva"]
+[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="3_cwqky"]
 [ext_resource type="Texture2D" uid="uid://5s3efhbv6yoi" path="res://assets/character/HumanHeadCombined.png" id="3_noeje"]
 [ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="4_fk1ah"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="4_hqnbm"]
@@ -20,9 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
-[sub_resource type="Resource" id="Resource_fus48"]
-script = ExtResource("3_n1sva")
-slot_datas = Array[Resource("res://inventory_system/inventory/slot_data.gd")]([null])
+[sub_resource type="Resource" id="Resource_g6r2y"]
+script = ExtResource("3_cwqky")
+slot_datas = Array[Resource("res://inventory_system/inventory/slot_data.gd")]([null, null])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
@@ -41,7 +41,7 @@ font_size = 11
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_2jdc0")
 inventorydata = ExtResource("2_1fo2k")
-equip_inventorydata = SubResource("Resource_fus48")
+equip_inventorydata = SubResource("Resource_g6r2y")
 SPEED = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -157,7 +157,7 @@ offset_bottom = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)
@@ -173,5 +173,3 @@ offset_right = 24.0
 offset_bottom = -8.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
-
-[node name="projectile_spawn_point" type="Marker2D" parent="."]

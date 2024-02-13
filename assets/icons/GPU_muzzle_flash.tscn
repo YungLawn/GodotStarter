@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccnv15j2f34ka"]
+
+[sub_resource type="Gradient" id="Gradient_685ja"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.639216, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bojnu"]
+gradient = SubResource("Gradient_685ja")
+
+[sub_resource type="Curve" id="Curve_r5bqr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.746575, 1), -0.58418, -0.58418, 0, 0, Vector2(0.996575, 0.0186981), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wemro"]
+curve = SubResource("Curve_r5bqr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rocgx"]
+particle_flag_disable_z = true
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -100.0
+radial_accel_max = 100.0
+damping_max = 100.0
+scale_min = 0.25
+scale_curve = SubResource("CurveTexture_wemro")
+color_ramp = SubResource("GradientTexture1D_bojnu")
+turbulence_enabled = true
+turbulence_noise_scale = 10.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdh6b"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[node name="GPU_muzzle_flash" type="GPUParticles2D"]
+texture_filter = 1
+position = Vector2(358, 218)
+emitting = false
+amount = 7
+process_material = SubResource("ParticleProcessMaterial_rocgx")
+texture = SubResource("AtlasTexture_mdh6b")
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.0

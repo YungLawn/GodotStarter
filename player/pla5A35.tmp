@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=27 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="AnimationLibrary" uid="uid://dtmbvectv4vvc" path="res://assets/animations/backarmanimations.res" id="2_0sh0e"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
 [ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="2_dcgry"]
 [ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="3_2c66w"]
-[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="3_n1sva"]
+[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="3_cwqky"]
 [ext_resource type="Texture2D" uid="uid://5s3efhbv6yoi" path="res://assets/character/HumanHeadCombined.png" id="3_noeje"]
 [ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="4_fk1ah"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="4_hqnbm"]
@@ -20,13 +20,11 @@
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
-[sub_resource type="Resource" id="Resource_fus48"]
-script = ExtResource("3_n1sva")
-slot_datas = Array[Resource("res://inventory_system/inventory/slot_data.gd")]([null])
+[sub_resource type="Resource" id="Resource_g6r2y"]
+script = ExtResource("3_cwqky")
+slot_datas = Array[Resource("res://inventory_system/inventory/slot_data.gd")]([null, null])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k02n2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -35,13 +33,18 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(128, 0, 16, 16)
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k02n2"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
+font_size = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_coiea"]
 font_size = 11
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_2jdc0")
 inventorydata = ExtResource("2_1fo2k")
-equip_inventorydata = SubResource("Resource_fus48")
+equip_inventorydata = SubResource("Resource_g6r2y")
 SPEED = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -63,6 +66,10 @@ z_index = 1
 texture_filter = 1
 texture = ExtResource("4_hqnbm")
 offset = Vector2(3.8147e-06, -1.52588e-05)
+
+[node name="effect" type="Sprite2D" parent="BaseSprite/held_item"]
+visible = false
+texture = SubResource("AtlasTexture_ngsha")
 
 [node name="BackArmHold" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
@@ -138,18 +145,12 @@ libraries = {
 "frontarmanimations": ExtResource("11_8i66a")
 }
 
-[node name="effect" type="Sprite2D" parent="BaseSprite"]
-visible = false
-texture_filter = 1
-texture = SubResource("AtlasTexture_ngsha")
-
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
 texture_filter = 2
 texture = ExtResource("2_dcgry")
 
 [node name="anim" type="Label" parent="BaseSprite"]
-visible = false
 offset_left = 11.0
 offset_top = -13.0
 offset_right = 51.0
@@ -165,7 +166,6 @@ collision_mask = 4
 script = ExtResource("15_sc7ef")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 texture_filter = 1
 offset_left = -16.0
 offset_top = -31.0
@@ -174,4 +174,21 @@ offset_bottom = -8.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
-[node name="projectile_spawn_point" type="Marker2D" parent="."]
+[node name="HealthLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -19.0
+offset_top = 14.0
+offset_right = 21.0
+offset_bottom = 37.0
+text = "--"
+label_settings = SubResource("LabelSettings_coiea")
+horizontal_alignment = 1
+
+[node name="ammo_count" type="Label" parent="."]
+texture_filter = 1
+offset_left = -24.0
+offset_top = -29.0
+offset_right = 16.0
+offset_bottom = -6.0
+scale = Vector2(0.5, 0.5)
+text = "0"

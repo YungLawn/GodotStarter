@@ -8,6 +8,7 @@ signal inventory_interact(inventorydata: InventoryData, index: int, button: int)
 @export var slot_datas: Array[SlotData]
 
 func grab_slot_data(index: int) -> SlotData:
+	if index > slot_datas.size(): index = 0
 	var slot_data = slot_datas[index]
 	
 	if slot_data:
@@ -18,6 +19,7 @@ func grab_slot_data(index: int) -> SlotData:
 		return null
 		
 func drop_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
+	if index == 53: index = 0
 	var slot_data = slot_datas[index]
 	
 	var return_slot_data: SlotData

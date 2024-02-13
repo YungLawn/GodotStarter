@@ -23,7 +23,7 @@ func _process(delta):
 
 	$Debug.text = str(position)
 
-	$BaseSprite.animate(direction, lookDirection, false)
+	#$BaseSprite.animate(direction, lookDirection, false)
 	
 func _on_detection_zone_body_entered(body):
 	if body == player:

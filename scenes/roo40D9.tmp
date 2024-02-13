@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=21 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
 [ext_resource type="PackedScene" uid="uid://kn0cyyo34r6v" path="res://player/player.tscn" id="2_m3hkl"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
+[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data_equip.gd" id="5_3856l"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="PackedScene" uid="uid://gp2oduhphuld" path="res://inventory_system/inventory/slot.tscn" id="8_dai3w"]
 [ext_resource type="PackedScene" uid="uid://b0p2p75fvro13" path="res://inventory_system/inventory/hot_bar.tscn" id="9_4q1vj"]
@@ -15,7 +16,10 @@
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
 [ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://assets/pickups/pick_up.tscn" id="14_f1fuy"]
 [ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/consumables/apple.tres" id="14_o7f01"]
-[ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="16_k7ph6"]
+
+[sub_resource type="Resource" id="Resource_65lxk"]
+script = ExtResource("5_3856l")
+slot_datas = Array[ExtResource("13_i1e6e")]([null])
 
 [sub_resource type="Resource" id="Resource_rayu8"]
 script = ExtResource("13_i1e6e")
@@ -42,36 +46,10 @@ seed = 906
 [node name="player" parent="." instance=ExtResource("2_m3hkl")]
 position = Vector2(480, 270)
 collision_layer = 2
+equip_inventorydata = SubResource("Resource_65lxk")
 SPRINTMULTIPLIER = 3.0
 
 [node name="UI" type="CanvasLayer" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -61.5
-offset_top = -100.0
-offset_right = 61.5
-offset_bottom = -77.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="ammo_count" type="Label" parent="UI/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 0
-text = "10/10"
-
-[node name="health_label" type="Label" parent="UI/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "Health: ---"
 
 [node name="inventory_interface" type="Control" parent="UI"]
 visible = false
@@ -167,9 +145,6 @@ inventory_data = SubResource("Resource_n1cea")
 [node name="PickUp" parent="." instance=ExtResource("14_f1fuy")]
 position = Vector2(479, 18)
 slot_data = SubResource("Resource_ev4h7")
-
-[node name="enemy" parent="." instance=ExtResource("16_k7ph6")]
-position = Vector2(176, 252)
 
 [connection signal="drop_slot_data" from="UI/inventory_interface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_gui_input"]

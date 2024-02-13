@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwfww0c2dq00o"]
+
+[sub_resource type="Curve" id="Curve_p8tnl"]
+_data = [Vector2(0.009375, 0.0564516), 0.0, 0.0, 0, 0, Vector2(0.36875, 0.758065), 3.96314, 3.96314, 0, 0, Vector2(0.984375, 0.0403225), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_w7j0g"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.45098, 1)
+
+[node name="muzzle_flash" type="CPUParticles2D"]
+position = Vector2(358, 218)
+amount = 7
+lifetime = 0.03
+explosiveness = 1.0
+spread = 40.0
+gravity = Vector2(0, -100)
+initial_velocity_min = 50.0
+initial_velocity_max = 700.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+linear_accel_min = -74.11
+linear_accel_max = 1.25
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_p8tnl")
+color_ramp = SubResource("Gradient_w7j0g")

@@ -5,8 +5,17 @@ const PickUp = preload("res://assets/pickups/pick_up.tscn")
 @onready var player = $player
 @onready var inventory_interface = $UI/inventory_interface
 @onready var hot_bar = $UI/HotBar
+@onready var label = $UI/Label
+@onready var ammo_count = $UI/HBoxContainer/ammo_count
+@onready var health_label = $UI/HBoxContainer/health_label
 
 # Called when the node enters the scene tree for the first time.
+func _process(delta):
+	health_label.text ="Health: " +  str(player.health)
+	if player.held_item_data:
+		if player.held_item_data.has_method("shoot"):
+			ammo_count.text = str(player.held_item_data.current_capacity) + "/" + str(player.held_item_data.max_capacity)
+
 func _ready():
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventorydata)

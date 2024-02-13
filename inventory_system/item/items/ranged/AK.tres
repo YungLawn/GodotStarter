@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=4 format=3 uid="uid://bm71l3uwebkx8"]
 
-[ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_ua7ry"]
+[ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_bixg0"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -10,13 +10,19 @@ atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(64, 0, 16, 16)
 
 [resource]
-script = ExtResource("1_ua7ry")
-damage = 15
+script = ExtResource("1_bixg0")
+damage = 35
 fire_mode = 2
-fire_rate = 20
+fire_rate = 700
+recoil_strength = 0.8
+max_capacity = 30
+current_capacity = 30
+muzzle_velocity = 2400
+muzzle_flash_offset = 1.75
+reload_time = 2.5
 name = "AK"
 description = "yup, that ak"
 stackable = false
 rotatable = true
 texture = SubResource("AtlasTexture_wi1tn")
-offset = Vector2(0, 6)
+offset = Vector2(0, 7)
