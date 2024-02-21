@@ -63,7 +63,7 @@ func indicate_selected_slot():
 
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
-	print("pop")
+	#print("pop")
 	inventory_data.inventory_updated.connect(populate_hot_bar)
 	populate_hot_bar(inventory_data)
 	hot_bar_use.connect(inventory_data.use_slot_data)

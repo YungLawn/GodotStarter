@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_denjq"]
 [ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="2_1e82x"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_60jgr"]
-points = PackedVector2Array(12, -8, 12, 12, -13, 8, -10, -10)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_5465n"]
+points = PackedVector2Array(-0.75, 0, 0.75, -0.25, 0.75, 1, -0.75, 1.25)
 
 [node name="Chest" type="StaticBody2D" groups=["external_inventory"]]
+z_index = 1
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_denjq")
@@ -19,4 +20,6 @@ vframes = 22
 frame = 270
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("ConvexPolygonShape2D_60jgr")
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(-15.4397, 9.01194)
+shape = SubResource("ConvexPolygonShape2D_5465n")

@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://inventory_system/item/items/ranged/projectile.gd" id="1_5lpqy"]
 
 [node name="projectile" type="Node2D"]
-z_index = 1
 texture_filter = 1
 position = Vector2(20, 0)
 script = ExtResource("1_5lpqy")
@@ -18,6 +17,5 @@ collision_mask = 6
 collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]
-visible = false
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

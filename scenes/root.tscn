@@ -39,6 +39,7 @@ MAP_SIZE = Vector2(100, 100)
 seed = 906
 
 [node name="player" parent="." instance=ExtResource("2_m3hkl")]
+y_sort_enabled = true
 position = Vector2(480, 270)
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -163,10 +164,13 @@ offset_bottom = 0.0
 grow_vertical = 2
 
 [node name="Chest" parent="." instance=ExtResource("10_5mgrt")]
+y_sort_enabled = true
 position = Vector2(591, 327)
 inventory_data = SubResource("Resource_n1cea")
 
 [node name="PickUp" parent="." instance=ExtResource("14_f1fuy")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(562, 219)
 slot_data = SubResource("Resource_ev4h7")
 

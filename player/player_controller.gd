@@ -84,36 +84,35 @@ func _process(delta):
 
 	if held_item_data:
 		handle_held_item()
-		base_sprite.handle_hands(held_item_data.offset + held_item_data.hand_offset, hands_empty)
-		held_item.position = (lookDirection.normalized() * held_item_data.hold_distance) - held_item_data.offset
-
-		if held_item.flip_v:
-			held_item.offset.y = held_item_data.offset.y * 0.5
-			projectile_spawn_point.position.y = held_item_data.offset.y * 0.75
-			attack_effect_spawn_point.position.y = held_item_data.offset.y * 0.75
-		else:
-			held_item.offset.y = -held_item_data.offset.y * 0.5
-			projectile_spawn_point.position.y = -held_item_data.offset.y * 0.75
-			attack_effect_spawn_point.position.y = -held_item_data.offset.y * 0.75
-
-		if(held_item_data.has_method("shoot")):	
-			attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
-			projectile_spawn_point.rotation = held_item.rotation
 
 func handle_held_item():
+	base_sprite.handle_hands(held_item_data.offset + held_item_data.hand_offset, hands_empty, lookDirection)
+	held_item.position = (lookDirection.normalized() * held_item_data.hold_distance) - held_item_data.offset
+	
 	if lookDirection.normalized().y < 0:
 		held_item.z_index = 0
 	else: held_item.z_index = 1
 	
 	if lookDirection.normalized().x < 0 and held_item_data.rotatable:
 		held_item.flip_v = true
+		held_item.offset.y = held_item_data.offset.y * 0.5
+		projectile_spawn_point.position.y = held_item_data.offset.y * 0.75
+		attack_effect_spawn_point.position.y = held_item_data.offset.y * 0.75
 	else:
 		held_item.flip_v = false
+		held_item.offset.y = -held_item_data.offset.y * 0.5
+		projectile_spawn_point.position.y = -held_item_data.offset.y * 0.75
+		attack_effect_spawn_point.position.y = -held_item_data.offset.y * 0.75
 
 	if(held_item_data.rotatable):
 		held_item.rotation_degrees = rad_to_deg(get_angle_to(get_global_mouse_position() + (held_item_data.offset)))
 	else:
 		held_item.rotation = 0
+
+	if(held_item_data.has_method("shoot")):	
+		projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
+		attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
+		projectile_spawn_point.rotation = held_item.rotation
 		
 	label.text = str(lookDirection.normalized().y)
 

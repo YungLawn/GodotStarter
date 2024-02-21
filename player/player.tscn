@@ -18,28 +18,29 @@ slot_datas = Array[Resource("res://inventory_system/inventory/slot_data.gd")]([n
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
-load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bko35"]
-atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(176, 0, 16, 16)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q7ove"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gh26a"]
 load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67ayr"]
-atlas = SubResource("CompressedTexture2D_q7ove")
+atlas = SubResource("CompressedTexture2D_gh26a")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbw1t"]
-atlas = SubResource("CompressedTexture2D_q7ove")
+atlas = SubResource("CompressedTexture2D_gh26a")
 region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x4vhj"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bko35"]
+atlas = SubResource("CompressedTexture2D_x4vhj")
+region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
 font_size = 11
 
 [node name="player" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 2
 collision_mask = 14
 script = ExtResource("1_2jdc0")
@@ -52,6 +53,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_4hsne")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 texture_repeat = 1
 hframes = 6
@@ -59,15 +61,38 @@ vframes = 6
 frame = 18
 script = ExtResource("3_2c66w")
 
-[node name="held_item" type="Sprite2D" parent="BaseSprite"]
+[node name="Head" type="Sprite2D" parent="BaseSprite"]
+z_index = 1
+texture = SubResource("AtlasTexture_67ayr")
+offset = Vector2(0, -8)
+
+[node name="BackArm" type="Sprite2D" parent="BaseSprite"]
+z_index = 1
+texture = ExtResource("4_fk1ah")
+hframes = 6
+vframes = 6
+frame = 12
+
+[node name="Legs" type="Sprite2D" parent="BaseSprite"]
+z_index = 1
+texture = ExtResource("7_c31yv")
+hframes = 6
+vframes = 6
+frame = 12
+
+[node name="Body" type="Sprite2D" parent="BaseSprite"]
+modulate = Color(1, 1, 0, 1)
+z_index = 1
+texture = SubResource("AtlasTexture_nbw1t")
+offset = Vector2(0, 1)
+
+[node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
 texture_filter = 1
-position = Vector2(-33, -8)
-texture = SubResource("AtlasTexture_bko35")
-
-[node name="projectile_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
-
-[node name="attack_effect_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
+texture = ExtResource("6_urt3x")
+hframes = 6
+vframes = 6
+frame = 12
 
 [node name="BackArmHold" type="Sprite2D" parent="BaseSprite"]
 visible = false
@@ -83,46 +108,20 @@ position = Vector2(-3, -4)
 texture = ExtResource("13_nio8j")
 offset = Vector2(-0.0785379, 3.94222)
 
-[node name="Head" type="Sprite2D" parent="BaseSprite"]
+[node name="held_item" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
-texture = SubResource("AtlasTexture_67ayr")
-offset = Vector2(0, -8)
-
-[node name="BackArm" type="Sprite2D" parent="BaseSprite"]
-texture = ExtResource("4_fk1ah")
-hframes = 6
-vframes = 6
-frame = 12
-
-[node name="Legs" type="Sprite2D" parent="BaseSprite"]
-texture = ExtResource("7_c31yv")
-hframes = 6
-vframes = 6
-frame = 12
-
-[node name="Body" type="Sprite2D" parent="BaseSprite"]
-modulate = Color(1, 1, 0, 1)
-texture = SubResource("AtlasTexture_nbw1t")
-offset = Vector2(0, 1)
-
-[node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
 texture_filter = 1
-texture = ExtResource("6_urt3x")
-hframes = 6
-vframes = 6
-frame = 12
+position = Vector2(-33, -8)
+texture = SubResource("AtlasTexture_bko35")
+
+[node name="projectile_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
+
+[node name="attack_effect_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
 
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
 texture_filter = 2
 texture = ExtResource("2_dcgry")
-
-[node name="anim" type="Label" parent="BaseSprite"]
-visible = false
-offset_left = 11.0
-offset_top = -13.0
-offset_right = 51.0
-offset_bottom = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
@@ -134,6 +133,7 @@ collision_mask = 12
 script = ExtResource("15_sc7ef")
 
 [node name="Label" type="Label" parent="."]
+z_index = 5
 texture_filter = 1
 offset_left = -15.0
 offset_top = -49.0
