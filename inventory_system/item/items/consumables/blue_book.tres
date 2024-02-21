@@ -5,9 +5,9 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n0ykk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_205vg"]
 atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(112, 0, 16, 16)
+region = Rect2(160, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_ba65w")
@@ -15,5 +15,7 @@ name = "blue book"
 description = "book"
 stackable = false
 rotatable = false
-texture = SubResource("AtlasTexture_n0ykk")
+texture = SubResource("AtlasTexture_205vg")
 offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+weight = 0.2

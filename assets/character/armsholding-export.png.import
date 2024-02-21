@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://opakgi61ej0w"
-path="res://.godot/imported/HumanBodyCombined.png-7ab28716d866858a53accb60a979c9e8.ctex"
+uid="uid://7o0yi7qgpero"
+path="res://.godot/imported/armsholding-export.png-17751eae9502dcfbdf3c8e8554a85963.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/HumanBodyCombined.png"
-dest_files=["res://.godot/imported/HumanBodyCombined.png-7ab28716d866858a53accb60a979c9e8.ctex"]
+source_file="res://assets/character/armsholding-export.png"
+dest_files=["res://.godot/imported/armsholding-export.png-17751eae9502dcfbdf3c8e8554a85963.ctex"]
 
 [params]
 

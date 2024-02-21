@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cwyl8kbqre48r"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cwyl8kbqre48r"]
 
 [ext_resource type="Script" path="res://inventory_system/item/item_data.gd" id="1_a58gy"]
-[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_lmwin"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8dp7"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(112, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_a58gy")
@@ -9,5 +15,8 @@ name = "apple"
 description = "apple"
 stackable = true
 rotatable = false
-texture = ExtResource("2_lmwin")
+texture = SubResource("AtlasTexture_r8dp7")
 offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+hold_distance = 10.0
+weight = 0.2

@@ -8,9 +8,11 @@ const PickUp = preload("res://assets/pickups/pick_up.tscn")
 @onready var label = $UI/Label
 @onready var ammo_count = $UI/HBoxContainer/ammo_count
 @onready var health_label = $UI/HBoxContainer/health_label
+@onready var fps_counter = $UI/HBoxContainer/FPS_counter
 
 # Called when the node enters the scene tree for the first time.
-func _process(delta):
+func _process(_delta):
+	fps_counter.text = "FPS: " + str(Engine.get_frames_per_second())
 	health_label.text ="Health: " +  str(player.health)
 	if player.held_item_data:
 		if player.held_item_data.has_method("shoot"):

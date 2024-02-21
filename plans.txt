@@ -37,7 +37,7 @@ TODO
 				- projectile
 					*- targeting
 					- damage
-					- hit effect (shader?)
+					*- hit effect (shader?)
 					- shotgun
 					- explosive projectile
 				*- reload

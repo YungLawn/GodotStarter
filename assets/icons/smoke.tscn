@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://by4k43a23tstx"]
+[gd_scene load_steps=9 format=3 uid="uid://by4k43a23tstx"]
+
+[ext_resource type="Script" path="res://assets/icons/smoke.gd" id="1_28a7e"]
 
 [sub_resource type="Gradient" id="Gradient_g5hbp"]
 colors = PackedColorArray(1, 1, 1, 0.0196078, 1, 1, 1, 0)
@@ -15,6 +17,7 @@ curve = SubResource("Curve_yg51d")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_frncu"]
 particle_flag_disable_z = true
+spread = 20.0
 initial_velocity_min = 20.0
 initial_velocity_max = 100.0
 angular_velocity_min = -720.0
@@ -47,3 +50,6 @@ texture = SubResource("AtlasTexture_vssjm")
 lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
+script = ExtResource("1_28a7e")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

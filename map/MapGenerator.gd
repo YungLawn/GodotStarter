@@ -13,7 +13,7 @@ func _ready():
 	pass
 	#generate_chunk(player.position, seed, MAP_SIZE)
 	
-func _process(delta):
+func _process(_delta):
 		if Engine.is_editor_hint():
 			if is_clear: 
 				clear()

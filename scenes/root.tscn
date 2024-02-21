@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=19 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
 [ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://assets/pickups/pick_up.tscn" id="14_f1fuy"]
 [ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/consumables/apple.tres" id="14_o7f01"]
-[ext_resource type="PackedScene" uid="uid://5nhvucguf0hj" path="res://scenes/enemy.tscn" id="16_k7ph6"]
 
 [sub_resource type="Resource" id="Resource_rayu8"]
 script = ExtResource("13_i1e6e")
@@ -41,8 +40,6 @@ seed = 906
 
 [node name="player" parent="." instance=ExtResource("2_m3hkl")]
 position = Vector2(480, 270)
-collision_layer = 2
-SPRINTMULTIPLIER = 3.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -72,6 +69,11 @@ text = "10/10"
 texture_filter = 1
 layout_mode = 2
 text = "Health: ---"
+
+[node name="FPS_counter" type="Label" parent="UI/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "FPS: ---"
 
 [node name="inventory_interface" type="Control" parent="UI"]
 visible = false
@@ -161,15 +163,12 @@ offset_bottom = 0.0
 grow_vertical = 2
 
 [node name="Chest" parent="." instance=ExtResource("10_5mgrt")]
-position = Vector2(758, -32)
+position = Vector2(591, 327)
 inventory_data = SubResource("Resource_n1cea")
 
 [node name="PickUp" parent="." instance=ExtResource("14_f1fuy")]
-position = Vector2(479, 18)
+position = Vector2(562, 219)
 slot_data = SubResource("Resource_ev4h7")
-
-[node name="enemy" parent="." instance=ExtResource("16_k7ph6")]
-position = Vector2(176, 252)
 
 [connection signal="drop_slot_data" from="UI/inventory_interface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_gui_input"]

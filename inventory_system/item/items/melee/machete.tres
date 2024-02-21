@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemDataMeleeWeapon" load_steps=4 format=3 uid="uid://deq26q6puie3h"]
+
+[ext_resource type="Script" path="res://inventory_system/item/item_data_melee_weapon.gd" id="1_57t5o"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rj4m"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(176, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_57t5o")
+damage = 30
+speed = 5.0
+name = "Machete"
+description = "get ur hockey masks"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_4rj4m")
+offset = Vector2(0, 4)
+hand_offset = Vector2(0, 10)
+hold_distance = 11.0
+weight = 1.0

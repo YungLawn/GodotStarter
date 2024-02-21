@@ -4,4 +4,4 @@
 
 [resource]
 atlas = ExtResource("1_8qko2")
-region = Rect2(8, 2, 6, 11)
+region = Rect2(8, 2, 7, 11)

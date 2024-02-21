@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cebdln6j0h7yg"]
+
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="1_qch6u"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hfg2w"]
+particle_flag_disable_z = true
+spread = 0.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+color = Color(1, 1, 0.898039, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+texture_filter = 1
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_hfg2w")
+texture = ExtResource("1_qch6u")
+explosiveness = 0.95

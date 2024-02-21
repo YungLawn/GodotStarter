@@ -59,7 +59,8 @@ func on_inventory_interact(inventorydata: InventoryData,
 		[_, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventorydata.drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
-			inventorydata.use_slot_data(index)
+			if !inventorydata.slot_datas[index].item_data.has_method("shoot"):
+				inventorydata.use_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventorydata.drop_single_slot_data(grabbed_slot_data, index)
 			

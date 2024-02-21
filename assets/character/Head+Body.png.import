@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5s3efhbv6yoi"
-path="res://.godot/imported/HumanHeadCombined.png-ad3a6371c55531b85b1e1f72a47f267b.ctex"
+uid="uid://b244sqg42o3w1"
+path="res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character/HumanHeadCombined.png"
-dest_files=["res://.godot/imported/HumanHeadCombined.png-ad3a6371c55531b85b1e1f72a47f267b.ctex"]
+source_file="res://assets/character/Head+Body.png"
+dest_files=["res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"]
 
 [params]
 

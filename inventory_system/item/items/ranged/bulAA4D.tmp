@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7m6a8s0xbrm3"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/ranged/bullet-test.gd" id="1_81eyw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_37nyf"]
+absorbent = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l77e"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6avu"]
+radius = 1.0
+height = 4.0
+
+[node name="bullet_test" type="StaticBody2D"]
+texture_filter = 1
+position = Vector2(20, 0)
+collision_layer = 4
+collision_mask = 6
+physics_material_override = SubResource("PhysicsMaterial_37nyf")
+script = ExtResource("1_81eyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-7, 1)
+texture = SubResource("AtlasTexture_3l77e")
+offset = Vector2(0.5, -1.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_i6avu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

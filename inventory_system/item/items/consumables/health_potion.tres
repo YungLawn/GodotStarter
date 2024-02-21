@@ -5,7 +5,7 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgy5i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43lve"]
 atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(80, 0, 16, 16)
 
@@ -16,5 +16,8 @@ name = "health potion"
 description = "mmmmmm"
 stackable = true
 rotatable = false
-texture = SubResource("AtlasTexture_pgy5i")
+texture = SubResource("AtlasTexture_43lve")
 offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+hold_distance = 10.0
+weight = 0.3

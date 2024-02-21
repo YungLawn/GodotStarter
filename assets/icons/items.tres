@@ -5,4 +5,4 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 
 [resource]
 atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(144, 0, 16, 16)
+region = Rect2(157, 8, 3, 1)

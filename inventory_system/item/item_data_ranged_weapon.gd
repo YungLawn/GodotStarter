@@ -1,9 +1,8 @@
 extends ItemData
 class_name  ItemDataRangedWeapon
 
-const BULLET = preload("res://inventory_system/item/items/ranged/bullet.tscn")
-#const MUZZLE_FLASH = preload("res://assets/icons/muzzle_flash.tscn")
 const MUZZLE_FLASH = preload("res://assets/icons/GPU_muzzle_flash.tscn")
+const PROJECTILE = preload("res://inventory_system/item/items/ranged/projectile.tscn")
 
 @export var damage: int
 @export var fire_mode: int
@@ -14,10 +13,11 @@ const MUZZLE_FLASH = preload("res://assets/icons/GPU_muzzle_flash.tscn")
 @export var muzzle_velocity: int
 @export var muzzle_flash_offset: float
 @export var reload_time: float
+@export var ammo_sprite: AtlasTexture
 
 var attack_cooldown : Timer = Timer.new()
 
-var bullet: bullet
+var projectile: projectile
 var muzzle_flash: GPUParticles2D
 var can_fire: bool = true
 var can_reload: bool = true
@@ -36,12 +36,12 @@ func use(target) -> void:
 		shoot(target)
 
 func reload(target):
-	can_fire = false
 	if current_capacity < max_capacity and can_reload:
 		#print(target.held_item.flip_h, target.held_item.flip_v)
 		var reload_rotation_degrees = target.held_item.rotation_degrees - 360
 		var reload_multiplier = 0.5
 		can_reload = false
+		can_fire = false
 		var tween = target.create_tween()
 		tween.tween_property(target.held_item, "rotation_degrees", reload_rotation_degrees, reload_time * reload_multiplier).set_ease(Tween.EASE_OUT_IN)
 		await target.get_tree().create_timer(reload_time * reload_multiplier).timeout
@@ -66,33 +66,30 @@ func shoot(target):
 		can_reload = false
 		current_capacity -= 1
 		
-		bullet = BULLET.instantiate()
-		target.get_tree().root.add_child(bullet)
+		projectile = PROJECTILE.instantiate()
+		target.get_tree().root.add_child(projectile)
 		muzzle_flash = MUZZLE_FLASH.instantiate()
 		target.get_tree().root.add_child(muzzle_flash)
 		
-		muzzle_flash.position = target.projectile_spawn_point.global_position
+		muzzle_flash.position = target.attack_effect_spawn_point.global_position
 		muzzle_flash.rotation = target.projectile_spawn_point.rotation
 		muzzle_flash.amount = (recoil_strength * (muzzle_velocity * 0.5)) * 0.008
-		#muzzle_flash.scale_amount_max = (recoil_strength * muzzle_velocity) * 0.003
-		#muzzle_flash.initial_velocity_max = (recoil_strength * muzzle_velocity) * 0.25
 		muzzle_flash.process_material.scale_max = (recoil_strength * muzzle_velocity) * 0.0005
 		muzzle_flash.process_material.initial_velocity_max = (recoil_strength * muzzle_velocity) * 0.1
 		muzzle_flash.emitting = true
+		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
-		bullet.global_position = target.projectile_spawn_point.global_position
-		bullet.rotation = target.projectile_spawn_point.rotation
-		#bullet.rotation_degrees = rad_to_deg(target.get_angle_to(target.get_global_mouse_position()))
-		bullet.direction = target.projectile_spawn_point.global_position.direction_to(target.get_global_mouse_position())
-		#print(target.projectile_spawn_point.global_position.direction_to(target.get_global_mouse_position()).normalized())
-		bullet.damage = damage
-		bullet.speed = muzzle_velocity * 0.015
+		#var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
+		projectile.global_position = target.projectile_spawn_point.global_position
+		projectile.sprite.texture = ammo_sprite
+		projectile.rotation = target.projectile_spawn_point.rotation
+		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.get_global_mouse_position())
+		projectile.damage = damage
+		projectile.velocity = muzzle_velocity
 		
 		tween.tween_property(target.held_item, "rotation", target.held_item.rotation + 
 		(muzzle_climb if target.lookDirection.normalized().x < 0 else -muzzle_climb), 0.05).set_ease(Tween.EASE_OUT)
 		tween.tween_property(target.held_item, "position", target.held_item.position - ranged_recoil, 0.05).set_ease(Tween.EASE_OUT)
-		
-		#target.smoke_trail.emitting = false
 		
 		if fire_mode == 2:
 			await target.get_tree().create_timer(fire_rate_time).timeout

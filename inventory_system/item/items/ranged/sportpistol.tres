@@ -1,12 +1,19 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=4 format=3 uid="uid://bsea8pohejiaq"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://bsea8pohejiaq"]
 
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_taosq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8eoq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xln0d"]
 atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(157, 8, 3, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m7sxi"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8eoq"]
+atlas = SubResource("CompressedTexture2D_m7sxi")
 region = Rect2(32, 16, 16, 16)
 
 [resource]
@@ -17,12 +24,16 @@ fire_rate = 850
 recoil_strength = 0.7
 max_capacity = 20
 current_capacity = 20
-muzzle_velocity = 1900
-muzzle_flash_offset = 1.5
+muzzle_velocity = 1800
+muzzle_flash_offset = 6.0
 reload_time = 1.5
+ammo_sprite = SubResource("AtlasTexture_xln0d")
 name = "Sport Pistol"
 description = "dink"
 stackable = false
 rotatable = true
 texture = SubResource("AtlasTexture_a8eoq")
-offset = Vector2(0, 8)
+offset = Vector2(0, 5)
+hand_offset = Vector2(0, 2)
+hold_distance = 11.0
+weight = 2.0
