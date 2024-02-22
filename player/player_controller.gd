@@ -16,6 +16,7 @@ const SMOKE = preload("res://assets/icons/smoke.tscn")
 @onready var ammo_count = $ammo_count
 @onready var projectile_spawn_point = $BaseSprite/held_item/projectile_spawn_point
 @onready var attack_effect_spawn_point = $BaseSprite/held_item/attack_effect_spawn_point
+@onready var attack_ray = $BaseSprite/held_item/attack_ray
 
 @export var SPEED: float = 50
 
@@ -98,18 +99,23 @@ func handle_held_item():
 		held_item.offset.y = held_item_data.offset.y * 0.5
 		projectile_spawn_point.position.y = held_item_data.offset.y * 0.75
 		attack_effect_spawn_point.position.y = held_item_data.offset.y * 0.75
+		attack_ray.position.y = held_item_data.offset.y * 0.5
 	else:
 		held_item.flip_v = false
 		held_item.offset.y = -held_item_data.offset.y * 0.5
 		projectile_spawn_point.position.y = -held_item_data.offset.y * 0.75
 		attack_effect_spawn_point.position.y = -held_item_data.offset.y * 0.75
-
+		attack_ray.position.y = -held_item_data.offset.y * 0.5
+		
 	if(held_item_data.rotatable):
+		attack_ray.enabled = true
 		held_item.rotation_degrees = rad_to_deg(get_angle_to(get_global_mouse_position() + (held_item_data.offset)))
 	else:
+		attack_ray.enabled = false
 		held_item.rotation = 0
 
 	if(held_item_data.has_method("shoot")):	
+		attack_ray.target_position.x = held_item_data.muzzle_velocity * 0.01
 		projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
 		attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
 		projectile_spawn_point.rotation = held_item.rotation

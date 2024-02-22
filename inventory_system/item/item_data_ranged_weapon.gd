@@ -79,13 +79,18 @@ func shoot(target):
 		muzzle_flash.emitting = true
 		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
-		#var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
+
+		
+		var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
 		projectile.global_position = target.projectile_spawn_point.global_position
 		projectile.sprite.texture = ammo_sprite
 		projectile.rotation = target.projectile_spawn_point.rotation
 		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.get_global_mouse_position())
 		projectile.damage = damage
 		projectile.velocity = muzzle_velocity
+		
+		if target.attack_ray.is_colliding():
+			projectile.hit(target.attack_ray.get_collider(), damage, projectile.direction)
 		
 		tween.tween_property(target.held_item, "rotation", target.held_item.rotation + 
 		(muzzle_climb if target.lookDirection.normalized().x < 0 else -muzzle_climb), 0.05).set_ease(Tween.EASE_OUT)

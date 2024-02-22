@@ -29,12 +29,12 @@ height = 52.4896
 
 [node name="enemy" type="CharacterBody2D"]
 z_index = 1
-collision_layer = 2
+collision_layer = 4
 collision_mask = 23
 script = ExtResource("1_6b4lo")
 SPEED = 40
-max_health = 100.0
-current_health = 100.0
+max_health = 1e+06
+current_health = 1e+06
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -101,20 +101,13 @@ visible = false
 texture_filter = 2
 texture = ExtResource("13_uxyny")
 
-[node name="anim" type="Label" parent="BaseSprite"]
-visible = false
-offset_left = 11.0
-offset_top = -13.0
-offset_right = 51.0
-offset_bottom = 10.0
-
 [node name="ground_collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_dvqyy")
 
 [node name="hit_box" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 0
 
 [node name="hit_box_shape" type="CollisionShape2D" parent="hit_box"]
@@ -130,6 +123,14 @@ collision_mask = 3
 position = Vector2(0, 9)
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_xv7mo")
+
+[node name="label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -18.0
+offset_top = -41.0
+offset_right = 22.0
+offset_bottom = -18.0
+text = "TEST"
 
 [connection signal="body_entered" from="detection_zone" to="." method="_on_detection_zone_body_entered"]
 [connection signal="body_exited" from="detection_zone" to="." method="_on_detection_zone_body_exited"]

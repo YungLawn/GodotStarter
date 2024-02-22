@@ -118,12 +118,6 @@ texture = SubResource("AtlasTexture_bko35")
 
 [node name="attack_effect_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
 
-[node name="attack_ray" type="RayCast2D" parent="BaseSprite/held_item"]
-target_position = Vector2(0, 0)
-collision_mask = 4
-hit_from_inside = true
-collide_with_areas = true
-
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
 texture_filter = 2

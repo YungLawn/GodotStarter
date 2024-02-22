@@ -15,10 +15,10 @@ spread = 70.0
 initial_velocity_min = 40.0
 initial_velocity_max = 70.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.25
-scale_max = 0.5
+scale_min = 2.0
+scale_max = 3.0
 scale_curve = SubResource("CurveTexture_3ya0v")
-color = Color(0.67451, 0.00784314, 0.0627451, 1)
+color = Color(0.721569, 0.00784314, 0.239216, 1)
 
 [node name="blood_splatter" type="GPUParticles2D"]
 emitting = false
