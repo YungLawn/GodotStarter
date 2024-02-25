@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=22 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dgrv8blv487ts" path="res://map/world.tscn" id="1_noebs"]
@@ -10,6 +10,7 @@
 [ext_resource type="StyleBox" uid="uid://nexnm36tgloh" path="res://inventory_system/inventory/inventory_theme.tres" id="9_jugdt"]
 [ext_resource type="PackedScene" uid="uid://bdh05i8slqqbg" path="res://assets/interactables/chest.tscn" id="10_5mgrt"]
 [ext_resource type="Script" path="res://inventory_system/inventory/hot_bar.gd" id="10_i1ksk"]
+[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="11_7th5b"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="11_bj8mf"]
 [ext_resource type="PackedScene" uid="uid://0mbj5q6wkl3l" path="res://menus/in_game_menu.tscn" id="12_lvmfb"]
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
@@ -30,6 +31,11 @@ slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_rayu8"), null
 script = ExtResource("13_i1e6e")
 item_data = ExtResource("14_o7f01")
 quantity = 5
+
+[sub_resource type="Environment" id="Environment_ksfrq"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 0
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_1k8x1")
@@ -163,6 +169,16 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 2
 
+[node name="crosshair" type="Marker2D" parent="UI"]
+visible = false
+z_index = 5
+z_as_relative = false
+
+[node name="crosshair_sprite" type="Sprite2D" parent="UI/crosshair"]
+texture_filter = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_7th5b")
+
 [node name="Chest" parent="." instance=ExtResource("10_5mgrt")]
 y_sort_enabled = true
 position = Vector2(591, 327)
@@ -176,6 +192,9 @@ slot_data = SubResource("Resource_ev4h7")
 
 [node name="enemy" parent="." instance=ExtResource("16_32xyv")]
 position = Vector2(309, 190)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ksfrq")
 
 [connection signal="drop_slot_data" from="UI/inventory_interface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_gui_input"]

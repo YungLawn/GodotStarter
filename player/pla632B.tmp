@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=21 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
 [ext_resource type="Texture2D" uid="uid://vvdq87fgim4y" path="res://assets/character/back_arm.tres" id="7_s26b3"]
+[ext_resource type="Texture2D" uid="uid://bt5m8nhwckw3q" path="res://icon.svg" id="11_fx2py"]
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
@@ -35,17 +36,6 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 [sub_resource type="AtlasTexture" id="AtlasTexture_bko35"]
 atlas = SubResource("CompressedTexture2D_x4vhj")
 region = Rect2(176, 0, 16, 16)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
-load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h3p3g"]
-atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(165, 7, 5, 5)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jl8fh"]
-atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
 font_size = 11
@@ -141,24 +131,19 @@ texture_filter = 2
 texture = ExtResource("2_dcgry")
 
 [node name="back_swing" type="Sprite2D" parent="BaseSprite"]
+visible = false
 modulate = Color(1, 0, 1, 1)
-scale = Vector2(0.5, 0.5)
-texture = SubResource("AtlasTexture_h3p3g")
-
-[node name="peak_swing" type="Sprite2D" parent="BaseSprite"]
-modulate = Color(0, 0.490196, 0.317647, 1)
-scale = Vector2(0.5, 0.5)
-texture = SubResource("AtlasTexture_h3p3g")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("11_fx2py")
 
 [node name="forward_swing" type="Sprite2D" parent="BaseSprite"]
 modulate = Color(1, 1, 0, 1)
-z_index = 3
-scale = Vector2(0.5, 0.5)
-texture = SubResource("AtlasTexture_jl8fh")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("11_fx2py")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)

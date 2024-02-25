@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7m6a8s0xbrm3"]
+[gd_scene load_steps=5 format=3 uid="uid://b7m6a8s0xbrm3"]
 
 [ext_resource type="Script" path="res://inventory_system/item/items/ranged/projectile.gd" id="1_5lpqy"]
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_ikyjf"]
+
+[sub_resource type="Curve" id="Curve_n6owr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pmgr8"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.705882, 1)
 
 [node name="projectile" type="Node2D"]
-z_index = 1
 texture_filter = 1
 position = Vector2(20, 0)
 script = ExtResource("1_5lpqy")
@@ -19,5 +26,16 @@ collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]
 visible = false
+modulate = Color(1, 1, 0.705882, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_ikyjf")
+
+[node name="trail" type="Line2D" parent="."]
+visible = false
+position = Vector2(2, -2)
+points = PackedVector2Array(-22, 2, -2, 2)
+width = 1.5
+width_curve = SubResource("Curve_n6owr")
+gradient = SubResource("Gradient_pmgr8")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

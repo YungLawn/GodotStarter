@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemDataMeleeWeapon" load_steps=4 format=3 uid="uid://fs23tbhpygdq"]
+
+[ext_resource type="Script" path="res://inventory_system/item/item_data_melee_weapon.gd" id="1_1l6vc"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvgdp"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(208, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_1l6vc")
+damage = 30
+speed = 60.0
+effective_range = 20
+name = "Metal Pipe"
+description = "itll do"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_nvgdp")
+offset = Vector2(0, 5)
+hand_offset = Vector2(0, 4)
+rotation_offset = 45.0
+hold_distance = 10.0
+weight = 2.0

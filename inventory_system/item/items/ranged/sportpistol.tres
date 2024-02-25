@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://bsea8pohejiaq"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://bsea8pohejiaq"]
 
+[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_q4jww"]
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_taosq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
@@ -7,7 +8,7 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xln0d"]
 atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(157, 8, 3, 1)
+region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m7sxi"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -19,15 +20,17 @@ region = Rect2(32, 16, 16, 16)
 [resource]
 script = ExtResource("1_taosq")
 damage = 20
-fire_mode = 2
+fire_mode = 1
 fire_rate = 850
-recoil_strength = 0.7
+recoil_strength = Vector2(1.5, 1.25)
 max_capacity = 20
 current_capacity = 20
 muzzle_velocity = 1800
+accuracy = 90.0
 muzzle_flash_offset = 6.0
 reload_time = 1.5
 ammo_sprite = SubResource("AtlasTexture_xln0d")
+crosshair_sprite = ExtResource("1_q4jww")
 name = "Sport Pistol"
 description = "dink"
 stackable = false
@@ -35,5 +38,6 @@ rotatable = true
 texture = SubResource("AtlasTexture_a8eoq")
 offset = Vector2(0, 5)
 hand_offset = Vector2(0, 2)
+rotation_offset = 0.0
 hold_distance = 11.0
 weight = 2.0

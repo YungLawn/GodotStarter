@@ -7,13 +7,15 @@ const PROJECTILE = preload("res://inventory_system/item/items/ranged/projectile.
 @export var damage: int
 @export var fire_mode: int
 @export var fire_rate: int
-@export var recoil_strength: float
+@export var recoil_strength: Vector2
 @export var max_capacity: int
 @export var current_capacity: int
 @export var muzzle_velocity: int
+@export var accuracy: float
 @export var muzzle_flash_offset: float
 @export var reload_time: float
 @export var ammo_sprite: AtlasTexture
+@export var crosshair_sprite: Texture2D
 
 var attack_cooldown : Timer = Timer.new()
 
@@ -51,9 +53,10 @@ func reload(target):
 
 func shoot(target):
 	var fire_rate_time = abs((fire_rate - 1500) * 0.00015)
-	var ranged_recoil = target.lookDirection.normalized() * (recoil_strength * 2)
-	var muzzle_climb = 0.15 * recoil_strength
+	var ranged_recoil = target.lookDirection.normalized() * recoil_strength.x
+	var muzzle_climb = 0.15 * recoil_strength.y
 	var tween = target.create_tween()
+	tween.set_parallel(true)
 	attack_cooldown.wait_time = fire_rate_time
 
 	if current_capacity <= 0:
@@ -71,30 +74,35 @@ func shoot(target):
 		muzzle_flash = MUZZLE_FLASH.instantiate()
 		target.get_tree().root.add_child(muzzle_flash)
 		
+		tween.tween_property(target.held_item, "rotation", target.held_item.rotation, 0.15).from(
+			 target.held_item.rotation + 
+				(muzzle_climb if target.lookDirection.normalized().x < 0 else -muzzle_climb))
+				
+		tween.tween_property(target.held_item, "position", target.held_item.position, 0.15).from(
+			target.held_item.position - ranged_recoil )
+		
 		muzzle_flash.position = target.attack_effect_spawn_point.global_position
 		muzzle_flash.rotation = target.projectile_spawn_point.rotation
-		muzzle_flash.amount = (recoil_strength * (muzzle_velocity * 0.5)) * 0.008
-		muzzle_flash.process_material.scale_max = (recoil_strength * muzzle_velocity) * 0.0005
-		muzzle_flash.process_material.initial_velocity_max = (recoil_strength * muzzle_velocity) * 0.1
+		muzzle_flash.amount = (recoil_strength.x) * 5
+		muzzle_flash.process_material.scale_max = (recoil_strength.x) * 0.25
+		muzzle_flash.process_material.initial_velocity_max = (recoil_strength.x) * 75
 		muzzle_flash.emitting = true
 		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
-
-		
-		var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
-		projectile.global_position = target.projectile_spawn_point.global_position
+		#var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
+		projectile.global_position = target.projectile_spawn_point.global_position 
 		projectile.sprite.texture = ammo_sprite
 		projectile.rotation = target.projectile_spawn_point.rotation
-		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.get_global_mouse_position())
+		var aim_point2: Vector2 = target.attack_effect_spawn_point.global_position
+		var aim_point1: Vector2 = target.get_global_mouse_position()
+		projectile.accuracy = accuracy * 0.01
+		projectile.direction = target.projectile_spawn_point.global_position.direction_to(aim_point2)
 		projectile.damage = damage
 		projectile.velocity = muzzle_velocity
 		
 		if target.attack_ray.is_colliding():
 			projectile.hit(target.attack_ray.get_collider(), damage, projectile.direction)
 		
-		tween.tween_property(target.held_item, "rotation", target.held_item.rotation + 
-		(muzzle_climb if target.lookDirection.normalized().x < 0 else -muzzle_climb), 0.05).set_ease(Tween.EASE_OUT)
-		tween.tween_property(target.held_item, "position", target.held_item.position - ranged_recoil, 0.05).set_ease(Tween.EASE_OUT)
 		
 		if fire_mode == 2:
 			await target.get_tree().create_timer(fire_rate_time).timeout

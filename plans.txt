@@ -3,6 +3,8 @@ Godot RPG Planning
 TODO
 - menu/ui
 - enemies:
+	- inventory
+		- equipped items/equipment
 	- attack
 	- pathfinding
 - updates to map:
@@ -10,10 +12,15 @@ TODO
 	- structures
 	- grass/trees/rocks/etc
 	- collisions
-	- 
 - inventory system:
 	*- place items in chest
-	- more equipment slots
+	- equipment
+		- head slot
+		- body slot
+		- legs slot
+		- feet slot
+		- accessory 1 slot
+		- accessory 2 slot
 	- *hotbar rework
 		*- add selected slot
 			*- numbers
@@ -28,6 +35,7 @@ TODO
 	- tools
 		- weapons
 			- ranged
+				*- recoil strength as Vector2 = hor and vert recoil adjusted independently
 				*- fire mode
 					*- semi 
 						*- delay to enforce fire rate
@@ -36,7 +44,7 @@ TODO
 				*- muzzle flash
 				- projectile
 					*- targeting
-					- damage
+					*- damage
 					*- hit effect (shader?)
 					- shotgun
 					- explosive projectile
@@ -44,6 +52,14 @@ TODO
 					- UI
 					- manual action?
 			- melee
+				- swing
+					- animation
+					- direction
+					- speed
+				- damage
+				- effect
+					- hit effect
+					- swing effect
 			- explosive
 			- traps?
 		- crafting?

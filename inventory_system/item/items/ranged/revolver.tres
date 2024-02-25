@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://18ih8qu41rbx"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://18ih8qu41rbx"]
 
+[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_oev8g"]
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_pk7w0"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g3j3x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixetd"]
 atlas = SubResource("CompressedTexture2D_skvuc")
-region = Rect2(157, 8, 3, 1)
+region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k8g1u"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -21,19 +22,22 @@ script = ExtResource("1_pk7w0")
 damage = 25
 fire_mode = 0
 fire_rate = 200
-recoil_strength = 1.0
+recoil_strength = Vector2(1.5, 1.5)
 max_capacity = 6
 current_capacity = 6
 muzzle_velocity = 1700
+accuracy = 80.0
 muzzle_flash_offset = 6.0
 reload_time = 2.5
-ammo_sprite = SubResource("AtlasTexture_g3j3x")
+ammo_sprite = SubResource("AtlasTexture_ixetd")
+crosshair_sprite = ExtResource("1_oev8g")
 name = "Revolver"
 description = "6 shots woohoo"
 stackable = false
 rotatable = true
 texture = SubResource("AtlasTexture_o6sjk")
-offset = Vector2(0, 4)
-hand_offset = Vector2(0, 5)
-hold_distance = 11.0
+offset = Vector2(0, 5)
+hand_offset = Vector2(0, 3)
+rotation_offset = 0.0
+hold_distance = 11.5
 weight = 1.5
