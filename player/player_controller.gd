@@ -23,8 +23,11 @@ const SMOKE = preload("res://assets/icons/smoke.tscn")
 @onready var aim_point = $aim_point
 
 @onready var back_swing = $BaseSprite/back_swing
-@onready var forward_swing = $BaseSprite/forward_swing
+@onready var back_step = $BaseSprite/back_step
 @onready var peak_swing = $BaseSprite/peak_swing
+@onready var forward_step = $BaseSprite/forward_step
+@onready var forward_swing = $BaseSprite/forward_swing
+
 
 
 @export var SPEED: float = 50
@@ -41,6 +44,7 @@ var direction: Vector2 = Vector2(0,0)
 var lookDirection: Vector2 = Vector2(0,0)
 
 var swing_size: float
+var swing_step_size: float
 
 func _ready():
 	PlayerManager.player = self
@@ -118,6 +122,7 @@ func handle_held_item():
 	
 	if lookDirection.normalized().x < 0 and held_item_data.rotatable:
 		swing_size = -0.3 * PI
+		swing_step_size = -0.15 * PI
 		held_item.flip_v = true
 		held_item.offset.y = held_item_data.offset.y * 0.5
 		projectile_spawn_point.position.y = held_item_data.offset.y * 0.75
@@ -125,6 +130,7 @@ func handle_held_item():
 		attack_ray.position.y = held_item_data.offset.y * 0.5
 	else:
 		swing_size = 0.3 * PI
+		swing_step_size = 0.15 * PI
 		held_item.flip_v = false
 		held_item.offset.y = -held_item_data.offset.y * 0.5
 		projectile_spawn_point.position.y = -held_item_data.offset.y * 0.75
@@ -152,15 +158,26 @@ func handle_held_item():
 		attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
 		projectile_spawn_point.rotation = held_item.rotation
 	elif(held_item_data.has_method("swing")):	
-		var tmp = deg_to_rad(held_item.rotation_degrees - rotation_offset) - swing_size
-		var tmp2 = deg_to_rad(held_item.rotation_degrees - rotation_offset) + swing_size
-		var tmp3 = deg_to_rad(held_item.rotation_degrees - rotation_offset)
-		var radius_back = held_item_data.hold_distance * 1.1
-		var radius_front = held_item_data.hold_distance * 1.1
-		var radius_peak = held_item_data.hold_distance * 1.2
-		back_swing.position = Vector2(radius_back * cos(tmp), radius_back * sin(tmp)) - held_item_data.offset
-		forward_swing.position = Vector2(radius_front * cos(tmp2), radius_front * sin(tmp2)) - held_item_data.offset
-		peak_swing.position = Vector2(radius_peak * cos(tmp3), radius_peak * sin(tmp3)) - held_item_data.offset
+		attack_ray.target_position = lookDirection.normalized() * held_item_data.hold_distance * 2
+		var back_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) - swing_size
+		var back_step_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) - swing_step_size
+		var peak_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset)
+		var front_step_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) + swing_step_size
+		var front_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) + swing_size
+		
+		var radius_back = held_item_data.hold_distance * 1
+		var radius_back_step = held_item_data.hold_distance * 1.05
+		var radius_peak = held_item_data.hold_distance * 1.05
+		var radius_front_step = held_item_data.hold_distance * 1.05
+		var radius_front = held_item_data.hold_distance * 1
+
+		
+		back_swing.position = Vector2(radius_back * cos(back_rad), radius_back * sin(back_rad)) - held_item_data.offset
+		back_step.position = Vector2(radius_back_step * cos(back_step_rad), radius_back_step * sin(back_step_rad)) - held_item_data.offset
+		peak_swing.position = Vector2(radius_peak * cos(peak_rad), radius_peak * sin(peak_rad)) - held_item_data.offset
+		forward_step.position = Vector2(radius_front_step * cos(front_step_rad), radius_front_step * sin(front_step_rad)) - held_item_data.offset
+		forward_swing.position = Vector2(radius_front * cos(front_rad), radius_front * sin(front_rad)) - held_item_data.offset
+
 
 func _on_hot_bar_set_selected_slot(index):
 	if inventorydata.slot_datas[index]:

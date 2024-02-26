@@ -21,6 +21,6 @@ rotatable = true
 texture = SubResource("AtlasTexture_7ed0m")
 offset = Vector2(0, 4)
 hand_offset = Vector2(0, 5)
-rotation_offset = 20.0
+rotation_offset = 30.0
 hold_distance = 10.0
 weight = 0.5
