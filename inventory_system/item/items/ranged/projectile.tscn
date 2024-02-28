@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7m6a8s0xbrm3"]
+[gd_scene load_steps=6 format=3 uid="uid://b7m6a8s0xbrm3"]
 
 [ext_resource type="Script" path="res://inventory_system/item/items/ranged/projectile.gd" id="1_5lpqy"]
-[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_ikyjf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ylpj"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="Curve" id="Curve_n6owr"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -28,7 +34,7 @@ collide_with_areas = true
 visible = false
 modulate = Color(1, 1, 0.705882, 1)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_ikyjf")
+texture = SubResource("AtlasTexture_3ylpj")
 
 [node name="trail" type="Line2D" parent="."]
 visible = false

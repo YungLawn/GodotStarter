@@ -1,6 +1,10 @@
 Godot RPG Planning
 
 TODO
+- lock-on system
+	- lock on radius
+	- cycle targets with q? and e?
+	- 
 - menu/ui
 - enemies:
 	- inventory

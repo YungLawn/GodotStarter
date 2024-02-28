@@ -24,7 +24,6 @@ func hit(target, damage, direction):
 		target.get_parent().take_damage(damage, direction)
 	elif target.is_in_group("damageable"):
 		target.take_damage(damage, direction)
-		
 	queue_free()
 
 func move(velo: float, ray: RayCast2D):

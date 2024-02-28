@@ -65,18 +65,20 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("reload"):
 		if held_item_data.has_method("reload"):
 			held_item_data.reload(self)
+	if Input.is_action_just_pressed("test1"):
+		print("test")
 
 func interact() -> void:
 	if interact_ray.is_colliding():
 		interact_ray.get_collider().player_interact()
 		
 func heal(heal_value: int) -> void:
-	var random_number = rng.randf_range(0.5, 1)
+	var random_number = randf_range(-1, 1)
 	health += heal_value
 	if held_item_data.has_method("heal"):
 		var tween = create_tween()
 		tween.tween_property(held_item, "rotation", held_item.rotation + (random_number * 1.5), 0.15).set_ease(Tween.EASE_OUT)
-	
+		tween.tween_property(base_sprite, "modulate", base_sprite.modulate, 0.15).from(Color(2,2,2,1)).set_ease(Tween.EASE_OUT)
 func weapon_fired():
 	var smoke = SMOKE.instantiate()
 	get_tree().root.add_child(smoke)
@@ -104,6 +106,8 @@ func _process(delta):
 
 	if held_item_data:
 		handle_held_item()
+	
+	label.text = str(global_position)
 
 func handle_held_item():
 	var rotation_offset: float
@@ -199,6 +203,6 @@ func _on_hot_bar_set_selected_slot(index):
 
 func _on_melee_hit_area_area_entered(area):
 	if(held_item_data.has_method("swing")):	
-		if held_item_data.can_damage and !held_item_data.can_attack:
-			print(area.get_parent().is_in_group("damageable"))
+		if held_item_data.can_damage and !held_item_data.can_attack and area.get_parent().is_in_group("damageable"):
+			#print(area.get_parent().is_in_group("damageable"))
 			held_item_data.do_damage(area.get_parent())

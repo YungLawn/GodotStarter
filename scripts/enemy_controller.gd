@@ -32,6 +32,8 @@ func _process(delta):
 
 	base_sprite.animate(direction, lookDirection)
 	
+	health.text = str(current_health)
+	
 #func _on_detection_zone_body_entered(body):
 	#if body == player:
 		#is_chasing = true
@@ -41,6 +43,13 @@ func _on_detection_zone_body_exited(body):
 		is_chasing = false
 		
 func take_damage(damage: int, direction: Vector2):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	tween.tween_property(self, "position", position + (direction * damage * 0.025), 0.05)
+	tween.tween_property(self, "rotation_degrees", rotation_degrees, 0.05).from(rotation_degrees + randf_range(-10, 10))
+	tween.tween_property(base_sprite, "modulate", base_sprite.modulate, 0.03).from(Color(10, 10, 10, 1))
+	
 	hit_effect = BLOOD_SPLATTER.instantiate()
 	get_tree().root.add_child(hit_effect)
 	hit_effect.global_position = global_position
@@ -48,13 +57,13 @@ func take_damage(damage: int, direction: Vector2):
 	hit_effect.amount = damage
 	hit_effect.emitting = true
 	current_health -= damage
-	health.text = str(current_health)
-	if current_health <=0:
+	if current_health <= 0:
+		current_health = 0
 		base_sprite.visible = false
-		hit_box.monitoring = false
+		hit_box.get_child(0).disabled = true
 		await get_tree().create_timer(1).timeout
 		base_sprite.visible = true
-		#hit_box.monitoring = true
+		hit_box.get_child(0).disabled = false
 		current_health = max_health
-	health.text = str(current_health)
+
 	#print("oof")

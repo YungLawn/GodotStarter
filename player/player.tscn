@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=25 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
 [ext_resource type="Texture2D" uid="uid://vvdq87fgim4y" path="res://assets/character/back_arm.tres" id="7_s26b3"]
+[ext_resource type="PackedScene" uid="uid://70rfqgygk13u" path="res://assets/FX/trail.tscn" id="10_xjvwg"]
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
@@ -58,6 +59,7 @@ font_size = 11
 z_index = 1
 collision_layer = 2
 collision_mask = 14
+motion_mode = 1
 script = ExtResource("1_2jdc0")
 inventorydata = ExtResource("2_1fo2k")
 equip_inventorydata = SubResource("Resource_fus48")
@@ -147,6 +149,8 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseSprite/held_item/melee_hit_area"]
 shape = SubResource("CapsuleShape2D_ogm3j")
+
+[node name="trail" parent="BaseSprite/held_item/melee_hit_area" instance=ExtResource("10_xjvwg")]
 
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false

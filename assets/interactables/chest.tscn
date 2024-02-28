@@ -23,7 +23,7 @@ hframes = 16
 vframes = 22
 frame = 270
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="ground_collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 scale = Vector2(-16.5361, 6.35079)
 shape = SubResource("ConvexPolygonShape2D_agf6b")

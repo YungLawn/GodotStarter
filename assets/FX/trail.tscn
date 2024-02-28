@@ -1,5 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://70rfqgygk13u"]
 
+[ext_resource type="Script" path="res://assets/FX/trail.gd" id="1_ce0so"]
+
 [sub_resource type="Curve" id="Curve_prris"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -7,38 +9,13 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_0j2ba"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.733333, 1)
 
-[sub_resource type="GDScript" id="GDScript_tl8sj"]
-script/source = "extends Line2D
- 
-var queue : Array
-@export var MAX_LENGTH : int
-@onready var player = $player
- 
-func _process(_delta):
-	var pos = _get_position()
-	print(pos)
-	
-	queue.push_front(pos)
- 
-	if queue.size() > MAX_LENGTH:
-		queue.pop_back()
- 
-	clear_points()
- 
-	for point in queue:
-		add_point(point)
- 
-func _get_position():
-	return player.global_position
-"
-
 [node name="trail" type="Line2D"]
 top_level = true
-points = PackedVector2Array(146, 163, 495, 240)
-width = 20.0
+width = 5.0
 width_curve = SubResource("Curve_prris")
 gradient = SubResource("Gradient_0j2ba")
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
-script = SubResource("GDScript_tl8sj")
+script = ExtResource("1_ce0so")
+MAX_LENGTH = 10
