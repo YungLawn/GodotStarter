@@ -9,11 +9,27 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.733333, 1)
 
 [sub_resource type="GDScript" id="GDScript_tl8sj"]
 script/source = "extends Line2D
-class_name Trail
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+ 
+var queue : Array
+@export var MAX_LENGTH : int
+ 
+func _process(_delta):
+	var pos = _get_position()
+	print(pos)
+	
+	queue.push_front(pos)
+ 
+	if queue.size() > MAX_LENGTH:
+		queue.pop_back()
+ 
+	clear_points()
+ 
+ 
+	for point in queue:
+		add_point(point)
+ 
+func _get_position():
+	return get_global_mouse_position()
 "
 
 [node name="trail" type="Line2D"]

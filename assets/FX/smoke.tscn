@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://by4k43a23tstx"]
 
-[ext_resource type="Script" path="res://assets/icons/smoke.gd" id="1_28a7e"]
+[ext_resource type="Script" path="res://assets/FX/smoke.gd" id="1_28a7e"]
 
 [sub_resource type="Gradient" id="Gradient_g5hbp"]
 interpolation_mode = 2

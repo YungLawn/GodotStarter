@@ -17,7 +17,7 @@ var mouse_over: bool = false
 
 func _physics_process(delta: float) -> void:
 	if grabbedslot.visible:
-		grabbedslot.global_position = get_global_mouse_position() + Vector2(1,1)
+		grabbedslot.global_position = get_global_mouse_position() + Vector2(5,5)
 	
 	if external_inventory_owner \
 			and external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 25:
@@ -51,7 +51,7 @@ func clear_external_inventory() -> void:
 		external_inventory_owner = null
 	
 func on_inventory_interact(inventorydata: InventoryData,
-		 index: int, button: int) -> void:
+	 index: int, button: int) -> void:
 	
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
@@ -59,7 +59,7 @@ func on_inventory_interact(inventorydata: InventoryData,
 		[_, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventorydata.drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
-			if !inventorydata.slot_datas[index].item_data.has_method("shoot"):
+			if !inventorydata.slot_datas[index].item_data.has_method("attack"):
 				inventorydata.use_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventorydata.drop_single_slot_data(grabbed_slot_data, index)
@@ -74,22 +74,13 @@ func update_grabbed_slot() -> void:
 		grabbedslot.hide()
 		
 func _input(event: InputEvent) -> void:
-	#print("gui: ", event)
-	if event is InputEventMouseButton \
-			and event.is_pressed() \
-			and grabbed_slot_data \
-			and !mouse_over:
-				
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				drop_slot_data.emit(grabbed_slot_data)
-				grabbed_slot_data = null
-				print("Drop")
-			#MOUSE_BUTTON_RIGHT:
-				#drop_slot_data.emit(grabbed_slot_data.create_single_slot_data())
-				#if grabbed_slot_data.quantity == 1:
-					#grabbedslot = null
-					
+	if Input.is_action_just_pressed("left click") \
+		and grabbed_slot_data \
+		and !mouse_over:
+		drop_slot_data.emit(grabbed_slot_data)
+		grabbed_slot_data = null
+		print("Drop")
+		
 		update_grabbed_slot()
 	
 func _on_mouse_entered():

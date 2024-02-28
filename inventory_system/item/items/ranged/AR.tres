@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://bqjee2hhliac7"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://bqjee2hhliac7"]
 
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_h76s6"]
-[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_is2vq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -19,18 +18,17 @@ region = Rect2(48, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_h76s6")
-damage = 30
 fire_mode = 2
 fire_rate = 850
-recoil_strength = Vector2(2, 0.5)
+muzzle_velocity = 2800
 max_capacity = 30
 current_capacity = 30
-muzzle_velocity = 2800
 accuracy = 85.0
-muzzle_flash_offset = 9.0
 reload_time = 2.5
+recoil_strength = Vector2(2, 0.5)
+muzzle_flash_offset = 9.0
 ammo_sprite = SubResource("AtlasTexture_28rup")
-crosshair_sprite = ExtResource("1_is2vq")
+damage = 30
 name = "AR"
 description = "Murica"
 stackable = false

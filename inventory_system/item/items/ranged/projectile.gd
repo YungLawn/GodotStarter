@@ -19,11 +19,11 @@ func _process(delta):
 	move(calc_velo, traveling_ray)
 	
 func hit(target, damage, direction):
-	print("hit")
-	if target.has_method("take_damage"):
-		target.take_damage(damage, direction)
-	elif target.get_parent().has_method("take_damage"):
+	#print(target.name)
+	if target.get_parent().is_in_group("damageable") :
 		target.get_parent().take_damage(damage, direction)
+	elif target.is_in_group("damageable"):
+		target.take_damage(damage, direction)
 		
 	queue_free()
 

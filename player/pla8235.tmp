@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=23 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -36,10 +36,6 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 atlas = SubResource("CompressedTexture2D_x4vhj")
 region = Rect2(176, 0, 16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogm3j"]
-radius = 2.13566
-height = 12.926
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
@@ -62,9 +58,9 @@ script = ExtResource("1_2jdc0")
 inventorydata = ExtResource("2_1fo2k")
 equip_inventorydata = SubResource("Resource_fus48")
 
-[node name="ground_collider" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13)
-scale = Vector2(0.5, 0.3)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_4hsne")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
@@ -127,26 +123,17 @@ offset = Vector2(-0.0785379, 3.94222)
 [node name="held_item" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
 texture_filter = 1
-position = Vector2(-27, 0)
 texture = SubResource("AtlasTexture_bko35")
 
 [node name="projectile_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
 
 [node name="attack_effect_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
 
-[node name="ranged_ray" type="RayCast2D" parent="BaseSprite/held_item"]
+[node name="attack_ray" type="RayCast2D" parent="BaseSprite/held_item"]
 target_position = Vector2(0, 0)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
-
-[node name="melee_hit_area" type="Area2D" parent="BaseSprite/held_item"]
-position = Vector2(3, -5)
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseSprite/held_item/melee_hit_area"]
-shape = SubResource("CapsuleShape2D_ogm3j")
 
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
@@ -154,32 +141,27 @@ texture_filter = 2
 texture = ExtResource("2_dcgry")
 
 [node name="back_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="back_step" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 0.4, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="peak_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 1, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="forward_step" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(0.454902, 0, 1, 1)
 z_index = 3
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_jl8fh")
 
 [node name="forward_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(0, 0, 1, 1)
 z_index = 3
 scale = Vector2(0.5, 0.5)
@@ -187,11 +169,10 @@ texture = SubResource("AtlasTexture_jl8fh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(4, 4)
+zoom = Vector2(5, 5)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)
-target_position = Vector2(0, 100)
 collision_mask = 12
 script = ExtResource("15_sc7ef")
 
@@ -226,5 +207,3 @@ text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
 [node name="aim_point" type="Marker2D" parent="."]
-
-[connection signal="area_entered" from="BaseSprite/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]

@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://du1i4akjkqwyq"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://du1i4akjkqwyq"]
 
-[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_7rjvj"]
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_kqcui"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
@@ -19,18 +18,17 @@ region = Rect2(0, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_kqcui")
-damage = 40
 fire_mode = 0
 fire_rate = 150
-recoil_strength = Vector2(2, 2)
+muzzle_velocity = 2000
 max_capacity = 6
 current_capacity = 6
-muzzle_velocity = 2000
 accuracy = 85.0
-muzzle_flash_offset = 7.0
 reload_time = 3.0
+recoil_strength = Vector2(2, 2)
+muzzle_flash_offset = 7.0
 ammo_sprite = SubResource("AtlasTexture_aeryi")
-crosshair_sprite = ExtResource("1_7rjvj")
+damage = 40
 name = "Hunting Revolver"
 description = "big iron on his hip"
 stackable = false

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=39 format=3 uid="uid://cma2lr53e7v3o"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=41 format=3 uid="uid://cma2lr53e7v3o"]
 
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="1_1pcs5"]
 [ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/ranged/AR.tres" id="2_6olif"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://c54e1nuubyiwp" path="res://inventory_system/item/items/melee/meat_cleaver.tres" id="10_5q4sj"]
 [ext_resource type="Resource" uid="uid://fs23tbhpygdq" path="res://inventory_system/item/items/melee/metal_pipe.tres" id="12_a6pot"]
 [ext_resource type="Resource" uid="uid://ss3r05vvu2j" path="res://inventory_system/item/items/melee/bow_staff.tres" id="16_c0npl"]
+[ext_resource type="Resource" uid="uid://dcl7tw6ooqcji" path="res://inventory_system/item/items/ranged/rail_gun.tres" id="19_anqtv"]
 
 [sub_resource type="Resource" id="Resource_wsiq1"]
 script = ExtResource("3_33d8w")
@@ -110,6 +111,11 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("2_nakjw")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_ksi6u"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("19_anqtv")
+quantity = 1
+
 [sub_resource type="Resource" id="Resource_o1nu3"]
 script = ExtResource("3_33d8w")
 item_data = ExtResource("4_qvwix")
@@ -117,4 +123,4 @@ quantity = 1
 
 [resource]
 script = ExtResource("1_1pcs5")
-slot_datas = Array[ExtResource("3_33d8w")]([null, null, null, null, SubResource("Resource_wsiq1"), SubResource("Resource_l2qtd"), SubResource("Resource_38j8w"), null, SubResource("Resource_u0gin"), null, SubResource("Resource_jnhnt"), null, null, SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_bolpi"), SubResource("Resource_amggn"), SubResource("Resource_56j2b"), SubResource("Resource_yatvy"), SubResource("Resource_ejysy"), SubResource("Resource_0ggr1"), SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_t1dnj"), SubResource("Resource_w8dub"), SubResource("Resource_o1nu3")])
+slot_datas = Array[ExtResource("3_33d8w")]([null, null, null, null, SubResource("Resource_wsiq1"), SubResource("Resource_l2qtd"), SubResource("Resource_38j8w"), null, SubResource("Resource_u0gin"), null, SubResource("Resource_jnhnt"), null, SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_bolpi"), SubResource("Resource_amggn"), SubResource("Resource_56j2b"), SubResource("Resource_yatvy"), SubResource("Resource_ejysy"), SubResource("Resource_0ggr1"), SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_t1dnj"), SubResource("Resource_w8dub"), SubResource("Resource_ksi6u"), SubResource("Resource_o1nu3")])

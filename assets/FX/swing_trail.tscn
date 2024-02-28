@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://gk3tckd8iwb5"]
+
+[sub_resource type="Gradient" id="Gradient_hbwic"]
+colors = PackedColorArray(1, 1, 1, 0.113725, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8nakc"]
+gradient = SubResource("Gradient_hbwic")
+
+[sub_resource type="Curve" id="Curve_k28y1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.507936, 0.51412), -1.42849, -1.42849, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ghjh6"]
+curve = SubResource("Curve_k28y1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b0uqn"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -98, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_ghjh6")
+color_ramp = SubResource("GradientTexture1D_8nakc")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbd5l"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 2)
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_b0uqn")
+texture = SubResource("AtlasTexture_sbd5l")
+lifetime = 0.5
+one_shot = true

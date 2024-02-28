@@ -11,16 +11,16 @@ region = Rect2(208, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_1l6vc")
+speed = 70.0
+effective_range = 15
 damage = 30
-speed = 60.0
-effective_range = 20
 name = "Metal Pipe"
 description = "itll do"
 stackable = false
 rotatable = true
 texture = SubResource("AtlasTexture_nvgdp")
 offset = Vector2(0, 5)
-hand_offset = Vector2(0, 4)
-rotation_offset = 35.0
-hold_distance = 10.0
+hand_offset = Vector2(0, 5)
+rotation_offset = 30.0
+hold_distance = 10.5
 weight = 2.0

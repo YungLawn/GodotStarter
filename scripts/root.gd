@@ -35,11 +35,7 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 		hot_bar.hide()
 	else:
 		hot_bar.show()	
-	#if inventory_interface.visible:
-		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	#else:
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		
+
 	if external_inventory_owner and inventory_interface.visible:
 		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:	

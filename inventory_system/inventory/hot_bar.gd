@@ -25,17 +25,18 @@ func _process(delta):
 		#hot_bar_use.emit(selected_slot + 18)
 		
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				#print("Left button was clicked at ", event.position)
-				hot_bar_use.emit(selected_slot + 18)
+	if Input.is_action_just_pressed("left click"):
+		hot_bar_use.emit(selected_slot + 18)
+	#if event is InputEventMouseButton:
+		#if event.button_index == MOUSE_BUTTON_LEFT:
+			#if event.pressed:
+				##print("Left button was clicked at ", event.position)
+				#hot_bar_use.emit(selected_slot + 18)
 	
 func _unhandled_key_input(event: InputEvent) -> void:
-	#print(event)
 	if not visible or not event.is_pressed():
 		return
-		
+
 	if range(KEY_1, KEY_A).has(event.keycode):
 		selected_slot = event.keycode - KEY_1
 		#hot_bar_use.emit(selected_slot + 18)

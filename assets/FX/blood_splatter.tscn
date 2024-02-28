@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://rg01ep1siknq"]
-
-[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="1_6g0wk"]
+[gd_scene load_steps=6 format=3 uid="uid://rg01ep1siknq"]
 
 [sub_resource type="Curve" id="Curve_ou1x1"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.000692487), 0.0, 0.0, 0, 0]
@@ -15,15 +13,21 @@ direction = Vector3(1, 1, 0)
 initial_velocity_min = 60.0
 initial_velocity_max = 90.0
 gravity = Vector3(0, 98, 0)
-scale_min = 2.0
-scale_max = 3.0
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_3ya0v")
 color = Color(0.721569, 0.00784314, 0.239216, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umvt2"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
 
 [node name="blood_splatter" type="GPUParticles2D"]
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_mnqjd")
-texture = ExtResource("1_6g0wk")
+texture = SubResource("AtlasTexture_umvt2")
 lifetime = 0.25
 one_shot = true
 explosiveness = 1.0

@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdh05i8slqqbg"]
+[gd_scene load_steps=5 format=3 uid="uid://bdh05i8slqqbg"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_denjq"]
 [ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="2_1e82x"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_5465n"]
-points = PackedVector2Array(-0.75, 0, 0.75, -0.25, 0.75, 1, -0.75, 1.25)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_agf6b"]
+points = PackedVector2Array(-0.75, -0.75, 0.75, -1, 0.75, 1, -0.75, 1.25)
 
-[node name="Chest" type="StaticBody2D" groups=["external_inventory"]]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_5465n"]
+points = PackedVector2Array(-0.75, -0.75, 0.25, -1.25, 0.75, -1, 0.75, 1, -0.75, 1.25)
+
+[node name="Chest" type="StaticBody2D" groups=["damageable", "external_inventory"]]
 z_index = 1
+scale = Vector2(0.75, 0.75)
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_denjq")
@@ -20,6 +24,15 @@ vframes = 22
 frame = 270
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+scale = Vector2(-16.5361, 6.35079)
+shape = SubResource("ConvexPolygonShape2D_agf6b")
+
+[node name="hit_box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
 position = Vector2(0, 1.90735e-06)
-scale = Vector2(-15.4397, 9.01194)
+scale = Vector2(-15.4397, 8.85532)
 shape = SubResource("ConvexPolygonShape2D_5465n")

@@ -27,14 +27,15 @@ height = 52.4896
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xv7mo"]
 
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy" type="CharacterBody2D" groups=["damageable"]]
 z_index = 1
 collision_layer = 4
 collision_mask = 23
+motion_mode = 1
 script = ExtResource("1_6b4lo")
 SPEED = 40
-max_health = 1e+06
-current_health = 1e+06
+max_health = 100.0
+current_health = 100.0
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -102,8 +103,8 @@ texture_filter = 2
 texture = ExtResource("13_uxyny")
 
 [node name="ground_collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, 11)
+scale = Vector2(0.540001, 0.34)
 shape = SubResource("CircleShape2D_dvqyy")
 
 [node name="hit_box" type="Area2D" parent="."]
@@ -124,13 +125,23 @@ position = Vector2(0, 9)
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_xv7mo")
 
-[node name="label" type="Label" parent="."]
+[node name="health" type="Label" parent="."]
 texture_filter = 1
-offset_left = -18.0
-offset_top = -41.0
-offset_right = 22.0
-offset_bottom = -18.0
-text = "TEST"
+offset_left = -20.0
+offset_top = -36.0
+offset_right = 20.0
+offset_bottom = -13.0
+text = "---"
+horizontal_alignment = 1
+
+[node name="title" type="Label" parent="."]
+texture_filter = 1
+offset_left = -26.0
+offset_top = -51.0
+offset_right = 27.0
+offset_bottom = -28.0
+text = "Enemy"
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="detection_zone" to="." method="_on_detection_zone_body_entered"]
 [connection signal="body_exited" from="detection_zone" to="." method="_on_detection_zone_body_exited"]

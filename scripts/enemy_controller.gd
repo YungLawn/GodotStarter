@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const BLOOD_SPLATTER = preload("res://assets/icons/blood_splatter.tscn")
+const BLOOD_SPLATTER = preload("res://assets/FX/blood_splatter.tscn")
 @onready var base_sprite = $BaseSprite
-@onready var label = $label
+@onready var health = $health
 
 @export var SPEED: int
 @export var SPRINTMULTIPLIER: float
@@ -15,11 +15,10 @@ const BLOOD_SPLATTER = preload("res://assets/icons/blood_splatter.tscn")
 @onready var player = $"../player"
 @onready var hit_box = $hit_box
 
-
 var hit_effect: GPUParticles2D
 
 func _ready():
-	pass
+	health.text = str(current_health)
 
 func _physics_process(delta):
 	velocity = direction.normalized() * SPEED
@@ -42,14 +41,20 @@ func _on_detection_zone_body_exited(body):
 		is_chasing = false
 		
 func take_damage(damage: int, direction: Vector2):
-	label.text = str(damage)
 	hit_effect = BLOOD_SPLATTER.instantiate()
 	get_tree().root.add_child(hit_effect)
 	hit_effect.global_position = global_position
 	hit_effect.process_material.direction = -Vector3(direction.x, direction.y, 0)
-	hit_effect.amount = damage * 2
+	hit_effect.amount = damage
 	hit_effect.emitting = true
 	current_health -= damage
+	health.text = str(current_health)
 	if current_health <=0:
-		queue_free()
+		base_sprite.visible = false
+		hit_box.monitoring = false
+		await get_tree().create_timer(1).timeout
+		base_sprite.visible = true
+		#hit_box.monitoring = true
+		current_health = max_health
+	health.text = str(current_health)
 	#print("oof")

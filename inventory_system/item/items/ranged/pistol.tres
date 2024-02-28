@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://bg2r2j2g1kwqb"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://bg2r2j2g1kwqb"]
 
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_njgxg"]
-[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_ruu5o"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -19,18 +18,17 @@ region = Rect2(32, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_njgxg")
-damage = 15
 fire_mode = 1
 fire_rate = 500
-recoil_strength = Vector2(1.25, 1.5)
+muzzle_velocity = 1500
 max_capacity = 12
 current_capacity = 12
-muzzle_velocity = 1700
 accuracy = 60.0
-muzzle_flash_offset = 4.5
 reload_time = 1.5
+recoil_strength = Vector2(1.25, 1.5)
+muzzle_flash_offset = 4.5
 ammo_sprite = SubResource("AtlasTexture_tqi2r")
-crosshair_sprite = ExtResource("1_ruu5o")
+damage = 15
 name = "Pistol"
 description = "yup"
 stackable = false

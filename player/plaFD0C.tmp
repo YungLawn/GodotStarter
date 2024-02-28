@@ -187,7 +187,7 @@ texture = SubResource("AtlasTexture_jl8fh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)

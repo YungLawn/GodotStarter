@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://18ih8qu41rbx"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://18ih8qu41rbx"]
 
-[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_oev8g"]
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_pk7w0"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
@@ -19,18 +18,17 @@ region = Rect2(0, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_pk7w0")
-damage = 25
 fire_mode = 0
 fire_rate = 200
-recoil_strength = Vector2(1.5, 1.5)
+muzzle_velocity = 1700
 max_capacity = 6
 current_capacity = 6
-muzzle_velocity = 1700
 accuracy = 80.0
-muzzle_flash_offset = 6.0
 reload_time = 2.5
+recoil_strength = Vector2(1.5, 1.5)
+muzzle_flash_offset = 6.0
 ammo_sprite = SubResource("AtlasTexture_ixetd")
-crosshair_sprite = ExtResource("1_oev8g")
+damage = 25
 name = "Revolver"
 description = "6 shots woohoo"
 stackable = false

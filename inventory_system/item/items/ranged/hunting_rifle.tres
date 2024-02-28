@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=7 format=3 uid="uid://btcn8tq6ji8x4"]
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://btcn8tq6ji8x4"]
 
-[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="1_foqm5"]
 [ext_resource type="Script" path="res://inventory_system/item/item_data_ranged_weapon.gd" id="1_uxl78"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
@@ -19,18 +18,17 @@ region = Rect2(16, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_uxl78")
-damage = 50
 fire_mode = 0
 fire_rate = 50
-recoil_strength = Vector2(3, 0.5)
+muzzle_velocity = 3000
 max_capacity = 1
 current_capacity = 1
-muzzle_velocity = 3000
 accuracy = 95.0
-muzzle_flash_offset = 9.0
 reload_time = 3.5
+recoil_strength = Vector2(3, 0.5)
+muzzle_flash_offset = 9.0
 ammo_sprite = SubResource("AtlasTexture_tkt4g")
-crosshair_sprite = ExtResource("1_foqm5")
+damage = 50
 name = "Hunting Rifle"
 description = "ol reliable"
 stackable = false

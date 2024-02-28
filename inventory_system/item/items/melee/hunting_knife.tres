@@ -11,9 +11,9 @@ region = Rect2(208, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_y5sgk")
-damage = 15
 speed = 100.0
 effective_range = 15
+damage = 15
 name = "Hunting Knife"
 description = "very sharp"
 stackable = false

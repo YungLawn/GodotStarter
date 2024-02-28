@@ -11,9 +11,9 @@ region = Rect2(176, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_8odww")
-damage = 10
-speed = 125.0
+speed = 100.0
 effective_range = 25
+damage = 10
 name = "Bow Staff"
 description = "hiya!"
 stackable = false

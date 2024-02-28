@@ -53,12 +53,13 @@ TODO
 					- manual action?
 			- melee
 				- swing
-					- animation
-					- direction
-					- speed
-				- damage
+					*- animation
+					*- direction
+					*- speed
+				*- damage
 				- effect
-					- hit effect
+					*- hit effect
+					- hit stop
 					- swing effect
 			- explosive
 			- traps?
