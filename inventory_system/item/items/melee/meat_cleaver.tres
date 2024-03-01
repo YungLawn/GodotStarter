@@ -11,8 +11,8 @@ region = Rect2(160, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_psrq0")
-speed = 50.0
-effective_range = 10
+speed = 80.0
+effective_range = 13
 damage = 20
 name = "Meat Cleaver"
 description = "whip it up"

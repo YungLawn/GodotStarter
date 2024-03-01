@@ -51,7 +51,7 @@ func take_damage(damage: int, direction: Vector2):
 	tween.tween_property(base_sprite, "modulate", base_sprite.modulate, 0.03).from(Color(10, 10, 10, 1))
 	
 	hit_effect = BLOOD_SPLATTER.instantiate()
-	get_tree().root.add_child(hit_effect)
+	add_child(hit_effect)
 	hit_effect.global_position = global_position
 	hit_effect.process_material.direction = -Vector3(direction.x, direction.y, 0)
 	hit_effect.amount = damage

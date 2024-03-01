@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=26 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
 [ext_resource type="Texture2D" uid="uid://vvdq87fgim4y" path="res://assets/character/back_arm.tres" id="7_s26b3"]
-[ext_resource type="PackedScene" uid="uid://70rfqgygk13u" path="res://assets/FX/trail.tscn" id="10_xjvwg"]
+[ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="10_jeyix"]
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="13_nio8j"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="15_sc7ef"]
 
@@ -37,9 +37,8 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 atlas = SubResource("CompressedTexture2D_x4vhj")
 region = Rect2(176, 0, 16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogm3j"]
-radius = 2.13566
-height = 12.926
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4rwh"]
+radius = 2.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -54,6 +53,9 @@ region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbyhx"]
 font_size = 11
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7hcog"]
+radius = 50.0
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -129,7 +131,6 @@ offset = Vector2(-0.0785379, 3.94222)
 [node name="held_item" type="Sprite2D" parent="BaseSprite"]
 z_index = 1
 texture_filter = 1
-position = Vector2(-27, 0)
 texture = SubResource("AtlasTexture_bko35")
 
 [node name="projectile_spawn_point" type="Marker2D" parent="BaseSprite/held_item"]
@@ -143,14 +144,16 @@ hit_from_inside = true
 collide_with_areas = true
 
 [node name="melee_hit_area" type="Area2D" parent="BaseSprite/held_item"]
-position = Vector2(3, -5)
+position = Vector2(7, 0)
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseSprite/held_item/melee_hit_area"]
-shape = SubResource("CapsuleShape2D_ogm3j")
+shape = SubResource("CircleShape2D_b4rwh")
 
-[node name="trail" parent="BaseSprite/held_item/melee_hit_area" instance=ExtResource("10_xjvwg")]
+[node name="line_trail" parent="BaseSprite/held_item/melee_hit_area" instance=ExtResource("10_jeyix")]
+width = 5.0
+MAX_LENGTH = 20
 
 [node name="reference" type="Sprite2D" parent="BaseSprite"]
 visible = false
@@ -158,32 +161,27 @@ texture_filter = 2
 texture = ExtResource("2_dcgry")
 
 [node name="back_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="back_step" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 0.4, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="peak_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(1, 0, 1, 1)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_h3p3g")
 
 [node name="forward_step" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(0.454902, 0, 1, 1)
 z_index = 3
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_jl8fh")
 
 [node name="forward_swing" type="Sprite2D" parent="BaseSprite"]
-visible = false
 modulate = Color(0, 0, 1, 1)
 z_index = 3
 scale = Vector2(0.5, 0.5)
@@ -230,5 +228,10 @@ text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
 [node name="aim_point" type="Marker2D" parent="."]
+
+[node name="lock_on_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_zone"]
+shape = SubResource("CircleShape2D_7hcog")
 
 [connection signal="area_entered" from="BaseSprite/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]

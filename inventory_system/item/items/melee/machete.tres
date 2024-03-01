@@ -11,8 +11,8 @@ region = Rect2(176, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_57t5o")
-speed = 70.0
-effective_range = 20
+speed = 80.0
+effective_range = 21
 damage = 25
 name = "Machete"
 description = "get ur hockey masks"

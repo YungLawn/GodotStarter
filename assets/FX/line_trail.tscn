@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://fnfi6vn2lv4q"]
+
+[ext_resource type="Script" path="res://assets/FX/line_trail.gd" id="1_0yjal"]
+
+[sub_resource type="Curve" id="Curve_eh2uy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_b6e5j"]
+colors = PackedColorArray(1, 1, 1, 0.294118, 1, 1, 1, 0)
+
+[node name="line_trail" type="Line2D"]
+visible = false
+top_level = true
+width_curve = SubResource("Curve_eh2uy")
+gradient = SubResource("Gradient_b6e5j")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_0yjal")

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bntp51n6h1uop"]
+
+[node name="ProjectileImpact" type="GPUParticles2D"]

@@ -19,7 +19,7 @@ func swing(target):
 	can_attack = false
 	can_damage = true
 	var attack_direction: Vector2 = target.lookDirection
-	swing_time = abs((speed - (weight * 50)) - 150) * 0.0025
+	swing_time = abs(speed - 150) * 0.006
 	var tween = target.create_tween()
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.set_ease(Tween.TRANS_LINEAR)
@@ -69,7 +69,7 @@ func swing(target):
 	
 	tween.tween_property(target.held_item, "position", target.forward_swing.position , follow_through).set_delay(
 		back_step + wind_up + back_step + swing + front_step)
-	tween.tween_property(target.held_item, "rotation_degrees", target.held_item.rotation_degrees, (front_step*1.5) + (center*1.5)).set_delay(
+	tween.tween_property(target.held_item, "rotation_degrees", target.held_item.rotation_degrees, (front_step*1.75) + (center*1.75)).set_delay(
 		back_step + wind_up + back_step + swing + front_step + follow_through)
 	#follow through finished
 	
@@ -80,7 +80,11 @@ func swing(target):
 		back_step + wind_up + back_step + swing + front_step + follow_through + front_step)
 	#centered
 
-	await target.get_tree().create_timer(back_step + wind_up + back_step + swing + front_step + follow_through).timeout
+	await target.get_tree().create_timer(back_step + wind_up + back_step).timeout
+	target.line_trail.visible = true
+	
+	await target.get_tree().create_timer(swing + front_step + follow_through).timeout
+	target.line_trail.visible = false
 	can_damage = false
 
 	await target.get_tree().create_timer(follow_through + front_step + center).timeout

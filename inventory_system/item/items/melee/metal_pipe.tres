@@ -11,8 +11,8 @@ region = Rect2(208, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_1l6vc")
-speed = 70.0
-effective_range = 15
+speed = 50.0
+effective_range = 16
 damage = 30
 name = "Metal Pipe"
 description = "itll do"

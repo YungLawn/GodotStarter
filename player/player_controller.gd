@@ -21,6 +21,7 @@ const SMOKE = preload("res://assets/FX/smoke.tscn")
 @onready var attack_effect_spawn_point = $BaseSprite/held_item/attack_effect_spawn_point
 @onready var ranged_ray = $BaseSprite/held_item/ranged_ray
 @onready var melee_hit_area = $BaseSprite/held_item/melee_hit_area
+@onready var line_trail = $BaseSprite/held_item/melee_hit_area/line_trail
 
 @onready var aim_point = $aim_point
 
@@ -29,8 +30,6 @@ const SMOKE = preload("res://assets/FX/smoke.tscn")
 @onready var peak_swing = $BaseSprite/peak_swing
 @onready var forward_step = $BaseSprite/forward_step
 @onready var forward_swing = $BaseSprite/forward_swing
-
-
 
 @export var SPEED: float = 50
 
@@ -90,6 +89,9 @@ func weapon_fired():
 	smoke.emitting = true
 	smoke.finished.connect(func (): smoke.queue_free() )
 	
+	#var tween = create_tween()
+	#tween.tween_property(self, "position", position - lookDirection.normalized() * held_item_data.muzzle_velocity * 0.0002, 0.05)
+	
 func item_swung():
 	pass
 	#print("swing")
@@ -99,6 +101,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _process(delta):
+
 	direction = Input.get_vector("move_west", "move_east", "move_north", "move_south")
 	lookDirection = get_local_mouse_position()
 	
@@ -107,10 +110,13 @@ func _process(delta):
 	if held_item_data:
 		handle_held_item()
 	
-	label.text = str(global_position)
+	label.text = str(lookDirection.normalized())
 
 func handle_held_item():
+	line_trail.pos = melee_hit_area.global_position
 	var rotation_offset: float
+	var rotation_flipper: int
+	var position_flipper: int
 	
 	base_sprite.handle_hands(held_item_data.offset + held_item_data.hand_offset, hands_empty, lookDirection)
 	held_item.position = (lookDirection.normalized() * held_item_data.hold_distance) - held_item_data.offset
@@ -125,71 +131,60 @@ func handle_held_item():
 		held_item.z_index = 0
 	else: held_item.z_index = 1
 	
-	if lookDirection.normalized().x < 0 and held_item_data.rotatable:
-		melee_hit_area.position = Vector2(3, 5)
-		melee_hit_area.rotation_degrees = -45
-		swing_size = -0.3 * PI
-		held_item.flip_v = true
-		held_item.offset.y = held_item_data.offset.y * 0.5
-		projectile_spawn_point.position.y = held_item_data.offset.y * 0.75
-		attack_effect_spawn_point.position.y = held_item_data.offset.y * 0.75
-		ranged_ray.position.y = held_item_data.offset.y * 0.5
-	else:
-		melee_hit_area.position = Vector2(3, -5)
-		melee_hit_area.rotation_degrees = 45
-		swing_size = 0.3 * PI
-		held_item.flip_v = false
-		held_item.offset.y = -held_item_data.offset.y * 0.5
-		projectile_spawn_point.position.y = -held_item_data.offset.y * 0.75
-		attack_effect_spawn_point.position.y = -held_item_data.offset.y * 0.75
-		ranged_ray.position.y = -held_item_data.offset.y * 0.5
-		
 	if(held_item_data.rotatable):
-		
 		if lookDirection.normalized().x < 0:
-			rotation_offset = held_item_data.rotation_offset
+			held_item.flip_v = true
+			rotation_flipper = -1
+			position_flipper = 1
 		else:
-			rotation_offset = -held_item_data.rotation_offset
+			held_item.flip_v = false
+			rotation_flipper = 1
+			position_flipper = -1
+			
+		held_item.offset.y = held_item_data.offset.y * 0.5 * position_flipper
+		rotation_offset = held_item_data.rotation_offset * rotation_flipper
 		var item_pos_rad = rad_to_deg((aim_point.position).angle())
-		held_item.rotation_degrees = item_pos_rad + rotation_offset
+		held_item.rotation_degrees = item_pos_rad - rotation_offset
+		
+		if(held_item_data.has_method("shoot")):
+			projectile_spawn_point.position.y = held_item_data.offset.y * 0.75  * position_flipper
+			attack_effect_spawn_point.position.y = held_item_data.offset.y * 0.75  * position_flipper
+			ranged_ray.position.y = held_item_data.offset.y * 0.5  * position_flipper
+			melee_hit_area.monitoring = false
+			ranged_ray.enabled = true
+			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.02 if held_item_data.muzzle_velocity < 3250 else position.distance_to(get_global_mouse_position())
+			projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
+			attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
+			projectile_spawn_point.rotation = held_item.rotation
+
+		elif(held_item_data.has_method("swing")):
+			melee_hit_area.position = Vector2(held_item_data.effective_range * 0.3, held_item_data.effective_range * 0.4 * position_flipper)
+			melee_hit_area.rotation_degrees = 45 * rotation_flipper
+			swing_size = (0.3 * rotation_flipper) * PI  
+			ranged_ray.enabled = false
+			melee_hit_area.monitoring = true
+			var back_rad = deg_to_rad(held_item.rotation_degrees + rotation_offset) - swing_size
+			var back_step_rad = deg_to_rad(held_item.rotation_degrees + rotation_offset) - (swing_size * 0.5)
+			var peak_rad = deg_to_rad(held_item.rotation_degrees + rotation_offset)
+			var front_step_rad = deg_to_rad(held_item.rotation_degrees + rotation_offset) + (swing_size * 0.5)
+			var front_rad = deg_to_rad(held_item.rotation_degrees + rotation_offset) + swing_size
+			
+			var radius_back = held_item_data.hold_distance * 1
+			var radius_back_step = held_item_data.hold_distance * 1
+			var radius_peak = held_item_data.hold_distance * 1
+			var radius_front_step = held_item_data.hold_distance * 1
+			var radius_front = held_item_data.hold_distance * 1
+
+			back_swing.position = Vector2(radius_back * cos(back_rad), radius_back * sin(back_rad)) - held_item_data.offset
+			back_step.position = Vector2(radius_back_step * cos(back_step_rad), radius_back_step * sin(back_step_rad)) - held_item_data.offset
+			peak_swing.position = Vector2(radius_peak * cos(peak_rad), radius_peak * sin(peak_rad)) - held_item_data.offset
+			forward_step.position = Vector2(radius_front_step * cos(front_step_rad), radius_front_step * sin(front_step_rad)) - held_item_data.offset
+			forward_swing.position = Vector2(radius_front * cos(front_rad), radius_front * sin(front_rad)) - held_item_data.offset
 
 	else:
 		held_item.rotation = 0
-
-	if(held_item_data.has_method("shoot")):	
-		#Input.set_custom_mouse_cursor(held_item_data.crosshair_sprite)
+		ranged_ray.enabled = false
 		melee_hit_area.monitoring = false
-		ranged_ray.enabled = true
-		ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.02 if held_item_data.muzzle_velocity < 3250 else position.distance_to(get_global_mouse_position())
-		projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
-		attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
-		projectile_spawn_point.rotation = held_item.rotation
-
-	elif(held_item_data.has_method("swing")):	
-		#swing_trail.rotation = held_item.rotation + 90
-		ranged_ray.enabled = false
-		melee_hit_area.monitoring = true
-		melee_hit_area.scale.y = held_item_data.effective_range * 0.05
-		var back_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) - swing_size
-		var back_step_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) - (swing_size * 0.5)
-		var peak_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset)
-		var front_step_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) + (swing_size * 0.5)
-		var front_rad = deg_to_rad(held_item.rotation_degrees - rotation_offset) + swing_size
-		
-		var radius_back = held_item_data.hold_distance * 1
-		var radius_back_step = held_item_data.hold_distance * 1
-		var radius_peak = held_item_data.hold_distance * 1
-		var radius_front_step = held_item_data.hold_distance * 1
-		var radius_front = held_item_data.hold_distance * 1
-
-		back_swing.position = Vector2(radius_back * cos(back_rad), radius_back * sin(back_rad)) - held_item_data.offset
-		back_step.position = Vector2(radius_back_step * cos(back_step_rad), radius_back_step * sin(back_step_rad)) - held_item_data.offset
-		peak_swing.position = Vector2(radius_peak * cos(peak_rad), radius_peak * sin(peak_rad)) - held_item_data.offset
-		forward_step.position = Vector2(radius_front_step * cos(front_step_rad), radius_front_step * sin(front_step_rad)) - held_item_data.offset
-		forward_swing.position = Vector2(radius_front * cos(front_rad), radius_front * sin(front_rad)) - held_item_data.offset
-	
-	else:
-		ranged_ray.enabled = false
 
 func _on_hot_bar_set_selected_slot(index):
 	if inventorydata.slot_datas[index]:

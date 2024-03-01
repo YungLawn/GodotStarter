@@ -1,10 +1,11 @@
 Godot RPG Planning
 
 TODO
-- lock-on system
-	- lock on radius
-	- cycle targets with q? and e?
-	- 
+player
+	- lock-on system
+		- lock on radius
+		- cycle targets with q? and e?
+	- movement speed based on item weight
 - menu/ui
 - enemies:
 	- inventory
@@ -56,7 +57,7 @@ TODO
 					- UI
 					- manual action?
 			- melee
-				- swing
+				*- swing
 					*- animation
 					*- direction
 					*- speed
@@ -64,7 +65,7 @@ TODO
 				- effect
 					*- hit effect
 					- hit stop
-					- swing effect
+					*- swing effect
 			- explosive
 			- traps?
 		- crafting?
