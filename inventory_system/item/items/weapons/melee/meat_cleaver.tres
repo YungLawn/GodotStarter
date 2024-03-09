@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemDataMeleeWeapon" load_steps=4 format=3 uid="uid://c54e1nuubyiwp"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/melee/item_data_melee_weapon.gd" id="1_psrq0"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty1kc"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(160, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_psrq0")
+speed = 80.0
+damage = 20
+effective_range = 15.0
+name = "Meat Cleaver"
+description = "whip it up"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_ty1kc")
+offset = Vector2(0, 5)
+hand_offset = Vector2(0, 4)
+rotation_offset = 40.0
+hold_distance = 11.0
+weight = 0.5

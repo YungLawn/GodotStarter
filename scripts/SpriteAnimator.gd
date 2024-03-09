@@ -69,7 +69,7 @@ func animate(inputDirection, inputLookDirection) -> void:
 		frontarmSprite.frame_coords = coords_top
 		legsSprite.frame_coords = coords_bottom
 		
-	#$"../Label".text = str(1.0/6.0)
+	#print(y_frame_top)
 		
 func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 	if hand_sempty:
@@ -128,12 +128,13 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 				front_arm_hold.position = arm_pos_east[0]
 				back_arm_hold.position = arm_pos_east[1]
 				front_arm_hold.z_index = 2
-				back_arm_hold.z_index = 1
+				back_arm_hold.z_index = 0
 
 				if look_direction.x < 0:
 					front_arm_hold.flip_h = true
 					back_arm_hold.flip_h = false
 				else:
+					front_arm_hold.flip_h = false
 					back_arm_hold.flip_h = true
 
 			3: 
@@ -153,6 +154,7 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 					front_arm_hold.flip_h = true
 					back_arm_hold.flip_h = false
 				else:
+					front_arm_hold.flip_h = false
 					back_arm_hold.flip_h = true
 
 			1: 
@@ -162,6 +164,7 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 				
 				front_arm_hold.texture.region = Rect2(0,2,6,9)
 
+				headSprite.z_index = 2
 				front_arm_hold.z_index = 1
 				back_arm_hold.z_index = 0
 				

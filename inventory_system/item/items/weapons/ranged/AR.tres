@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://bqjee2hhliac7"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_h76s6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28rup"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_12r7y"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cw6x"]
+atlas = SubResource("CompressedTexture2D_12r7y")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_h76s6")
+fire_mode = 2
+fire_rate = 850
+muzzle_velocity = 2800
+max_capacity = 30
+current_capacity = 30
+accuracy = 85.0
+reload_time = 2.5
+recoil_strength = Vector2(2, 0.5)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_28rup")
+damage = 30
+effective_range = 180.0
+name = "AR"
+description = "Murica"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_1cw6x")
+offset = Vector2(0, 3.5)
+hand_offset = Vector2(0, 4)
+rotation_offset = 0.0
+hold_distance = 9.0
+weight = 3.0

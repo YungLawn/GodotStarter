@@ -2,6 +2,7 @@ extends Line2D
 
 var queue: Array
 var pos: Vector2
+var is_trailing: bool
 @export var MAX_LENGTH: int = 10
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

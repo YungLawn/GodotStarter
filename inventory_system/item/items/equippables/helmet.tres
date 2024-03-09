@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="itemDataEquip" load_steps=4 format=3 uid="uid://dp8k50fwx5hjt"]
 
-[ext_resource type="Script" path="res://inventory_system/item/item_data_equip.gd" id="1_oq5ex"]
+[ext_resource type="Script" path="res://inventory_system/item/items/equippables/item_data_equip.gd" id="1_g5a75"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -10,8 +10,9 @@ atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(240, 0, 16, 16)
 
 [resource]
-script = ExtResource("1_oq5ex")
+script = ExtResource("1_g5a75")
 defence = 1
+type = "head"
 name = "helmet"
 description = "v good"
 stackable = false

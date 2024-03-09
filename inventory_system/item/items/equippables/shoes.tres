@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="itemDataEquip" load_steps=4 format=3 uid="uid://cv3y6jtis5a55"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/equippables/item_data_equip.gd" id="1_gf5ku"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr7dd"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(224, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_gf5ku")
+defence = 0
+type = "feet"
+name = "shoes"
+description = ""
+stackable = false
+rotatable = false
+texture = SubResource("AtlasTexture_vr7dd")
+offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+rotation_offset = 0.0
+hold_distance = 10.0
+weight = 0.5

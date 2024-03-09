@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="itemDataEquip" load_steps=4 format=3 uid="uid://na8svgd3e0lx"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/equippables/item_data_equip.gd" id="1_n7f81"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swmc5"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(240, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_n7f81")
+defence = 0
+type = "torso"
+name = "shirt"
+description = ""
+stackable = false
+rotatable = false
+texture = SubResource("AtlasTexture_swmc5")
+offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+rotation_offset = 0.0
+hold_distance = 10.0
+weight = 0.5

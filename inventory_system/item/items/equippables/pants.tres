@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="itemDataEquip" load_steps=4 format=3 uid="uid://bc2vfnsu2ln6s"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/equippables/item_data_equip.gd" id="1_lubd3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm27f"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(240, 48, 16, 16)
+
+[resource]
+script = ExtResource("1_lubd3")
+defence = 5
+type = "legs"
+name = "pants"
+description = ""
+stackable = false
+rotatable = false
+texture = SubResource("AtlasTexture_lm27f")
+offset = Vector2(0, 8)
+hand_offset = Vector2(0, 0)
+rotation_offset = 0.0
+hold_distance = 10.0
+weight = 0.5

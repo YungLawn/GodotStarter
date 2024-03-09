@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://5nhvucguf0hj"]
+[gd_scene load_steps=17 format=3 uid="uid://5nhvucguf0hj"]
 
 [ext_resource type="Script" path="res://scripts/enemy_controller.gd" id="1_6b4lo"]
 [ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="2_yl2l7"]
@@ -8,6 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_ncmpg"]
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="11_o2uf6"]
 [ext_resource type="Texture2D" uid="uid://bg8h1wnl1fjyh" path="res://assets/character/AngleReference.png" id="13_uxyny"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vlyxs"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb86f"]
+atlas = SubResource("CompressedTexture2D_vlyxs")
+region = Rect2(144, 0, 16, 16)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q7ove"]
 load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
@@ -29,6 +36,7 @@ height = 52.4896
 
 [node name="enemy" type="CharacterBody2D" groups=["damageable"]]
 z_index = 1
+y_sort_enabled = true
 collision_layer = 4
 collision_mask = 23
 motion_mode = 1
@@ -45,6 +53,11 @@ hframes = 6
 vframes = 6
 frame = 18
 script = ExtResource("2_yl2l7")
+
+[node name="indicator" type="Sprite2D" parent="BaseSprite"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, 11)
+texture = SubResource("AtlasTexture_nb86f")
 
 [node name="held_item" type="Sprite2D" parent="BaseSprite"]
 z_index = 1

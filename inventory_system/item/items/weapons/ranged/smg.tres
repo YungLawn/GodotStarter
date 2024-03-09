@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://ctmfrl3461srm"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_obxvq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5o74s"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_onvu5"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn6ea"]
+atlas = SubResource("CompressedTexture2D_onvu5")
+region = Rect2(48, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_obxvq")
+fire_mode = 2
+fire_rate = 900
+muzzle_velocity = 1500
+max_capacity = 40
+current_capacity = 40
+accuracy = 75.0
+reload_time = 2.0
+recoil_strength = Vector2(1.5, 0.5)
+muzzle_flash_offset = 7.5
+ammo_sprite = SubResource("AtlasTexture_5o74s")
+damage = 15
+effective_range = 80.0
+name = "SMG"
+description = "Brrrrrrrrr"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_kn6ea")
+offset = Vector2(0, 3)
+hand_offset = Vector2(0, 4)
+rotation_offset = 0.0
+hold_distance = 8.0
+weight = 2.5

@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpvhl1bedidqe"]
+
+[ext_resource type="Script" path="res://scripts/curve_test.gd" id="1_n2bpe"]
+[ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="2_1nj3j"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmsgs"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1bny"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(176, 0, 16, 16)
+
+[node name="curve_test" type="Node2D"]
+texture_filter = 1
+position = Vector2(408, 161)
+scale = Vector2(5, 5)
+script = ExtResource("1_n2bpe")
+
+[node name="p0" type="Marker2D" parent="."]
+position = Vector2(-50, 10)
+
+[node name="Sprite2D" type="Sprite2D" parent="p0"]
+texture = SubResource("AtlasTexture_cmsgs")
+
+[node name="p1" type="Marker2D" parent="."]
+position = Vector2(-35, -6)
+
+[node name="Sprite2D" type="Sprite2D" parent="p1"]
+texture = SubResource("AtlasTexture_cmsgs")
+
+[node name="p2" type="Marker2D" parent="."]
+position = Vector2(-20, 10)
+
+[node name="Sprite2D" type="Sprite2D" parent="p2"]
+texture = SubResource("AtlasTexture_cmsgs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-50, 10)
+rotation = -1.39626
+scale = Vector2(1, 1)
+texture = SubResource("AtlasTexture_j1bny")
+
+[node name="line_trail" parent="Sprite2D" instance=ExtResource("2_1nj3j")]
+visible = true
+width = 5.0
+MAX_LENGTH = 20
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -16,9 +16,13 @@ func clear_inventory_data(inventory_data: InventoryData) -> void:
 func populate_item_grid(inventory_data: InventoryData) -> void:
 	for child in item_grid.get_children():
 		child.queue_free()
-		
+
+	#if inventory_data is InventoryDataEquip:
+		#for slot in inventory_data.slot_datas:
+			#print(slot)
 
 	for index in inventory_data.slot_datas.size():
+
 		var slot_data = inventory_data.slot_datas[index]
 		var slot = slot.instantiate()
 		item_grid.add_child(slot)

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=4 format=3 uid="uid://dv0sxvkvd2d1i"]
 
-[ext_resource type="Script" path="res://inventory_system/item/item_data_consumable.gd" id="1_ja0wo"]
+[ext_resource type="Script" path="res://inventory_system/item/items/consumables/item_data_consumable.gd" id="1_ja0wo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"

@@ -12,6 +12,8 @@ const PickUp = preload("res://assets/pickups/pick_up.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _process(_delta):
+	inventory_interface.indicate_selected_slot(hot_bar.selected_slot)
+	hot_bar.indicate_selected_slot()
 	fps_counter.text = "FPS: " + str(Engine.get_frames_per_second())
 	health_label.text ="Health: " +  str(player.health)
 	if player.held_item_data:

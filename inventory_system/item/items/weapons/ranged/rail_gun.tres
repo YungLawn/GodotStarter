@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=5 format=3 uid="uid://dcl7tw6ooqcji"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_1lwee"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k27s"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(159, 8, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12x2j"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(80, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_1lwee")
+fire_mode = 1
+fire_rate = 10
+muzzle_velocity = 3245
+max_capacity = 1
+current_capacity = 1
+accuracy = 99.0
+reload_time = 5.0
+recoil_strength = Vector2(2, 1)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_2k27s")
+damage = 95
+effective_range = 250.0
+name = "rail gun"
+description = "very cool"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_12x2j")
+offset = Vector2(0, 4)
+hand_offset = Vector2(0, 2)
+rotation_offset = 0.0
+hold_distance = 9.0
+weight = 5.0

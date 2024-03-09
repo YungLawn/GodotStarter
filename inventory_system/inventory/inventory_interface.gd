@@ -3,6 +3,9 @@ extends Control
 signal drop_slot_data(slot_data: SlotData)
 signal force_close
 
+const SLOT_THEME = preload("res://inventory_system/inventory/slot_theme.tres")
+const SLOT_THEME_SELECTED = preload("res://inventory_system/inventory/slot_theme_selected.tres")
+
 var grabbed_slot_data: SlotData
 var external_inventory_owner
 var mouse_over: bool = false
@@ -12,8 +15,18 @@ var mouse_over: bool = false
 @onready var external_inventory = $external_inventory
 @onready var equip_inventory = $equip_inventory
 
+func _ready():
+	equip_inventory.item_grid.columns = 1
+	
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("test1"):
+		for slot in PlayerManager.player.equip_inventorydata.slot_datas:
+			print(slot.item_data.name)
+
 #func _process(delta):
-	#print(mouse_over)
+		#for slot in equip_inventory.item_grid.get_children():
+			#slot.rotation = -90
+			#print(slot.rotation)
 
 func _physics_process(delta: float) -> void:
 	if grabbedslot.visible:
@@ -23,11 +36,22 @@ func _physics_process(delta: float) -> void:
 			and external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 25:
 		force_close.emit()
 	
+func indicate_selected_slot(index: int):
+	var adjusted_index = index + player_inventory.item_grid.get_children().size() - 9
+	#print(player_inventory.item_grid.get_children().size())
+	for slot_index in player_inventory.item_grid.get_children().size():
+		var slot = player_inventory.item_grid.get_child(slot_index)
+		if slot_index == adjusted_index:
+			slot.add_theme_stylebox_override ("panel", SLOT_THEME_SELECTED)
+		else:
+			slot.add_theme_stylebox_override ("panel", SLOT_THEME)
+	
 func set_player_inventory_data(inventorydata: InventoryData) -> void:
 	inventorydata.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(inventorydata)
 	
 func set_equip_inventory_data(inventorydata: InventoryData) -> void:
+	print("set_equip_initial")
 	inventorydata.inventory_interact.connect(on_inventory_interact)
 	equip_inventory.set_inventory_data(inventorydata)
 
@@ -79,7 +103,7 @@ func _input(event: InputEvent) -> void:
 		and !mouse_over:
 		drop_slot_data.emit(grabbed_slot_data)
 		grabbed_slot_data = null
-		print("Drop")
+		#print("Drop")
 		
 		update_grabbed_slot()
 	

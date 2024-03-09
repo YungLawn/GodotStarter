@@ -8,6 +8,7 @@ signal inventory_interact(inventorydata: InventoryData, index: int, button: int)
 @export var slot_datas: Array[SlotData]
 
 func grab_slot_data(index: int) -> SlotData:
+	#print("grab")
 	if index > slot_datas.size(): index = 0
 	var slot_data = slot_datas[index]
 	
@@ -19,6 +20,7 @@ func grab_slot_data(index: int) -> SlotData:
 		return null
 		
 func drop_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
+	#print("drop")
 	if index == 53: index = 0
 	var slot_data = slot_datas[index]
 	
@@ -33,6 +35,7 @@ func drop_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
 	return return_slot_data
 	
 func drop_single_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
+	#print("drop single")
 	var slot_data = slot_datas[index]
 	
 	if not slot_data:
@@ -48,6 +51,7 @@ func drop_single_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
 		return null
 		
 func use_slot_data(index: int) -> void:
+	#print("use")
 	var slot_data = slot_datas[index]
 	
 	if not slot_data:
@@ -63,6 +67,7 @@ func use_slot_data(index: int) -> void:
 	inventory_updated.emit(self)
 		
 func pick_up_slot_data(slot_data: SlotData) -> bool:
+	#print("pick up")
 	for index in slot_datas.size():
 		if slot_datas[index] and slot_datas[index].can_fully_merge_with(slot_data):
 			slot_datas[index].fully_merge_with(slot_data)
@@ -78,4 +83,5 @@ func pick_up_slot_data(slot_data: SlotData) -> bool:
 	return false
 
 func on_slot_clicked(index: int, button: int) -> void:
+	#print("clicked")
 	inventory_interact.emit(self, index, button)

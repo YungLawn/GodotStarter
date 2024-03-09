@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://btcn8tq6ji8x4"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_uxl78"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkt4g"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qxjd0"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t0po"]
+atlas = SubResource("CompressedTexture2D_qxjd0")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_uxl78")
+fire_mode = 0
+fire_rate = 10
+muzzle_velocity = 3000
+max_capacity = 5
+current_capacity = 5
+accuracy = 95.0
+reload_time = 3.5
+recoil_strength = Vector2(3, 0.5)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_tkt4g")
+damage = 50
+effective_range = 220.0
+name = "Hunting Rifle"
+description = "ol reliable"
+stackable = false
+rotatable = true
+texture = SubResource("AtlasTexture_8t0po")
+offset = Vector2(0, 4)
+hand_offset = Vector2(0, 2)
+rotation_offset = 0.0
+hold_distance = 10.0
+weight = 4.0

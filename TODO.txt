@@ -1,75 +1,87 @@
 Godot RPG Planning
 
 TODO
-player
-	- lock-on system
-		- lock on radius
-		- cycle targets with q? and e?
-	- movement speed based on item weight
-- menu/ui
-- enemies:
-	- inventory
-		- equipped items/equipment
-	- attack
-	- pathfinding
-- updates to map:
-	- multiple terrains
-	- structures
-	- grass/trees/rocks/etc
-	- collisions
-- inventory system:
+- player
+	*- interpolate lookDirection
+	*- lock-on system *scuffed*
+		*- lock on radius
+		*- cycle targets with q? and e?
+	- movement speed affected by held item weight + equipped items
+- inventory system
 	*- place items in chest
 	- equipment
-		- head slot
-		- body slot
-		- legs slot
-		- feet slot
-		- accessory 1 slot
-		- accessory 2 slot
-	- *hotbar rework
+		- equipped items visible on sprite
+		- allow for multiple rings, must sacrifice other apparel slot
+		- apply equipment buffs/debuffs to player
+	*- hotbar rework
 		*- add selected slot
 			*- numbers
 			*- cycle with mousewheel
 			*- click to use
 			*- indicate visually
-	- holding items (sort of done for now)
+	*- holding items (sort of done for now)
 		*- position in sync with hands
 		*- move hands together
 		*- change z-index based on look direction
 		*- adjust shoulder positioning based on look direction
-	- tools
-		- weapons
-			- ranged
-				*- recoil strength as Vector2 = hor and vert recoil adjusted independently
-				*- fire mode
-					*- semi 
-						*- delay to enforce fire rate
-					*- full
-					- manual?
-				*- muzzle flash
-				- projectile
-					*- targeting
-					*- damage
-					*- hit effect (shader?)
-					- shotgun
-					- explosive projectile
-				*- reload
-					- UI
-					- manual action?
-			- melee
-				*- swing
-					*- animation
-					*- direction
-					*- speed
+- menu/ui
+	- inventory
+		- equipped item indicator
+	- stats
+		- healthbar
+		- endurance bar
+		- mana bar?
+		- ammo counter
+- enemies
+	- inventory
+		- eqipped items visible in sprite
+		- equipped items/equipment
+	- attack
+	- pathfinding
+- updates to map
+	- multiple terrains
+	- structures
+	- grass/trees/rocks/etc
+	- collisions
+- items
+	- weapons
+		- ranged
+			- variation
+			- check inv for ammo
+			*- recoil strength as Vector2 = hor and vert recoil adjusted independently
+			*- fire mode
+				*- semi 
+					*- delay to enforce fire rate
+				*- full
+				- manual?
+			*- muzzle flash
+			- projectile
+				*- targeting
 				*- damage
-				- effect
-					*- hit effect
-					- hit stop
-					*- swing effect
-			- explosive
-			- traps?
-		- crafting?
-		- utility stuff?
-		- carryable lights
+				*- hit effect (shader?)
+				- shotgun
+				- explosive projectile
+			*- reload
+				- better animation
+				- UI
+				- manual action?
+		- melee
+			- attack commitment
+				- lock look direction while attacking
+				- reduce movement speed while attacking
+			*- swing
+				*- animation
+				*- direction
+				*- speed
+			*- damage
+			- effect
+				*- hit effect
+				- hit stop
+				*- swing effect
+		- explosive
+		- traps?
+	- utility stuff?
+	- carryable lights?
+	- equipment
 	*- consumables
 	- crafting??

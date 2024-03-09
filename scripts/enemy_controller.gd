@@ -3,6 +3,7 @@ extends CharacterBody2D
 const BLOOD_SPLATTER = preload("res://assets/FX/blood_splatter.tscn")
 @onready var base_sprite = $BaseSprite
 @onready var health = $health
+@onready var indicator = $BaseSprite/indicator
 
 @export var SPEED: int
 @export var SPRINTMULTIPLIER: float
@@ -43,6 +44,7 @@ func _on_detection_zone_body_exited(body):
 		is_chasing = false
 		
 func take_damage(damage: int, direction: Vector2):
+	lookDirection = direction
 	var tween = create_tween()
 	tween.set_parallel(true)
 	
@@ -59,11 +61,11 @@ func take_damage(damage: int, direction: Vector2):
 	current_health -= damage
 	if current_health <= 0:
 		current_health = 0
-		base_sprite.visible = false
-		hit_box.get_child(0).disabled = true
-		await get_tree().create_timer(1).timeout
-		base_sprite.visible = true
-		hit_box.get_child(0).disabled = false
+		#base_sprite.visible = false
+		#hit_box.get_child(0).disabled = true
+		await get_tree().create_timer(0.25).timeout
+		#base_sprite.visible = true
+		#hit_box.get_child(0).disabled = false
 		current_health = max_health
 
 	#print("oof")
