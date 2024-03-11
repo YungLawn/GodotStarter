@@ -19,6 +19,7 @@ const PROJECTILE = preload("res://inventory_system/item/items/weapons/ranged/pro
 var projectile: projectile
 var muzzle_flash: GPUParticles2D
 var can_reload: bool = true
+var is_reloading: bool = false
 
 func use(target) -> void:
 	if can_attack:
@@ -31,18 +32,20 @@ func reload(target):
 		var reload_multiplier = 0.5
 		can_reload = false
 		can_attack = false
+		is_reloading = true
 		var tween = target.create_tween()
 		tween.tween_property(target.held_item, "rotation_degrees", reload_rotation_degrees, reload_time * reload_multiplier).set_ease(Tween.EASE_OUT_IN)
 		await target.get_tree().create_timer(reload_time * reload_multiplier).timeout
 		current_capacity = max_capacity
 		can_attack = true
 		can_reload = true
+		is_reloading = false
 
 func shoot(target):
 	var fire_rate_time = abs((fire_rate - 1500) * (0.00015 if fire_mode == 2 else 0.00025))
-	print(fire_rate_time)
-	var ranged_recoil = target.lookDirection.normalized() * recoil_strength.x
-	var back_stop = target.lookDirection.normalized() * hold_distance * 0.5
+	#print(fire_rate_time)
+	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
+	var back_stop = target.aim_point.position.normalized() * hold_distance * 0.5
 	var muzzle_climb = 0.15 * recoil_strength.y
 	var tween = target.create_tween()
 	tween.set_parallel(true)
@@ -53,6 +56,7 @@ func shoot(target):
 		target.weapon_fired()
 		can_attack = false
 		can_reload = false
+		is_attacking = true
 		current_capacity -= 1
 		
 		projectile = PROJECTILE.instantiate()
@@ -62,9 +66,9 @@ func shoot(target):
 		
 		tween.tween_property(target.held_item, "rotation", target.held_item.rotation, 0.15).from(
 			 target.held_item.rotation + 
-				(muzzle_climb if target.lookDirection.normalized().x < 0 else -muzzle_climb))
+				(muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
 		
-		tween.tween_property(target.held_item, "position", target.held_item.position, 0.15).from(
+		tween.tween_property(target.held_item, "position", target.held_item.position, 0.1).from(
 			target.held_item.position - ranged_recoil )
 		
 		muzzle_flash.position = target.attack_effect_spawn_point.global_position
@@ -75,14 +79,11 @@ func shoot(target):
 		muzzle_flash.emitting = true
 		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
-		#var projectile_spawn_point = target.lookDirection.normalized() * target.global_position
 		projectile.global_position = target.attack_effect_spawn_point.global_position 
 		projectile.sprite.texture = ammo_sprite
 		projectile.rotation = target.projectile_spawn_point.rotation
-		var aim_point2: Vector2 = target.attack_effect_spawn_point.global_position
-		var aim_point1: Vector2 = target.get_global_mouse_position()
 		projectile.accuracy = accuracy * 0.01
-		projectile.direction = target.projectile_spawn_point.global_position.direction_to(aim_point2)
+		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.aim_point.global_position)
 		projectile.damage = damage
 		projectile.velocity = muzzle_velocity
 		
@@ -92,6 +93,7 @@ func shoot(target):
 		await target.get_tree().create_timer(fire_rate_time).timeout
 		can_attack = true
 		can_reload = true
+		is_attacking = false
 			
 		if fire_mode == 2:
 			if target.is_pressed:

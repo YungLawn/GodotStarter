@@ -17,7 +17,6 @@ var accuracy
 func _process(delta):
 	var calc_velo: float = velocity * delta * 0.6
 	move(calc_velo, traveling_ray)
-	
 func hit(target, damage, direction):
 	#print(target.name)
 	if target.get_parent().is_in_group("damageable") :

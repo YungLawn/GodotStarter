@@ -42,7 +42,6 @@ texture = SubResource("AtlasTexture_cmsgs")
 texture_filter = 1
 position = Vector2(-50, 10)
 rotation = -1.39626
-scale = Vector2(1, 1)
 texture = SubResource("AtlasTexture_j1bny")
 
 [node name="line_trail" parent="Sprite2D" instance=ExtResource("2_1nj3j")]
