@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccnv15j2f34ka"]
 
 [sub_resource type="Gradient" id="Gradient_685ja"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.639216, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.207843, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bojnu"]
 gradient = SubResource("Gradient_685ja")

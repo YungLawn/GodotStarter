@@ -11,6 +11,7 @@ const TURN_LIMIT: float = 0.33
 @onready var back_arm_hold = $BackArmHold
 @onready var front_arm_hold = $FrontArmHold
 @onready var held_item = $held_item
+@onready var hold_point = $hold_point
 
 @onready var anim = $anim
 
@@ -23,11 +24,11 @@ var y_frame_bottom: int
 var y_frame_top: int
 
 var test : Vector2 = Vector2(0,-3)
-var arm_pos_east = [Vector2(0,-5), Vector2(0,-5)]
-var arm_pos_northeast = [Vector2(1,-5.5), Vector2(-2,-5)]
-var arm_pos_southeast = [Vector2(-1,-4.5), Vector2(0,-6)]
-var arm_pos_north = [Vector2(-2,-5.5), Vector2(2,-5.5)]
-var arm_pos_south = [Vector2(-2.5,-4), Vector2(2.5,-4)]
+var arm_pos_east = [Vector2(0,-0.5), Vector2(0,-0.5)]
+var arm_pos_northeast = [Vector2(1,-1), Vector2(-1,-1)]
+var arm_pos_southeast = [Vector2(-1,-0.5), Vector2(-1,-0.5)]
+var arm_pos_north = [Vector2(-2,0), Vector2(2,0)]
+var arm_pos_south = [Vector2(-2.5,0), Vector2(2.5,0)]
 
 func _ready():
 	backarmSprite.frame = idle_index
@@ -55,7 +56,7 @@ func unflipLookSprites():
 	frontarmSprite.flip_h = false
 	bodySprite.flip_h = false
 	
-func animate(inputDirection, inputLookDirection) -> void:
+func animate(inputDirection, inputLookDirection, SPEED) -> void:
 	determineDirection(inputDirection, inputLookDirection.normalized())
 	
 	if((inputDirection.x == 0 and inputDirection.y == 0)):
@@ -63,15 +64,16 @@ func animate(inputDirection, inputLookDirection) -> void:
 		frontarmSprite.frame = idle_index
 		legsSprite.frame = idle_index
 	else:
-		var coords_bottom: Vector2 = Vector2(x_frame, y_frame_bottom)
-		var coords_top: Vector2 = Vector2(x_frame, y_frame_top)
-		backarmSprite.frame_coords = coords_top
-		frontarmSprite.frame_coords = coords_top
-		legsSprite.frame_coords = coords_bottom
+		if SPEED > 0.0:
+			var coords_bottom: Vector2 = Vector2(x_frame, y_frame_bottom)
+			var coords_top: Vector2 = Vector2(x_frame, y_frame_top)
+			backarmSprite.frame_coords = coords_top
+			frontarmSprite.frame_coords = coords_top
+			legsSprite.frame_coords = coords_bottom
 		
 	#print(y_frame_top)
 		
-func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
+func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2):
 	if hand_sempty:
 		backarmSprite.visible = true
 		frontarmSprite.visible = true
@@ -88,12 +90,16 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 		front_arm_hold.visible = true
 		
 		front_arm_hold.texture.region = Rect2(0,2,7,11)
+		back_arm_hold.texture.region = Rect2(9,2,7,11)
+
 		
 		match y_frame_top:
 			0: 
 				#print("north")
 				front_arm_hold.position = arm_pos_north[0]
 				back_arm_hold.position = arm_pos_north[1]
+				
+				#front_arm_hold.texture.region = Rect2(0,2,6,9)
 				
 				front_arm_hold.z_index = 0
 				back_arm_hold.z_index = 0
@@ -107,11 +113,14 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 				front_arm_hold.position = arm_pos_south[0]
 				back_arm_hold.position = arm_pos_south[1]
 				
-				front_arm_hold.texture.region = Rect2(0,2,8,12)
 				
-				held_item.z_index = 0
+				#front_arm_hold.texture.region = Rect2(0,2,6,9)
+				
+				#held_item.z_index = 1
+				#bodySprite.z_index = -1
+				#legsSprite.z_index = -1
 
-				if look_direction.x < 0:
+				if look_direction.normalized().x < 0:
 					pass
 					front_arm_hold.z_index = 1
 					back_arm_hold.z_index = 3
@@ -130,7 +139,7 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 				front_arm_hold.z_index = 2
 				back_arm_hold.z_index = 0
 
-				if look_direction.x < 0:
+				if aim_point.x < 0:
 					front_arm_hold.flip_h = true
 					back_arm_hold.flip_h = false
 				else:
@@ -146,9 +155,8 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 				
 				front_arm_hold.z_index = 2
 				back_arm_hold.z_index = 0
-				held_item.z_index = 0
 				
-				if look_direction.x < 0:
+				if aim_point.x < 0:
 					front_arm_hold.position = Vector2(-arm_pos_southeast[0].x, arm_pos_southeast[0].y)
 					back_arm_hold.position = Vector2(-arm_pos_southeast[1].x, arm_pos_southeast[1].y)
 					front_arm_hold.flip_h = true
@@ -159,25 +167,26 @@ func handle_hands(offset: Vector2, hand_sempty: bool, look_direction: Vector2):
 
 			1: 
 				#print("northeast")
-				front_arm_hold.position = arm_pos_northeast[0]
-				back_arm_hold.position = arm_pos_northeast[1]
-				
 				front_arm_hold.texture.region = Rect2(0,2,6,9)
-
+				back_arm_hold.texture.region = Rect2(10,2,6,10)
+				
 				headSprite.z_index = 2
 				front_arm_hold.z_index = 1
 				back_arm_hold.z_index = 0
+				back_arm_hold.visible = false
 				
 				if look_direction.x < 0:
-					front_arm_hold.position = Vector2(-arm_pos_southeast[0].x - 2, arm_pos_southeast[0].y - 1)
-					back_arm_hold.position = Vector2(-arm_pos_southeast[1].x + 1, arm_pos_southeast[1].y + 1)
+					front_arm_hold.position = arm_pos_northeast[1]
+					back_arm_hold.position = arm_pos_northeast[0]
 					front_arm_hold.flip_h = true
 					back_arm_hold.flip_h = false
 				else:
+					front_arm_hold.position = arm_pos_northeast[0]
+					back_arm_hold.position = arm_pos_northeast[1]
 					front_arm_hold.flip_h = false
 					back_arm_hold.flip_h = true
 
-		var rad_to_item = rad_to_deg(position.angle_to_point(held_item.position + (offset)))
+		var rad_to_item = rad_to_deg(position.angle_to_point(look_direction))
 
 		back_arm_hold.rotation_degrees = rad_to_item - 90
 		front_arm_hold.rotation_degrees = rad_to_item - 90

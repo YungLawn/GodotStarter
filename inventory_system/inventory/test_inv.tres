@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=49 format=3 uid="uid://cma2lr53e7v3o"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=43 format=3 uid="uid://cma2lr53e7v3o"]
 
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="1_1pcs5"]
 [ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/weapons/ranged/AR.tres" id="2_6olif"]
@@ -16,14 +16,12 @@
 [ext_resource type="Resource" uid="uid://b3c54qv8kqlr8" path="res://inventory_system/item/items/equippables/gloves.tres" id="6_5la0o"]
 [ext_resource type="Resource" uid="uid://18ih8qu41rbx" path="res://inventory_system/item/items/weapons/ranged/revolver.tres" id="6_h8fek"]
 [ext_resource type="Resource" uid="uid://bm71l3uwebkx8" path="res://inventory_system/item/items/weapons/ranged/AK.tres" id="7_6jk5e"]
-[ext_resource type="Resource" uid="uid://cjm3fk2qvkqqi" path="res://inventory_system/item/items/weapons/melee/hunting_knife.tres" id="7_b6awe"]
 [ext_resource type="Resource" uid="uid://dv0sxvkvd2d1i" path="res://inventory_system/item/items/consumables/health_potion.tres" id="8_glaxn"]
-[ext_resource type="Resource" uid="uid://deq26q6puie3h" path="res://inventory_system/item/items/weapons/melee/machete.tres" id="8_mgvsr"]
 [ext_resource type="Resource" uid="uid://be011kyv3rthb" path="res://inventory_system/item/items/weapons/ranged/lever_gun.tres" id="9_m7qp6"]
-[ext_resource type="Resource" uid="uid://c54e1nuubyiwp" path="res://inventory_system/item/items/weapons/melee/meat_cleaver.tres" id="10_5q4sj"]
 [ext_resource type="Resource" uid="uid://fs23tbhpygdq" path="res://inventory_system/item/items/weapons/melee/metal_pipe.tres" id="12_a6pot"]
-[ext_resource type="Resource" uid="uid://ss3r05vvu2j" path="res://inventory_system/item/items/weapons/melee/bow_staff.tres" id="16_c0npl"]
 [ext_resource type="Resource" uid="uid://dcl7tw6ooqcji" path="res://inventory_system/item/items/weapons/ranged/rail_gun.tres" id="19_anqtv"]
+[ext_resource type="Resource" uid="uid://0wftw3jw4axr" path="res://inventory_system/item/items/weapons/melee/sledgehammer.tres" id="22_cjmaq"]
+[ext_resource type="Resource" uid="uid://b2fcfmfb6ig5q" path="res://inventory_system/item/items/weapons/melee/sword.tres" id="26_p1erd"]
 
 [sub_resource type="Resource" id="Resource_qnfjt"]
 script = ExtResource("3_33d8w")
@@ -48,16 +46,6 @@ quantity = 1
 [sub_resource type="Resource" id="Resource_wsiq1"]
 script = ExtResource("3_33d8w")
 item_data = ExtResource("2_6olif")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_l2qtd"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("7_b6awe")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_38j8w"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("8_mgvsr")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_u0gin"]
@@ -85,26 +73,6 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("7_6jk5e")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_56j2b"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("10_5q4sj")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_yatvy"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("7_b6awe")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_ejysy"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("8_mgvsr")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_0ggr1"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("12_a6pot")
-quantity = 1
-
 [sub_resource type="Resource" id="Resource_1vh37"]
 script = ExtResource("3_33d8w")
 item_data = ExtResource("5_rno2p")
@@ -120,14 +88,14 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("4_fap1n")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_t1dnj"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("16_c0npl")
-quantity = 1
-
 [sub_resource type="Resource" id="Resource_bolpi"]
 script = ExtResource("3_33d8w")
 item_data = ExtResource("4_jgrr7")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_gtc0f"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("22_cjmaq")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_w8dub"]
@@ -145,6 +113,16 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("4_qvwix")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_0ggr1"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("12_a6pot")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_016o0"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("26_p1erd")
+quantity = 1
+
 [resource]
 script = ExtResource("1_1pcs5")
-slot_datas = Array[ExtResource("3_33d8w")]([SubResource("Resource_qnfjt"), SubResource("Resource_1psc3"), SubResource("Resource_3v8rq"), SubResource("Resource_fa5k7"), SubResource("Resource_wsiq1"), SubResource("Resource_l2qtd"), SubResource("Resource_38j8w"), null, SubResource("Resource_u0gin"), null, SubResource("Resource_jnhnt"), null, SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_amggn"), SubResource("Resource_56j2b"), SubResource("Resource_yatvy"), SubResource("Resource_ejysy"), SubResource("Resource_0ggr1"), SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_t1dnj"), SubResource("Resource_bolpi"), SubResource("Resource_w8dub"), SubResource("Resource_ksi6u"), SubResource("Resource_o1nu3")])
+slot_datas = Array[ExtResource("3_33d8w")]([SubResource("Resource_qnfjt"), SubResource("Resource_1psc3"), SubResource("Resource_3v8rq"), SubResource("Resource_fa5k7"), SubResource("Resource_wsiq1"), null, null, null, SubResource("Resource_u0gin"), SubResource("Resource_jnhnt"), SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_amggn"), null, SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_bolpi"), SubResource("Resource_gtc0f"), SubResource("Resource_w8dub"), SubResource("Resource_ksi6u"), SubResource("Resource_o1nu3"), SubResource("Resource_0ggr1"), null, null, null, SubResource("Resource_016o0")])

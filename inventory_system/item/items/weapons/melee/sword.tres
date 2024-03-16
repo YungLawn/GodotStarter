@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ItemDataMeleeWeapon" load_steps=4 format=3 uid="uid://b2fcfmfb6ig5q"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/melee/item_data_melee_weapon.gd" id="1_ctnco"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1lna"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(208, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_ctnco")
+speed = 100.0
+handle_offset = 7.0
+damage = 50
+effective_range = 30.0
+name = "sword"
+description = ""
+stackable = false
+rotatable = true
+item_offset = -0.025
+hold_point_offset = 0.1
+texture = SubResource("AtlasTexture_i1lna")
+rotation_offset = 30.0
+hold_distance = 13.0
+weight = 3.0

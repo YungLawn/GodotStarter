@@ -21,13 +21,13 @@ scale = Vector2(5, 5)
 script = ExtResource("1_n2bpe")
 
 [node name="p0" type="Marker2D" parent="."]
-position = Vector2(-50, 10)
+position = Vector2(-60, 10)
 
 [node name="Sprite2D" type="Sprite2D" parent="p0"]
 texture = SubResource("AtlasTexture_cmsgs")
 
 [node name="p1" type="Marker2D" parent="."]
-position = Vector2(-35, -6)
+position = Vector2(-40, -20)
 
 [node name="Sprite2D" type="Sprite2D" parent="p1"]
 texture = SubResource("AtlasTexture_cmsgs")
@@ -40,8 +40,8 @@ texture = SubResource("AtlasTexture_cmsgs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-50, 10)
-rotation = -1.39626
+position = Vector2(-40, 0)
+rotation = -1.5708
 texture = SubResource("AtlasTexture_j1bny")
 
 [node name="line_trail" parent="Sprite2D" instance=ExtResource("2_1nj3j")]
@@ -50,3 +50,7 @@ width = 5.0
 MAX_LENGTH = 20
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

@@ -31,7 +31,7 @@ func _process(delta):
 	else: direction = Vector2(0,0)
 	lookDirection = position.direction_to(player.position)
 
-	base_sprite.animate(direction, lookDirection)
+	base_sprite.animate(direction, lookDirection, SPEED)
 	
 	health.text = str(current_health)
 	

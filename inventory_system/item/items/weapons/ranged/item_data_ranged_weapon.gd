@@ -44,11 +44,6 @@ func reload(target):
 func shoot(target):
 	var fire_rate_time = abs((fire_rate - 1500) * (0.00015 if fire_mode == 2 else 0.00025))
 	#print(fire_rate_time)
-	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
-	var back_stop = target.aim_point.position.normalized() * hold_distance * 0.5
-	var muzzle_climb = 0.15 * recoil_strength.y
-	var tween = target.create_tween()
-	tween.set_parallel(true)
 
 	if current_capacity <= 0:
 		return
@@ -59,17 +54,13 @@ func shoot(target):
 		is_attacking = true
 		current_capacity -= 1
 		
+		animate_shoot(target, target.held_item)
+		animate_shoot(target, target.hold_point)
+		
 		projectile = PROJECTILE.instantiate()
 		target.get_tree().root.add_child(projectile)
 		muzzle_flash = MUZZLE_FLASH.instantiate()
 		target.get_tree().root.add_child(muzzle_flash)
-		
-		tween.tween_property(target.held_item, "rotation", target.held_item.rotation, 0.15).from(
-			 target.held_item.rotation + 
-				(muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
-		
-		tween.tween_property(target.held_item, "position", target.held_item.position, 0.1).from(
-			target.held_item.position - ranged_recoil )
 		
 		muzzle_flash.position = target.attack_effect_spawn_point.global_position
 		muzzle_flash.rotation = target.projectile_spawn_point.rotation
@@ -81,9 +72,9 @@ func shoot(target):
 		
 		projectile.global_position = target.attack_effect_spawn_point.global_position 
 		projectile.sprite.texture = ammo_sprite
-		projectile.rotation = target.projectile_spawn_point.rotation
+		projectile.rotation = target.held_item.rotation
 		projectile.accuracy = accuracy * 0.01
-		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.aim_point.global_position)
+		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
 		projectile.damage = damage
 		projectile.velocity = muzzle_velocity
 		
@@ -99,3 +90,14 @@ func shoot(target):
 			if target.is_pressed:
 				use(target)
 
+func animate_shoot(target, item):
+	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
+	var muzzle_climb = 0.15 * recoil_strength.y
+	var tween = target.create_tween()
+	tween.set_parallel(true)
+	
+	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
+		 item.rotation + (muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
+	
+	tween.tween_property(item, "position", item.position, 0.1).from(
+		item.position - ranged_recoil )

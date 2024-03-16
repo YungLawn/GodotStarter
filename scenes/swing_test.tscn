@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjsunju3vqcsn"]
+
+[ext_resource type="Script" path="res://scripts/swing_test.gd" id="1_6nnql"]
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_toup2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvg43"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25lfj"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oce1"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[node name="swing_test" type="Node2D"]
+position = Vector2(483, 248)
+script = ExtResource("1_6nnql")
+
+[node name="start" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-20, 0)
+texture = SubResource("AtlasTexture_yvg43")
+
+[node name="peak" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -20)
+texture = SubResource("AtlasTexture_25lfj")
+
+[node name="end" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(20, 0)
+texture = SubResource("AtlasTexture_5oce1")
+
+[node name="item" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-20, 0)
+texture = ExtResource("2_toup2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -4.0
+offset_top = 3.0
+offset_right = 36.0
+offset_bottom = 26.0
+text = "!!"

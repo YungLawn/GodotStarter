@@ -36,7 +36,7 @@ texture = SubResource("AtlasTexture_3ylpj")
 
 [node name="trail" type="Line2D" parent="."]
 position = Vector2(2, -2)
-points = PackedVector2Array(-22, 2, -2, 2)
+points = PackedVector2Array(-15, 2, -2, 2)
 width = 1.5
 width_curve = SubResource("Curve_n6owr")
 gradient = SubResource("Gradient_pmgr8")
