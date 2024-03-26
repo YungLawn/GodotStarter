@@ -142,7 +142,7 @@ func _process(delta):
 	if held_item_data:
 		handle_held_item(delta)
 		
-	base_sprite.animate(direction, aim_point.position, SPEED)
+	base_sprite.animate(direction, aim_point.position, SPEED_MULTIPLER)
 	base_sprite.handle_hands(hands_empty, hold_point.position, aim_point.position)
 
 func handle_held_item(delta):
@@ -157,10 +157,6 @@ func handle_held_item(delta):
 	else: held_item.z_index = 1
 
 	if held_item_data.has_method("attack"):
-		if held_item_data.is_attacking:
-			SPEED_MULTIPLER = 0
-		else:
-			SPEED_MULTIPLER = lerp(SPEED_MULTIPLER, 1.0, lerp_strength)
 		if aim_point.position.normalized().x < 0:
 			held_item.flip_v = true
 			item_rotation_flipper = -1
@@ -181,8 +177,8 @@ func handle_held_item(delta):
 			
 			melee_hit_area.monitoring = false
 			ranged_ray.enabled = true
-			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.025 if held_item_data.muzzle_velocity < 3250 else position.distance_to(aim_point.position)
-			ranged_ray.position.y = item_position_flipper * 0.5
+			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.015 if held_item_data.muzzle_velocity < 3250 else position.distance_to(aim_point.position)
+			ranged_ray.position.y = item_position_flipper * 1
 			projectile_spawn_point.position.y = item_position_flipper
 			attack_effect_spawn_point.position.y = item_position_flipper
 			projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
@@ -190,6 +186,11 @@ func handle_held_item(delta):
 			projectile_spawn_point.rotation = held_item.rotation
 			
 		elif(held_item_data.has_method("swing")):
+			if held_item_data.is_attacking:
+				SPEED_MULTIPLER = 0.0
+			else:
+				SPEED_MULTIPLER = lerp(SPEED_MULTIPLER, 1.0, lerp_strength)
+			#print(held_item_data.current_swing_time)
 			handle_swing_plane()
 			ranged_ray.enabled = false
 			melee_hit_area.monitoring = true
@@ -202,7 +203,7 @@ func handle_held_item(delta):
 			local_item_pos = get_point_on_radius(position, aim_point.global_position, 
 				(held_item_data.item_offset * item_position_flipper) * PI, held_item_data.hold_distance)
 			local_hold_point = get_point_on_radius(position, aim_point.global_position, 
-				(held_item_data.hold_point_offset * clamp(abs(aim_point.position.normalized().x), 0.3, 1) * item_position_flipper) * PI,
+				(held_item_data.hold_point_offset * clamp(abs(aim_point.position.normalized().x), 0.1, 1) * item_position_flipper) * PI,
 		 			held_item_data.hold_distance * 2)
 			#local_hold_point = back_swing.position if held_item_data.swing_forward else forward_swing.position
 			#local_item_pos = back_swing.position if held_item_data.swing_forward else forward_swing.position
@@ -220,10 +221,14 @@ func handle_held_item(delta):
 	held_item.position =  lerp(held_item.position, local_item_pos, lerp_strength * 3)
 	#hold_point.position = local_hold_point
 	hold_point.position = lerp(hold_point.position, local_hold_point, lerp_strength * 3)
+	
+
 
 func handle_aim_point(delta, lerp_strength):
 	if targets_in_range:
-		aim_point.global_position = lerp(aim_point.global_position, targets_in_range[locked_target_index].global_position - (direction.normalized() * 3), lerp_strength * pow(0.5,2))
+		aim_point.global_position = lerp(aim_point.global_position,
+			targets_in_range[locked_target_index].global_position - velocity * held_item_weight * 0.065, 
+			lerp_strength * pow(0.5,2))
 	else:
 		targets_in_range.clear()
 		if held_item_data.has_method("attack"):
@@ -238,19 +243,19 @@ func handle_aim_point(delta, lerp_strength):
 					else:
 						aim_point.position = lerp(aim_point.position, lookDirection.normalized() *  held_item.position.distance_to(lookDirection), lerp_strength)
 				else:
-					aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range * 0.975, lerp_strength * 0.35)
+					aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range, lerp_strength * 0.35)
 					
 			elif held_item_data.has_method("swing"):
 				if held_item_data.is_attacking:
-					lerp_strength = lerp_strength * 0.1
-				aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range * 0.8, lerp_strength)
+					lerp_strength = lerp_strength * 0
+				aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range * 0.7, lerp_strength)
 		else:
 			aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 20, lerp_strength)
 		
 
 func handle_lock_on(delta, lerp_strength):
 	if held_item_data.has_method("attack"):
-		collision_shape_2d.shape.radius = held_item_data.effective_range * 0.85
+		collision_shape_2d.shape.radius = held_item_data.effective_range
 	else:
 		collision_shape_2d.shape.radius = 20
 
@@ -262,6 +267,7 @@ func handle_lock_on(delta, lerp_strength):
 		aim_point.modulate = lerp(aim_point.modulate, Color(1,1,1,0.75), delta * 10)
 
 	if targets_in_range:
+		print(aim_point.global_position.distance_to(targets_in_range[0].global_position))
 		for target in targets_in_range:
 			if targets_in_range.find(target) == locked_target_index:
 				target.indicator.modulate = lerp(target.indicator.modulate, Color(1,1,0,0.75), delta * 10)
@@ -270,16 +276,16 @@ func handle_lock_on(delta, lerp_strength):
 
 func handle_swing_plane():
 	swing_start.position = get_point_on_radius(position, aim_point.global_position, 
-		(swing_size * 1), held_item_data.hold_distance * 0.95)
+		(swing_size * 0.7), held_item_data.hold_distance * 0.85)
 	swing_peak.position = get_point_on_radius(position, aim_point.global_position,  
-		0, held_item_data.hold_distance * 2)
+		0.0 * item_rotation_flipper, held_item_data.hold_distance * 1.35)
 	swing_end.position = get_point_on_radius(position, aim_point.global_position, 
-		(-swing_size * 1.1), held_item_data.hold_distance * 0.75)
+		(-swing_size * 0.75), held_item_data.hold_distance * 0.85)
 		
 	hand_swing_start.position = get_point_on_radius(position, aim_point.global_position, 
-		(swing_size * 1), held_item_data.hold_distance * 2)
+		(swing_size), held_item_data.hold_distance * 2)
 	hand_swing_peak.position = get_point_on_radius(position, aim_point.global_position,  
-		0, held_item_data.hold_distance * 2.8)
+		0.0, held_item_data.hold_distance * 2.8)
 	hand_swing_end.position = get_point_on_radius(position, aim_point.global_position, 
 		(-swing_size * 0.9), held_item_data.hold_distance * 2)
 		

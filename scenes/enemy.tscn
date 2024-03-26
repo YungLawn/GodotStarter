@@ -49,6 +49,7 @@ current_health = 100.0
 modulate = Color(0.956863, 0.956863, 0.956863, 1)
 texture_filter = 1
 texture_repeat = 1
+position = Vector2(0, -11)
 hframes = 6
 vframes = 6
 frame = 18

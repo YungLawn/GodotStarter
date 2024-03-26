@@ -27,6 +27,7 @@ scale = Vector2(0.2, 0.1)
 [node name="traveling_ray" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
 collision_mask = 4
+hit_from_inside = true
 collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]

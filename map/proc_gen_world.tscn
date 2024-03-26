@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhptvycu3kb8x"]
+
+[ext_resource type="Script" path="res://map/proc_gen_world.gd" id="1_bdevv"]
+[ext_resource type="TileSet" uid="uid://b3ihmxoo7cpjb" path="res://assets/tilesets/tileset.tres" id="2_ny8uw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r6vur"]
+noise_type = 0
+seed = 1
+frequency = 0.0033
+cellular_distance_function = 3
+cellular_jitter = -4.105
+cellular_return_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5h7lc"]
+noise = SubResource("FastNoiseLite_r6vur")
+
+[node name="proc_gen_world" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(490, 271)
+script = ExtResource("1_bdevv")
+noise_texture = SubResource("NoiseTexture2D_5h7lc")
+width = 200
+height = 200
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+tile_set = ExtResource("2_ny8uw")
+format = 2
+layer_0/name = "water"
+layer_0/z_index = -1
+layer_1/name = "ground"
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "ground2"
+layer_2/z_index = -1
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "cliff"
+layer_3/y_sort_enabled = true
+layer_3/y_sort_origin = 16
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "environment"
+layer_4/y_sort_enabled = true
+layer_4/tile_data = PackedInt32Array()

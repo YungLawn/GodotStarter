@@ -58,18 +58,17 @@ func unflipLookSprites():
 	
 func animate(inputDirection, inputLookDirection, SPEED) -> void:
 	determineDirection(inputDirection, inputLookDirection.normalized())
-	
-	if((inputDirection.x == 0 and inputDirection.y == 0)):
+	#print(SPEED)
+	if(inputDirection == Vector2.ZERO or SPEED == 0.0):
 		backarmSprite.frame = idle_index
 		frontarmSprite.frame = idle_index
 		legsSprite.frame = idle_index
 	else:
-		if SPEED > 0.0:
-			var coords_bottom: Vector2 = Vector2(x_frame, y_frame_bottom)
-			var coords_top: Vector2 = Vector2(x_frame, y_frame_top)
-			backarmSprite.frame_coords = coords_top
-			frontarmSprite.frame_coords = coords_top
-			legsSprite.frame_coords = coords_bottom
+		var coords_bottom: Vector2 = Vector2(x_frame, y_frame_bottom)
+		var coords_top: Vector2 = Vector2(x_frame, y_frame_top)
+		backarmSprite.frame_coords = coords_top
+		frontarmSprite.frame_coords = coords_top
+		legsSprite.frame_coords = coords_bottom
 		
 	#print(y_frame_top)
 		

@@ -97,7 +97,7 @@ func animate_shoot(target, item):
 	tween.set_parallel(true)
 	
 	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
-		 item.rotation + (muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
+		 item.rotation + ((muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb)) * abs(target.aim_point.position.normalized().x))
 	
 	tween.tween_property(item, "position", item.position, 0.1).from(
 		item.position - ranged_recoil )

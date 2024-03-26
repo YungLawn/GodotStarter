@@ -28,7 +28,7 @@ func hit(target, damage, direction):
 func move(velo: float, ray: RayCast2D):
 	#trail.add_point(position)
 	global_position += direction * velo
-	ray.target_position.x = velo * 4
+	ray.target_position.x = velo * 2
 	#ray.position.x = -velo * 1.5
 	#await get_tree().create_timer(velo * 0.002).timeout
 	#trail.visible = true

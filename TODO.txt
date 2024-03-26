@@ -39,6 +39,7 @@ TODO
 	- attack
 	- pathfinding
 - updates to map
+	- minimap
 	- multiple terrains
 	- structures
 	- grass/trees/rocks/etc
@@ -67,8 +68,8 @@ TODO
 				- manual action?
 		- melee
 			- attack commitment
-				- lock look direction while attacking
-				- reduce movement speed while attacking
+				*- lock look direction while attacking
+				*- reduce movement speed while attacking
 			*- swing
 				*- animation
 				*- direction
