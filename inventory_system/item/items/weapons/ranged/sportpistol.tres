@@ -25,6 +25,7 @@ max_capacity = 20
 current_capacity = 20
 accuracy = 90.0
 reload_time = 1.5
+ejects_casing = true
 recoil_strength = Vector2(1.5, 1.25)
 muzzle_flash_offset = 3.0
 ammo_sprite = SubResource("AtlasTexture_xln0d")

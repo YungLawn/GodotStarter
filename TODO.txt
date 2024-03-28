@@ -40,10 +40,10 @@ TODO
 	- pathfinding
 - updates to map
 	- minimap
-	- multiple terrains
+	*- multiple terrains
 	- structures
 	- grass/trees/rocks/etc
-	- collisions
+	*- collisions
 - items
 	- weapons
 		- ranged

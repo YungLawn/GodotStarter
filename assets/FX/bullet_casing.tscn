@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4hvqsgid8vxj"]
+
+[sub_resource type="Curve" id="Curve_vuxdg"]
+min_value = -720.0
+max_value = 0.0
+_data = [Vector2(0, -720), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_upaoh"]
+curve = SubResource("Curve_vuxdg")
+
+[sub_resource type="Gradient" id="Gradient_tfgax"]
+offsets = PackedFloat32Array(0.857759, 1)
+colors = PackedColorArray(1, 1, 0.65098, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ja628"]
+gradient = SubResource("Gradient_tfgax")
+
+[sub_resource type="Curve" id="Curve_03lu4"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.01, 0), 0.0, 0.0, 0, 0, Vector2(0.01, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 4.42777e-07, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_cnape"]
+curve = SubResource("Curve_03lu4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_we450"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 70.0
+initial_velocity_max = 70.0
+angular_velocity_min = -720.0
+angular_velocity_curve = SubResource("CurveTexture_upaoh")
+gravity = Vector3(0, 250, 0)
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("CurveTexture_cnape")
+color = Color(1, 1, 0.65098, 1)
+color_ramp = SubResource("GradientTexture1D_ja628")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4a2a"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(167, 7, 2, 1)
+
+[node name="bullet_casing" type="GPUParticles2D"]
+z_index = 5
+position = Vector2(481, 257)
+rotation = 1.5708
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_we450")
+texture = SubResource("AtlasTexture_p4a2a")
+lifetime = 0.75
+one_shot = true
+
+[connection signal="finished" from="." to="." method="_on_finished"]

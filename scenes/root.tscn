@@ -60,7 +60,7 @@ position = Vector2(480, 270)
 noise_texture = SubResource("NoiseTexture2D_4vgat")
 
 [node name="player" parent="." instance=ExtResource("2_m3hkl")]
-position = Vector2(424, 245)
+position = Vector2(416, 150)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

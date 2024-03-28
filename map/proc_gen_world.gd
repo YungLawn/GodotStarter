@@ -43,7 +43,7 @@ func _process(_delta):
 
 func _ready():
 	noise = noise_texture.noise
-	generate_world()
+	#generate_world()
 
 func generate_world():
 	var noise_val
@@ -52,17 +52,17 @@ func generate_world():
 			noise_val = noise.get_noise_2d(x,y)
 			
 			#setting cliffs
-			if noise_val > 0.6:
-				cliff_arr.append(Vector2(x,y))
+			#if noise_val > 0.6:
+				#cliff_arr.append(Vector2(x,y))
 			
 			#setting all grass tiles
-			if noise_val > 0.15:
+			if noise_val > 0.0:
 				grass_arr.append(Vector2(x,y))
 				#if noise_val > 0.3:
 					##random grass
 					#tile_map.set_cell(ground_2_layer, Vector2(x,y), 1,random_grass_atlas_arr.pick_random())
 			# setting sand and palm trees between water and grass
-			if noise_val > 0:
+			if noise_val > -0.075:
 				sand_arr.append(Vector2(x,y))
 				
 			tile_map.set_cell(water_layer,Vector2i(x,y), 1,water_tile_atlas)

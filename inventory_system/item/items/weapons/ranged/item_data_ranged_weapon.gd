@@ -12,6 +12,7 @@ const PROJECTILE = preload("res://inventory_system/item/items/weapons/ranged/pro
 @export var accuracy: float
 @export var reload_time: float
 
+@export var ejects_casing: bool
 @export var recoil_strength: Vector2
 @export var muzzle_flash_offset: float
 @export var ammo_sprite: AtlasTexture

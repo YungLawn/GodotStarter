@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4hvqsgid8vxj"]
+
+[ext_resource type="Script" path="res://assets/FX/bullet_casing.gd" id="1_bya4a"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uug7i"]
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 98, 0)
+color = Color(1, 1, 0.65098, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4a2a"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(166, 7, 2, 1)
+
+[node name="bullet_casing" type="GPUParticles2D"]
+position = Vector2(481, 257)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_uug7i")
+texture = SubResource("AtlasTexture_p4a2a")
+lifetime = 2.0
+script = ExtResource("1_bya4a")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

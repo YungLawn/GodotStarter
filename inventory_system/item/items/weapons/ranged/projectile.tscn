@@ -18,6 +18,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.705882, 1)
 
 [node name="projectile" type="Node2D"]
 texture_filter = 1
+position = Vector2(-20, 0)
 script = ExtResource("1_32wca")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -32,11 +33,12 @@ collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0.705882, 1)
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.25, 0.25)
 texture = SubResource("AtlasTexture_3ylpj")
 
 [node name="trail" type="Line2D" parent="."]
-position = Vector2(2, -2)
+position = Vector2(1.25, -1.5)
+scale = Vector2(0.75, 0.75)
 points = PackedVector2Array(-15, 2, -2, 2)
 width = 1.5
 width_curve = SubResource("Curve_n6owr")

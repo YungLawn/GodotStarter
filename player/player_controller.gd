@@ -4,6 +4,7 @@ signal toggle_inventory()
 
 var rng = RandomNumberGenerator.new()
 const SMOKE = preload("res://assets/FX/smoke.tscn")
+const BULLET_CASING = preload("res://assets/FX/bullet_casing.tscn")
 
 @onready var label = $Label
 @onready var label_2 = $Label2
@@ -125,6 +126,19 @@ func weapon_fired():
 	smoke.process_material.initial_velocity_max = (held_item_data.recoil_strength.x) * 10
 	smoke.emitting = true
 	smoke.finished.connect(func (): smoke.queue_free() )
+	
+	if held_item_data.ejects_casing:
+		var casing = BULLET_CASING.instantiate()
+		get_tree().root.add_child(casing)
+		casing.global_position = held_item.global_position
+		casing.rotation = projectile_spawn_point.rotation
+		casing.process_material.direction.y = item_position_flipper
+		if aim_point.position.normalized().y < 0:
+			casing.z_index = 4
+		else:
+			casing.z_index = 6
+		casing.emitting = true
+		casing.finished.connect(func(): casing.queue_free())
 
 func _physics_process(delta):
 	velocity = direction.normalized() * (SPEED * SPEED_MULTIPLER)
@@ -179,9 +193,9 @@ func handle_held_item(delta):
 			ranged_ray.enabled = true
 			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.015 if held_item_data.muzzle_velocity < 3250 else position.distance_to(aim_point.position)
 			ranged_ray.position.y = item_position_flipper * 1
-			projectile_spawn_point.position.y = item_position_flipper
-			attack_effect_spawn_point.position.y = item_position_flipper
-			projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 1.5
+			projectile_spawn_point.position.y = item_position_flipper * 0.5
+			attack_effect_spawn_point.position.y = item_position_flipper  * 0.5
+			projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 0.5
 			attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
 			projectile_spawn_point.rotation = held_item.rotation
 			
@@ -215,8 +229,8 @@ func handle_held_item(delta):
 		ranged_ray.enabled = false
 		melee_hit_area.monitoring = false
 
-	#held_item.rotation_degrees = local_item_rot
-	held_item.rotation = lerp_angle(held_item.rotation, deg_to_rad(local_item_rot), lerp_strength)
+	held_item.rotation_degrees = local_item_rot
+	held_item.rotation = lerp_angle(held_item.rotation, deg_to_rad(local_item_rot), lerp_strength * 3)
 	#held_item.position = local_item_pos
 	held_item.position =  lerp(held_item.position, local_item_pos, lerp_strength * 3)
 	#hold_point.position = local_hold_point
@@ -236,7 +250,7 @@ func handle_aim_point(delta, lerp_strength):
 				if held_item_data.is_reloading:
 					lerp_strength = lerp_strength * 0.01
 				if held_item_data.is_attacking:
-					lerp_strength = lerp_strength * (held_item_data.recoil_strength.x) * 0.4
+					lerp_strength = lerp_strength * (held_item_data.recoil_strength.x) * 0.2
 				if held_item.position.distance_to(lookDirection) < held_item_data.effective_range:
 					if held_item.position.distance_to(lookDirection) < 40:
 						aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 40, lerp_strength * 0.75)

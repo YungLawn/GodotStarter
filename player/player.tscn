@@ -68,7 +68,7 @@ font_size = 11
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xfyn"]
 
 [node name="player" type="CharacterBody2D"]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 14
@@ -76,6 +76,7 @@ motion_mode = 1
 script = ExtResource("1_2jdc0")
 inventorydata = ExtResource("2_1fo2k")
 equip_inventorydata = ExtResource("3_asbfk")
+SPEED = 70.0
 
 [node name="ground_collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13)
@@ -94,7 +95,7 @@ frame = 18
 script = ExtResource("3_2c66w")
 
 [node name="Head" type="Sprite2D" parent="BaseSprite"]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 texture = SubResource("AtlasTexture_67ayr")
 offset = Vector2(0, -3)
@@ -110,7 +111,7 @@ vframes = 6
 frame = 12
 
 [node name="Legs" type="Sprite2D" parent="BaseSprite"]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 texture = ExtResource("7_c31yv")
 offset = Vector2(0, 4.75)
@@ -120,7 +121,7 @@ frame = 12
 
 [node name="Body" type="Sprite2D" parent="BaseSprite"]
 modulate = Color(1, 1, 0, 1)
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 texture = SubResource("AtlasTexture_nbw1t")
 offset = Vector2(0, 6)
@@ -229,7 +230,7 @@ texture = SubResource("AtlasTexture_jl8fh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
-zoom = Vector2(2, 2)
+zoom = Vector2(5, 5)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 position = Vector2(0, 10)

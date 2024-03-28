@@ -169,7 +169,7 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.texture.region = Rect2(0,2,6,9)
 				back_arm_hold.texture.region = Rect2(10,2,6,10)
 				
-				headSprite.z_index = 2
+				headSprite.z_index = 5
 				front_arm_hold.z_index = 1
 				back_arm_hold.z_index = 0
 				back_arm_hold.visible = false
