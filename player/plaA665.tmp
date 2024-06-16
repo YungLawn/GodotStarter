@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=25 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -15,37 +15,26 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
-load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2gw6"]
-atlas = SubResource("CompressedTexture2D_wur4w")
-region = Rect2(0, 32, 16, 32)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x86mg"]
-load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7js0h"]
-atlas = SubResource("CompressedTexture2D_x86mg")
-region = Rect2(165, 7, 5, 5)
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gh26a"]
 load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_67ayr"]
-atlas = SubResource("CompressedTexture2D_gh26a")
-region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbw1t"]
 atlas = SubResource("CompressedTexture2D_gh26a")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_chsx2"]
-atlas = SubResource("CompressedTexture2D_x86mg")
-region = Rect2(48, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_67ayr"]
+atlas = SubResource("CompressedTexture2D_gh26a")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4rwh"]
 radius = 2.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kcf71"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44vgp"]
+atlas = SubResource("CompressedTexture2D_kcf71")
+region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -64,6 +53,7 @@ font_size = 11
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xfyn"]
 
 [node name="player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 14
 motion_mode = 1
@@ -76,27 +66,16 @@ SPEED = 70.0
 scale = Vector2(0.5, 0.3)
 shape = SubResource("CircleShape2D_4hsne")
 
-[node name="BaseSprite" type="Sprite2D" parent="."]
+[node name="BaseSprite" type="Node2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(0, -19)
-texture = SubResource("AtlasTexture_p2gw6")
-offset = Vector2(0, 22)
+position = Vector2(0, -18)
 script = ExtResource("3_2c66w")
-
-[node name="pivot_point" type="Sprite2D" parent="BaseSprite"]
-unique_name_in_owner = true
-modulate = Color(1, 0, 1, 1)
-z_index = 5
-y_sort_enabled = true
-texture_filter = 1
-position = Vector2(0, 1)
-scale = Vector2(0.5, 0.5)
-texture = SubResource("AtlasTexture_7js0h")
 
 [node name="BackArm" type="Sprite2D" parent="BaseSprite"]
 visible = false
+y_sort_enabled = true
 position = Vector2(15, 3)
 texture = ExtResource("4_fk1ah")
 offset = Vector2(-15, 2)
@@ -104,35 +83,71 @@ hframes = 6
 vframes = 6
 frame = 12
 
+[node name="Body" type="Sprite2D" parent="BaseSprite"]
+modulate = Color(1, 1, 0, 1)
+y_sort_enabled = true
+position = Vector2(0, 18)
+texture = SubResource("AtlasTexture_nbw1t")
+offset = Vector2(0, -12)
+
+[node name="Head" type="Sprite2D" parent="BaseSprite/Body"]
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_67ayr")
+offset = Vector2(0, -21)
+
+[node name="FrontArmHold" type="Sprite2D" parent="BaseSprite/Body"]
+position = Vector2(-11, -18)
+texture = ExtResource("13_nio8j")
+offset = Vector2(0, 4)
+
+[node name="held_item" type="Sprite2D" parent="BaseSprite/Body/FrontArmHold"]
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(-5, -1)
+
+[node name="projectile_spawn_point" type="Sprite2D" parent="BaseSprite/Body/FrontArmHold/held_item"]
+position = Vector2(0, -1)
+
+[node name="attack_effect_spawn_point" type="Sprite2D" parent="BaseSprite/Body/FrontArmHold/held_item"]
+position = Vector2(0, -1)
+
+[node name="ranged_ray" type="RayCast2D" parent="BaseSprite/Body/FrontArmHold/held_item"]
+target_position = Vector2(0, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="melee_hit_area" type="Area2D" parent="BaseSprite/Body/FrontArmHold/held_item"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseSprite/Body/FrontArmHold/held_item/melee_hit_area"]
+shape = SubResource("CircleShape2D_b4rwh")
+
+[node name="line_trail" parent="BaseSprite/Body/FrontArmHold/held_item/melee_hit_area" instance=ExtResource("10_jeyix")]
+width = 5.0
+MAX_LENGTH = 20
+
+[node name="BackArmHold" type="Sprite2D" parent="BaseSprite/Body"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(12, -18)
+texture = ExtResource("7_s26b3")
+offset = Vector2(0, 4)
+
 [node name="Legs" type="Sprite2D" parent="BaseSprite"]
 y_sort_enabled = true
-position = Vector2(0, 1)
+position = Vector2(0, 18)
 texture = ExtResource("7_c31yv")
-offset = Vector2(0, 3.75)
+offset = Vector2(0, -13.25)
 hframes = 6
 vframes = 6
 frame = 12
 
-[node name="BackArmHold" type="Sprite2D" parent="BaseSprite"]
-unique_name_in_owner = true
-position = Vector2(12, 0)
-texture = ExtResource("7_s26b3")
-offset = Vector2(0, 4)
-
-[node name="Head" type="Sprite2D" parent="BaseSprite"]
-y_sort_enabled = true
-position = Vector2(0, 5)
-texture = SubResource("AtlasTexture_67ayr")
-offset = Vector2(0, -8)
-
-[node name="Body" type="Sprite2D" parent="BaseSprite"]
-y_sort_enabled = true
-position = Vector2(0, -1)
-texture = SubResource("AtlasTexture_nbw1t")
-offset = Vector2(0, 7)
-
 [node name="FrontArm" type="Sprite2D" parent="BaseSprite"]
 visible = false
+z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 texture = ExtResource("6_urt3x")
@@ -141,45 +156,10 @@ hframes = 6
 vframes = 6
 frame = 12
 
-[node name="held_item" type="Sprite2D" parent="BaseSprite"]
-unique_name_in_owner = true
-texture_filter = 1
-position = Vector2(-17, 4)
-texture = SubResource("AtlasTexture_chsx2")
-
-[node name="projectile_spawn_point" type="Sprite2D" parent="BaseSprite/held_item"]
-unique_name_in_owner = true
-position = Vector2(0, -1)
-
-[node name="attack_effect_spawn_point" type="Sprite2D" parent="BaseSprite/held_item"]
-unique_name_in_owner = true
-position = Vector2(0, -1)
-
-[node name="ranged_ray" type="RayCast2D" parent="BaseSprite/held_item"]
-unique_name_in_owner = true
-target_position = Vector2(0, 0)
-collision_mask = 4
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="melee_hit_area" type="Area2D" parent="BaseSprite/held_item"]
-unique_name_in_owner = true
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseSprite/held_item/melee_hit_area"]
-shape = SubResource("CircleShape2D_b4rwh")
-
-[node name="line_trail" parent="BaseSprite/held_item/melee_hit_area" instance=ExtResource("10_jeyix")]
-unique_name_in_owner = true
-width = 5.0
-MAX_LENGTH = 20
-
-[node name="FrontArmHold" type="Sprite2D" parent="BaseSprite"]
-unique_name_in_owner = true
-position = Vector2(-11, 0)
-texture = ExtResource("13_nio8j")
-offset = Vector2(0, 4)
+[node name="hold_point" type="Sprite2D" parent="BaseSprite"]
+z_index = 10
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_44vgp")
 
 [node name="swing_start" type="Sprite2D" parent="BaseSprite"]
 visible = false
@@ -234,9 +214,9 @@ self_modulate = Color(0.1, 0.1, 0.1, 1)
 z_index = 5
 texture_filter = 1
 offset_left = -16.0
-offset_top = -65.0
+offset_top = -73.0
 offset_right = 18.0
-offset_bottom = -49.0
+offset_bottom = -57.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
@@ -244,9 +224,9 @@ label_settings = SubResource("LabelSettings_cbyhx")
 z_index = 5
 texture_filter = 1
 offset_left = -16.0
-offset_top = -56.0
+offset_top = -64.0
 offset_right = 18.0
-offset_bottom = -40.0
+offset_bottom = -48.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
@@ -254,14 +234,13 @@ label_settings = SubResource("LabelSettings_cbyhx")
 z_index = 5
 texture_filter = 1
 offset_left = -16.0
-offset_top = -47.0
+offset_top = -55.0
 offset_right = 18.0
-offset_bottom = -31.0
+offset_bottom = -39.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
 
 [node name="aim_point" type="Sprite2D" parent="."]
-unique_name_in_owner = true
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
@@ -278,7 +257,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lock_on_zone"]
 shape = SubResource("CircleShape2D_8xfyn")
 
-[connection signal="area_entered" from="BaseSprite/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]
+[connection signal="area_entered" from="BaseSprite/Body/FrontArmHold/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]
 [connection signal="area_entered" from="lock_on_zone" to="." method="_on_lock_on_zone_area_entered"]
 [connection signal="area_exited" from="lock_on_zone" to="." method="_on_lock_on_zone_area_exited"]
 [connection signal="body_entered" from="lock_on_zone" to="." method="_on_lock_on_zone_body_entered"]

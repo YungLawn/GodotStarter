@@ -30,7 +30,7 @@ angle_min = -720.0
 angle_max = 720.0
 direction = Vector3(0, 1, 0)
 spread = 30.0
-initial_velocity_min = 70.0
+initial_velocity_min = 60.0
 initial_velocity_max = 70.0
 angular_velocity_min = -720.0
 angular_velocity_curve = SubResource("CurveTexture_upaoh")
@@ -52,14 +52,13 @@ atlas = SubResource("CompressedTexture2D_wur4w")
 region = Rect2(167, 7, 2, 1)
 
 [node name="bullet_casing" type="GPUParticles2D"]
-z_index = 5
 position = Vector2(481, 257)
 rotation = 1.5708
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_we450")
 texture = SubResource("AtlasTexture_p4a2a")
-lifetime = 0.75
+lifetime = 0.65
 one_shot = true
 
 [connection signal="finished" from="." to="." method="_on_finished"]

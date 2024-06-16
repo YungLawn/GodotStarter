@@ -44,28 +44,39 @@ func _process(_delta):
 func _ready():
 	noise = noise_texture.noise
 	#generate_world()
+	
+func place_oak_tree(noise_val: float, x, y):
+	var rand = randf()
+	if rand < 0.02:
+		tile_map.set_cell(environment_layer, Vector2(x,y), 1, tree_atlas2)
+		
+func place_palm_tree(noise_val: float, x, y):
+	var rand = randf()
+	if rand < 0.02:
+		tile_map.set_cell(environment_layer, Vector2(x,y), 1, tree_atlas)
 
 func generate_world():
 	var noise_val
 	for x in range(-width/2, width/2):
 		for y in range(-height/2, height/2):
 			noise_val = noise.get_noise_2d(x,y)
-			
 			#setting cliffs
-			#if noise_val > 0.6:
+			#if noise_val > 0.07:
 				#cliff_arr.append(Vector2(x,y))
 			
 			#setting all grass tiles
 			if noise_val > 0.0:
 				grass_arr.append(Vector2(x,y))
-				#if noise_val > 0.3:
-					##random grass
-					#tile_map.set_cell(ground_2_layer, Vector2(x,y), 1,random_grass_atlas_arr.pick_random())
+				if noise_val > 0.01:
+					#random grass
+					tile_map.set_cell(ground_2_layer, Vector2(x,y), 1, random_grass_atlas_arr.pick_random())
+					if noise_val > 0.02:
+						place_oak_tree(noise_val, x, y)
 			# setting sand and palm trees between water and grass
 			if noise_val > -0.075:
 				sand_arr.append(Vector2(x,y))
 				
-			tile_map.set_cell(water_layer,Vector2i(x,y), 1,water_tile_atlas)
+			tile_map.set_cell(water_layer,Vector2i(x,y), 1, water_tile_atlas)
 
 	tile_map.set_cells_terrain_connect(ground_1_layer, sand_arr, 3,0)
 	tile_map.set_cells_terrain_connect(ground_1_layer, grass_arr, 1,0)

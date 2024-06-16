@@ -7,7 +7,7 @@ class_name ItemData
 @export var stackable: bool = false
 @export var rotatable: bool = false
 @export var item_offset: float = 0.025
-@export var hold_point_offset: float = 0.15
+@export var hold_point: float = 0.0
 @export var texture: AtlasTexture
 @export var rotation_offset: float
 @export var hold_distance: float 

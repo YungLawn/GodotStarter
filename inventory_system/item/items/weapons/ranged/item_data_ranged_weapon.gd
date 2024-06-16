@@ -56,7 +56,7 @@ func shoot(target):
 		current_capacity -= 1
 		
 		animate_shoot(target, target.held_item)
-		animate_shoot(target, target.hold_point)
+		#animate_shoot(target, target.hold_point)
 		
 		projectile = PROJECTILE.instantiate()
 		target.get_tree().root.add_child(projectile)
@@ -73,7 +73,7 @@ func shoot(target):
 		
 		projectile.global_position = target.attack_effect_spawn_point.global_position 
 		projectile.sprite.texture = ammo_sprite
-		projectile.rotation = target.held_item.rotation
+		projectile.rotation = target.held_item.global_rotation
 		projectile.accuracy = accuracy * 0.01
 		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
 		projectile.damage = damage
@@ -95,10 +95,11 @@ func animate_shoot(target, item):
 	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
 	var muzzle_climb = 0.15 * recoil_strength.y
 	var tween = target.create_tween()
+	tween.set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
 	
 	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
 		 item.rotation + ((muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb)) * abs(target.aim_point.position.normalized().x))
 	
-	tween.tween_property(item, "position", item.position, 0.1).from(
+	tween.tween_property(item, "position", item.position, 0.15).from(
 		item.position - ranged_recoil )

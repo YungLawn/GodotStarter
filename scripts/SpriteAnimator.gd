@@ -1,19 +1,20 @@
 extends Node2D
 
 const TURN_LIMIT: float = 0.33
-
-@onready var player = $".."
-@onready var headSprite = $Head
-@onready var backarmSprite = $BackArm
-@onready var frontarmSprite = $FrontArm
-@onready var bodySprite = $Body
-@onready var legsSprite = $Legs
-@onready var back_arm_hold = $BackArmHold
-@onready var front_arm_hold = $FrontArmHold
-@onready var held_item = $held_item
-@onready var hold_point = $hold_point
-
-@onready var anim = $anim
+@onready var back_arm = $BackArm
+@onready var front_arm = $FrontArm
+@onready var body = $Body
+@onready var head = $Head
+@onready var back_arm_hold = %BackArmHold
+@onready var front_arm_hold = %FrontArmHold
+@onready var held_item = $Body/FrontArmHold/held_item
+@onready var projectile_spawn_point = $Body/FrontArmHold/held_item/projectile_spawn_point
+@onready var attack_effect_spawn_point = $Body/FrontArmHold/held_item/attack_effect_spawn_point
+@onready var ranged_ray = $Body/FrontArmHold/held_item/ranged_ray
+@onready var melee_hit_area = $Body/FrontArmHold/held_item/melee_hit_area
+@onready var collision_shape_2d = $Body/FrontArmHold/held_item/melee_hit_area/CollisionShape2D
+@onready var line_trail = $Body/FrontArmHold/held_item/melee_hit_area/line_trail
+@onready var legs = $Legs
 
 var idle_index: int = 30
 const TOTAL_FRAMES: int = 6
@@ -23,17 +24,25 @@ var x_frame: int
 var y_frame_bottom: int
 var y_frame_top: int
 
+const BACK_ARM_MID: Rect2 = Rect2(11,2,5,11)
+const BACK_ARM_FULL: Rect2 = Rect2(10,2,6,13)
+const BACK_ARM_MIN: Rect2 = Rect2(12,2,4,9)
+
+const FRONT_ARM_MID: Rect2 = Rect2(0,2,5,11)
+const FRONT_ARM_FULL: Rect2 = Rect2(0,2,6,13)
+const FRONT_ARM_MIN: Rect2 = Rect2(0,2,4,9)
+
 var test : Vector2 = Vector2(0,-3)
-var arm_pos_east = [Vector2(0,-0.5), Vector2(0,-0.5)]
-var arm_pos_northeast = [Vector2(1,-1), Vector2(-1,-1)]
-var arm_pos_southeast = [Vector2(-1,-0.5), Vector2(-1,-0.5)]
-var arm_pos_north = [Vector2(-2,0), Vector2(2,0)]
-var arm_pos_south = [Vector2(-2.5,0), Vector2(2.5,0)]
+var arm_pos_east = [Vector2(0,-0), Vector2(0,-0)]
+var arm_pos_northeast = [Vector2(1.5,-0.5), Vector2(1.5,-0.5)]
+var arm_pos_southeast = [Vector2(-1.5,-0), Vector2(-1.5,-0)]
+var arm_pos_north = [Vector2(-3,-0), Vector2(3,-0)]
+var arm_pos_south = [Vector2(-3,-0), Vector2(3,-0)]
 
 func _ready():
-	backarmSprite.frame = idle_index
-	frontarmSprite.frame = idle_index
-	legsSprite.frame = idle_index
+	back_arm.frame = idle_index
+	front_arm.frame = idle_index
+	legs.frame = idle_index
 	
 func _process(delta):
 	timer += delta
@@ -42,54 +51,52 @@ func _process(delta):
 		x_frame = (x_frame + 1) % TOTAL_FRAMES
 	
 func flipLegs():
-	legsSprite.flip_h = true
+	legs.flip_h = true
 func unflipLegs():
-	legsSprite.flip_h = false
+	legs.flip_h = false
 func flipLookSprites():
-	headSprite.flip_h = true
-	backarmSprite.flip_h = true
-	frontarmSprite.flip_h = true
-	bodySprite.flip_h = true
+	head.flip_h = true
+	back_arm.flip_h = true
+	front_arm.flip_h = true
+	body.flip_h = true
 func unflipLookSprites():
-	headSprite.flip_h = false
-	backarmSprite.flip_h = false
-	frontarmSprite.flip_h = false
-	bodySprite.flip_h = false
+	head.flip_h = false
+	back_arm.flip_h = false
+	front_arm.flip_h = false
+	body.flip_h = false
 	
 func animate(inputDirection, inputLookDirection, SPEED) -> void:
 	determineDirection(inputDirection, inputLookDirection.normalized())
 	#print(SPEED)
 	if(inputDirection == Vector2.ZERO or SPEED == 0.0):
-		backarmSprite.frame = idle_index
-		frontarmSprite.frame = idle_index
-		legsSprite.frame = idle_index
+		back_arm.frame = idle_index
+		front_arm.frame = idle_index
+		legs.frame = idle_index
 	else:
 		var coords_bottom: Vector2 = Vector2(x_frame, y_frame_bottom)
 		var coords_top: Vector2 = Vector2(x_frame, y_frame_top)
-		backarmSprite.frame_coords = coords_top
-		frontarmSprite.frame_coords = coords_top
-		legsSprite.frame_coords = coords_bottom
+		back_arm.frame_coords = coords_top
+		front_arm.frame_coords = coords_top
+		legs.frame_coords = coords_bottom
 		
 	#print(y_frame_top)
 		
 func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2):
+	print(aim_point)
 	if hand_sempty:
-		backarmSprite.visible = true
-		frontarmSprite.visible = true
+		back_arm.visible = true
+		front_arm.visible = true
 		back_arm_hold.visible = false
 		front_arm_hold.visible = false
 		
-		#back_arm_hold.z_index = 0
-		#front_arm_hold.z_index = 0
-		
 	else:
-		backarmSprite.visible = false
-		frontarmSprite.visible = false
+		back_arm.visible = false
+		front_arm.visible = false
 		back_arm_hold.visible = true
 		front_arm_hold.visible = true
 		
-		front_arm_hold.texture.region = Rect2(0,2,7,11)
-		back_arm_hold.texture.region = Rect2(9,2,7,11)
+		front_arm_hold.texture.region = FRONT_ARM_MID
+		back_arm_hold.texture.region = BACK_ARM_MID
 
 		
 		match y_frame_top:
@@ -98,34 +105,29 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.position = arm_pos_north[0]
 				back_arm_hold.position = arm_pos_north[1]
 				
-				#front_arm_hold.texture.region = Rect2(0,2,6,9)
-				
-				front_arm_hold.z_index = 0
-				back_arm_hold.z_index = 0
-				held_item.z_index = -1
+				#front_arm_hold.z_index = 0
+				#back_arm_hold.z_index = 0
+				#held_item.z_index = -1
 				
 				front_arm_hold.flip_h = true
 				back_arm_hold.flip_h = true
 
 			4: 
 				#print("south")
+				#front_arm_hold.offset.x = 
+				#front_arm_hold.texture.region = FRONT_ARM_FULL
+				#back_arm_hold.texture.region = BACK_ARM_FULL
+				
 				front_arm_hold.position = arm_pos_south[0]
 				back_arm_hold.position = arm_pos_south[1]
-				
-				
-				#front_arm_hold.texture.region = Rect2(0,2,6,9)
-				
-				#held_item.z_index = 1
-				#bodySprite.z_index = -1
-				#legsSprite.z_index = -1
 
-				if look_direction.normalized().x < 0:
-					pass
-					front_arm_hold.z_index = 1
-					back_arm_hold.z_index = 3
-				else:
-					front_arm_hold.z_index = 2
-					back_arm_hold.z_index = 1
+				#if aim_point.normalized().x < 0:
+					#pass
+					#front_arm_hold.z_index = 2
+					#back_arm_hold.z_index = 3
+				#else:
+					#front_arm_hold.z_index = 3
+					#back_arm_hold.z_index = 2
 					#held_item.z_index = 0
 
 				front_arm_hold.flip_h = false
@@ -135,8 +137,8 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				#print("east")
 				front_arm_hold.position = arm_pos_east[0]
 				back_arm_hold.position = arm_pos_east[1]
-				front_arm_hold.z_index = 2
-				back_arm_hold.z_index = 0
+				#front_arm_hold.z_index = 3
+				#back_arm_hold.z_index = 0
 
 				if aim_point.x < 0:
 					front_arm_hold.flip_h = true
@@ -150,10 +152,10 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.position = arm_pos_southeast[0]
 				back_arm_hold.position = arm_pos_southeast[1]
 				
-				front_arm_hold.texture.region = Rect2(0,2,8,12)
+				front_arm_hold.texture.region = FRONT_ARM_FULL
 				
-				front_arm_hold.z_index = 2
-				back_arm_hold.z_index = 0
+				#front_arm_hold.z_index = 3
+				#back_arm_hold.z_index = 0
 				
 				if aim_point.x < 0:
 					front_arm_hold.position = Vector2(-arm_pos_southeast[0].x, arm_pos_southeast[0].y)
@@ -166,26 +168,26 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 
 			1: 
 				#print("northeast")
-				front_arm_hold.texture.region = Rect2(0,2,6,9)
-				back_arm_hold.texture.region = Rect2(10,2,6,10)
+				front_arm_hold.texture.region = FRONT_ARM_MIN
+				back_arm_hold.texture.region = BACK_ARM_MID
 				
-				headSprite.z_index = 5
-				front_arm_hold.z_index = 1
-				back_arm_hold.z_index = 0
+				#head.z_index = 5
+				#front_arm_hold.z_index = 3
+				#back_arm_hold.z_index = 0
 				back_arm_hold.visible = false
 				
-				if look_direction.x < 0:
-					front_arm_hold.position = arm_pos_northeast[1]
-					back_arm_hold.position = arm_pos_northeast[0]
+				if aim_point.x < 0:
+					front_arm_hold.position = Vector2(-arm_pos_northeast[0].x, arm_pos_northeast[0].y)
+					back_arm_hold.position = Vector2(-arm_pos_northeast[1].x, arm_pos_northeast[1].y)
 					front_arm_hold.flip_h = true
-					back_arm_hold.flip_h = false
+					back_arm_hold.flip_h = true
 				else:
 					front_arm_hold.position = arm_pos_northeast[0]
 					back_arm_hold.position = arm_pos_northeast[1]
 					front_arm_hold.flip_h = false
 					back_arm_hold.flip_h = true
 
-		var rad_to_item = rad_to_deg(position.angle_to_point(look_direction))
+		var rad_to_item = rad_to_deg(global_position.angle_to_point(look_direction))
 
 		back_arm_hold.rotation_degrees = rad_to_item - 90
 		front_arm_hold.rotation_degrees = rad_to_item - 90
@@ -204,14 +206,14 @@ func determineDirection(inputDirection, inputLookDirection):
 			#lookDirection = "southeast"
 			y_frame_top = 3
 			idle_index = 33
-			bodySprite.texture.region = Rect2(48,16,16,16)
-			headSprite.texture.region = Rect2(48,0,16,16)
+			body.texture.region = Rect2(48,16,16,16)
+			head.texture.region = Rect2(48,0,16,16)
 		else: 
 			#lookDirection = "south"
 			y_frame_top = 4
 			idle_index = 34
-			bodySprite.texture.region = Rect2(0,16,16,16)
-			headSprite.texture.region = Rect2(64,0,16,16)
+			body.texture.region = Rect2(0,16,16,16)
+			head.texture.region = Rect2(64,0,16,16)
 		
 	if(inputLookDirection.y < -TURN_LIMIT):
 		unflipLookSprites()
@@ -221,21 +223,21 @@ func determineDirection(inputDirection, inputLookDirection):
 			#lookDirection = "northeast"
 			y_frame_top = 1
 			idle_index = 31
-			bodySprite.texture.region = Rect2(16,16,16,16)
-			headSprite.texture.region = Rect2(16,0,16,16)
+			body.texture.region = Rect2(16,16,16,16)
+			head.texture.region = Rect2(16,0,16,16)
 		else: 
 			#lookDirection = "north"
 			y_frame_top = 0
 			idle_index = 30
-			bodySprite.texture.region = Rect2(0,16,16,16)
-			headSprite.texture.region = Rect2(0,0,16,16)
+			body.texture.region = Rect2(0,16,16,16)
+			head.texture.region = Rect2(0,0,16,16)
 		
 	if(abs(inputLookDirection.y) < TURN_LIMIT):
 		#lookDirection = "east"
 		y_frame_top = 2
 		idle_index = 32
-		bodySprite.texture.region = Rect2(32,16,16,16)
-		headSprite.texture.region = Rect2(32,0,16,16)
+		body.texture.region = Rect2(32,16,16,16)
+		head.texture.region = Rect2(32,0,16,16)
 		
 		
 	

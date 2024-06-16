@@ -42,7 +42,7 @@ TODO
 	- minimap
 	*- multiple terrains
 	- structures
-	- grass/trees/rocks/etc
+	*- grass/trees/rocks/etc
 	*- collisions
 - items
 	- weapons
@@ -70,6 +70,7 @@ TODO
 			- attack commitment
 				*- lock look direction while attacking
 				*- reduce movement speed while attacking
+				- slight forward movement on swing
 			*- swing
 				*- animation
 				*- direction

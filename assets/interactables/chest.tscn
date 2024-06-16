@@ -17,7 +17,6 @@ points = PackedVector2Array(-0.75, -0.75, 0.75, -1, 0.75, 1, -0.75, 1.25)
 points = PackedVector2Array(-0.75, -0.75, 0.25, -1.25, 0.75, -1, 0.75, 1, -0.75, 1.25)
 
 [node name="Chest" type="StaticBody2D" groups=["damageable", "external_inventory"]]
-z_index = 2
 texture_filter = 1
 scale = Vector2(0.75, 0.75)
 collision_layer = 4
@@ -33,7 +32,7 @@ scale = Vector2(1.80119, 1.67995)
 texture = SubResource("AtlasTexture_ttdde")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
+z_as_relative = false
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, 10.6667)

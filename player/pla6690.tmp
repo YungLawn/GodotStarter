@@ -144,8 +144,9 @@ frame = 12
 [node name="held_item" type="Sprite2D" parent="BaseSprite"]
 unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(-17, 4)
+position = Vector2(-19, 1)
 texture = SubResource("AtlasTexture_chsx2")
+offset = Vector2(3, -2)
 
 [node name="projectile_spawn_point" type="Sprite2D" parent="BaseSprite/held_item"]
 unique_name_in_owner = true

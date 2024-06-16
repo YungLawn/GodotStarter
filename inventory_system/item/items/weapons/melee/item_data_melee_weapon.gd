@@ -36,7 +36,6 @@ func swing(target):
 	
 	animate_swing(target, target.held_item)
 
-
 func move_item(value: float):
 	current_swing_time = value
 	target.held_item.position = bezier(current_swing_time, target.swing_start.position, 
@@ -49,12 +48,12 @@ func move_hand(value: float):
 
 func animate_swing(target, item):
 		swing_time = abs(speed - 150) * 0.005
-		var starting_hand_offset: float = 0.5 + hold_point_offset * 2
+		#var starting_hand_offset: float = 0.5 + hold_point_offset * 2
 		var swing_offset: float = 1 - 0.5
-		var hand_swing_offset: float = 1 - 0.5 - hold_point_offset
+		#var hand_swing_offset: float = 1 - 0.5 - hold_point_offset
 		var hand = target.hold_point
 		current_swing_time = 0.5
-		current_hand_swing_time = 0.5 + hold_point_offset * 2.125
+		#current_hand_swing_time = 0.5 + hold_point_offset * 2.125
 
 		var tween = target.create_tween().set_parallel(true).set_trans(Tween.TRANS_QUINT)
 		
@@ -79,10 +78,10 @@ func animate_swing(target, item):
 				can_attack = true
 				is_attacking = false)
 				
-		tween.tween_method(move_hand, current_hand_swing_time, 0, 
-			swing_time).set_ease(Tween.EASE_IN_OUT)
-			
-		tween.tween_method(move_hand, current_hand_swing_time - hand_swing_offset, 1,
-			swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT)
-				
-		tween.tween_method(move_hand, current_hand_swing_time + hand_swing_offset * 0.75, starting_hand_offset, swing_time).set_delay(swing_time * 2).set_ease(Tween.EASE_IN_OUT)
+		#tween.tween_method(move_hand, current_hand_swing_time, 0, 
+			#swing_time).set_ease(Tween.EASE_IN_OUT)
+			#
+		#tween.tween_method(move_hand, current_hand_swing_time - hand_swing_offset, 1,
+			#swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT)
+				#
+		#tween.tween_method(move_hand, current_hand_swing_time + hand_swing_offset * 0.75, starting_hand_offset, swing_time).set_delay(swing_time * 2).set_ease(Tween.EASE_IN_OUT)

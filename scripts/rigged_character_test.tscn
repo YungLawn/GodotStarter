@@ -1,0 +1,329 @@
+[gd_scene load_steps=23 format=3 uid="uid://iahmsjc35p1a"]
+
+[ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="1_t5wd2"]
+[ext_resource type="Texture2D" uid="uid://dn2fs6gquywhv" path="res://assets/character/armsholding.png" id="2_d5vqq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oafka"]
+load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brvqk"]
+atlas = SubResource("CompressedTexture2D_oafka")
+region = Rect2(67, 16, 10, 11)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_717gu"]
+load_path = "res://.godot/imported/HumanLegsCombined.png-d2318dc00fe3aafa7e0f4e7b11d99d23.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5qis"]
+atlas = SubResource("CompressedTexture2D_717gu")
+region = Rect2(68, 179, 4, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3120"]
+atlas = SubResource("CompressedTexture2D_717gu")
+region = Rect2(68, 184, 4, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk1np"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(167, 8, 2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jio7"]
+atlas = SubResource("CompressedTexture2D_717gu")
+region = Rect2(72, 179, 4, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egx5w"]
+atlas = SubResource("CompressedTexture2D_717gu")
+region = Rect2(72, 184, 4, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bv8s"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(167, 9, 2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghgih"]
+atlas = ExtResource("2_d5vqq")
+region = Rect2(0, 3, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1woct"]
+atlas = ExtResource("2_d5vqq")
+region = Rect2(0, 3, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjn0j"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(167, 9, 2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42gd5"]
+atlas = ExtResource("2_d5vqq")
+region = Rect2(13, 3, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh8j4"]
+atlas = ExtResource("2_d5vqq")
+region = Rect2(13, 3, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adafl"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(167, 9, 2, 2)
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_l2u02"]
+target_nodepath = NodePath("../front_hand_target")
+flip_bend_direction = true
+joint_one_bone_idx = 3
+joint_one_bone2d_node = NodePath("base/body/front_bicep")
+joint_two_bone_idx = 4
+joint_two_bone2d_node = NodePath("base/body/front_bicep/front_forearm")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_wvs5i"]
+target_nodepath = NodePath("../front_hand_target")
+joint_one_bone_idx = 6
+joint_one_bone2d_node = NodePath("base/body/back_bicep")
+joint_two_bone_idx = 7
+joint_two_bone2d_node = NodePath("base/body/back_bicep/back_forearm")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_toabn"]
+enabled = true
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_l2u02")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_wvs5i")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op1wg"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="skeleton_container" type="Node2D" parent="."]
+
+[node name="parts" type="Node2D" parent="skeleton_container"]
+
+[node name="head" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("1_t5wd2")
+
+[node name="torso" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(0, 2)
+texture = SubResource("AtlasTexture_brvqk")
+
+[node name="front_thigh" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-2, 9)
+texture = SubResource("AtlasTexture_y5qis")
+
+[node name="front_calf" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-2, 13)
+texture = SubResource("AtlasTexture_k3120")
+
+[node name="front_foot" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-3, 14)
+texture = SubResource("AtlasTexture_kk1np")
+
+[node name="back_thigh" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(2, 8)
+texture = SubResource("AtlasTexture_6jio7")
+
+[node name="back_calf" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(2, 13)
+texture = SubResource("AtlasTexture_egx5w")
+
+[node name="back_foot" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(3, 14)
+texture = SubResource("AtlasTexture_3bv8s")
+
+[node name="front_bicep" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-3.9994, -0.000124097)
+rotation = -0.000299096
+scale = Vector2(0.999938, 0.999938)
+texture = SubResource("AtlasTexture_ghgih")
+
+[node name="front_forearm" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-2.19952, 4.3999)
+rotation = -0.64328
+scale = Vector2(0.999896, 0.999896)
+texture = SubResource("AtlasTexture_1woct")
+
+[node name="front_hand" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-1, 6)
+rotation = 0.90884
+scale = Vector2(0.999896, 0.999896)
+texture = SubResource("AtlasTexture_pjn0j")
+
+[node name="back_bicep" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(2.94003, -0.304044)
+rotation = 0.558599
+scale = Vector2(0.999976, 0.999976)
+texture = SubResource("AtlasTexture_42gd5")
+
+[node name="back_forearm" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(0.290127, 3.9358)
+rotation = 0.558599
+scale = Vector2(0.999957, 0.999957)
+texture = SubResource("AtlasTexture_fh8j4")
+
+[node name="back_hand" type="Sprite2D" parent="skeleton_container/parts"]
+texture_filter = 1
+position = Vector2(-0.769825, 5.63172)
+rotation = 0.558599
+scale = Vector2(0.999957, 0.999957)
+texture = SubResource("AtlasTexture_adafl")
+
+[node name="item" type="Sprite2D" parent="skeleton_container/parts"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="skeleton_container"]
+modification_stack = SubResource("SkeletonModificationStack2D_toabn")
+
+[node name="base" type="Bone2D" parent="skeleton_container/Skeleton2D"]
+position = Vector2(0, 8)
+rest = Transform2D(1, 0, 0, 1, 0, 8)
+
+[node name="body" type="Bone2D" parent="skeleton_container/Skeleton2D/base"]
+position = Vector2(0, -4)
+rest = Transform2D(1, 0, 0, 1, 0, -4)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body"]
+position = Vector2(0, -2)
+remote_path = NodePath("../../../../parts/torso")
+
+[node name="head" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body"]
+position = Vector2(0, -7)
+rest = Transform2D(1, 0, 0, 1, 0, -7)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/head"]
+position = Vector2(0, -5)
+remote_path = NodePath("../../../../../parts/head")
+
+[node name="front_bicep" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body"]
+position = Vector2(-4, -6)
+rest = Transform2D(1, 0, 0, 1, -4, -6)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/front_bicep"]
+position = Vector2(0, 2)
+remote_path = NodePath("../../../../../parts/front_bicep")
+
+[node name="front_forearm" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body/front_bicep"]
+position = Vector2(0, 4)
+rotation = 1.31254
+scale = Vector2(0.999984, 0.999984)
+rest = Transform2D(1, 0, 0, 1, 0, 4)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/front_bicep/front_forearm"]
+position = Vector2(0, 3)
+remote_path = NodePath("../../../../../../parts/front_forearm")
+
+[node name="front_hand" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body/front_bicep/front_forearm"]
+position = Vector2(0, 5)
+rotation = 1.55212
+rest = Transform2D(1, 0, 0, 1, 0, 5)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/front_bicep/front_forearm/front_hand"]
+remote_path = NodePath("../../../../../../../parts/front_hand")
+
+[node name="back_bicep" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body"]
+position = Vector2(4, -6)
+rest = Transform2D(1, 0, 0, 1, 4, -6)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/back_bicep"]
+position = Vector2(0, 2)
+remote_path = NodePath("../../../../../parts/back_bicep")
+
+[node name="back_forearm" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body/back_bicep"]
+position = Vector2(0, 4)
+rest = Transform2D(1, 0, 0, 1, 0, 4)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/back_bicep/back_forearm"]
+position = Vector2(0, 3)
+remote_path = NodePath("../../../../../../parts/back_forearm")
+
+[node name="back_hand" type="Bone2D" parent="skeleton_container/Skeleton2D/base/body/back_bicep/back_forearm"]
+position = Vector2(0, 5)
+rest = Transform2D(1, 0, 0, 1, 0, 5)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/body/back_bicep/back_forearm/back_hand"]
+remote_path = NodePath("../../../../../../../parts/back_hand")
+
+[node name="front_thigh" type="Bone2D" parent="skeleton_container/Skeleton2D/base"]
+position = Vector2(-3, 1)
+rest = Transform2D(1, 0, 0, 1, -3, 1)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/front_thigh"]
+position = Vector2(1, 0)
+remote_path = NodePath("../../../../parts/front_thigh")
+
+[node name="front_calf" type="Bone2D" parent="skeleton_container/Skeleton2D/base/front_thigh"]
+position = Vector2(0, 2)
+rest = Transform2D(1, 0, 0, 1, 0, 2)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/front_thigh/front_calf"]
+position = Vector2(1, 2)
+remote_path = NodePath("../../../../../parts/front_calf")
+
+[node name="front_foot" type="Bone2D" parent="skeleton_container/Skeleton2D/base/front_thigh/front_calf"]
+position = Vector2(0, 3)
+rest = Transform2D(1, 0, 0, 1, 0, 3)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/front_thigh/front_calf/front_foot"]
+remote_path = NodePath("../../../../../../parts/front_foot")
+
+[node name="back_thigh" type="Bone2D" parent="skeleton_container/Skeleton2D/base"]
+position = Vector2(3, 1)
+rest = Transform2D(1, 0, 0, 1, 3, 1)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/back_thigh"]
+position = Vector2(-1, -1)
+remote_path = NodePath("../../../../parts/back_thigh")
+
+[node name="back_calf" type="Bone2D" parent="skeleton_container/Skeleton2D/base/back_thigh"]
+position = Vector2(0, 2)
+rest = Transform2D(1, 0, 0, 1, 0, 2)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/back_thigh/back_calf"]
+position = Vector2(-1, 2)
+remote_path = NodePath("../../../../../parts/back_calf")
+
+[node name="back_foot" type="Bone2D" parent="skeleton_container/Skeleton2D/base/back_thigh/back_calf"]
+position = Vector2(0, 3)
+rest = Transform2D(1, 0, 0, 1, 0, 3)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="skeleton_container/Skeleton2D/base/back_thigh/back_calf/back_foot"]
+remote_path = NodePath("../../../../../../parts/back_foot")
+
+[node name="front_hand_target" type="Sprite2D" parent="skeleton_container"]
+texture_filter = 1
+position = Vector2(-1, 6)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_op1wg")
+
+[node name="back_hand_target" type="Sprite2D" parent="skeleton_container"]
+texture_filter = 1
+position = Vector2(14, 10)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_op1wg")
+
+[node name="front_foot_target" type="Sprite2D" parent="skeleton_container"]
+texture_filter = 1
+position = Vector2(12, 34)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_op1wg")
+
+[node name="back_foot_target" type="Sprite2D" parent="skeleton_container"]
+texture_filter = 1
+position = Vector2(27, 33)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_op1wg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
