@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7m6a8s0xbrm3"]
+[gd_scene load_steps=5 format=3 uid="uid://b7m6a8s0xbrm3"]
 
 [ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/projectile.gd" id="1_32wca"]
+[ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="2_asife"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
@@ -9,14 +10,9 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 atlas = SubResource("CompressedTexture2D_wur4w")
 region = Rect2(165, 7, 5, 5)
 
-[sub_resource type="Curve" id="Curve_n6owr"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_pmgr8"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.705882, 1)
-
 [node name="projectile" type="Node2D"]
+show_behind_parent = true
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-20, 0)
 script = ExtResource("1_32wca")
@@ -33,15 +29,10 @@ collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0.705882, 1)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.2, 0.2)
 texture = SubResource("AtlasTexture_3ylpj")
 
-[node name="trail" type="Line2D" parent="."]
-position = Vector2(1.25, -1.5)
-scale = Vector2(0.75, 0.75)
-points = PackedVector2Array(-15, 2, -2, 2)
-width = 1.5
-width_curve = SubResource("Curve_n6owr")
-gradient = SubResource("Gradient_pmgr8")
+[node name="line_trail" parent="." instance=ExtResource("2_asife")]
+width = 1.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

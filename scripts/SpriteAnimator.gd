@@ -1,13 +1,15 @@
 extends Node2D
 
 const TURN_LIMIT: float = 0.33
+
+@onready var pivot_point = %pivot_point
 @onready var back_arm = $BackArm
 @onready var front_arm = $FrontArm
 @onready var body = $Body
 @onready var head = $Head
 @onready var back_arm_hold = %BackArmHold
 @onready var front_arm_hold = %FrontArmHold
-@onready var held_item = $Body/FrontArmHold/held_item
+@onready var held_item = %held_item
 @onready var projectile_spawn_point = $Body/FrontArmHold/held_item/projectile_spawn_point
 @onready var attack_effect_spawn_point = $Body/FrontArmHold/held_item/attack_effect_spawn_point
 @onready var ranged_ray = $Body/FrontArmHold/held_item/ranged_ray
@@ -81,8 +83,8 @@ func animate(inputDirection, inputLookDirection, SPEED) -> void:
 		
 	#print(y_frame_top)
 		
-func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2):
-	print(aim_point)
+func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2, offset: Vector2, lerp_strength: float):
+	#print(aim_point.normalized())
 	if hand_sempty:
 		back_arm.visible = true
 		front_arm.visible = true
@@ -98,6 +100,7 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 		front_arm_hold.texture.region = FRONT_ARM_MID
 		back_arm_hold.texture.region = BACK_ARM_MID
 
+		#move_child(held_item, body.get_index() + 1)
 		
 		match y_frame_top:
 			0: 
@@ -105,30 +108,26 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.position = arm_pos_north[0]
 				back_arm_hold.position = arm_pos_north[1]
 				
-				#front_arm_hold.z_index = 0
-				#back_arm_hold.z_index = 0
-				#held_item.z_index = -1
+				move_child(front_arm_hold,body.get_index() - 1)
+				move_child(held_item, body.get_index() - 2)
+				move_child(back_arm_hold,body.get_index() - 1)
 				
 				front_arm_hold.flip_h = true
 				back_arm_hold.flip_h = true
 
 			4: 
 				#print("south")
-				#front_arm_hold.offset.x = 
-				#front_arm_hold.texture.region = FRONT_ARM_FULL
-				#back_arm_hold.texture.region = BACK_ARM_FULL
-				
 				front_arm_hold.position = arm_pos_south[0]
 				back_arm_hold.position = arm_pos_south[1]
 
-				#if aim_point.normalized().x < 0:
-					#pass
-					#front_arm_hold.z_index = 2
-					#back_arm_hold.z_index = 3
-				#else:
-					#front_arm_hold.z_index = 3
-					#back_arm_hold.z_index = 2
-					#held_item.z_index = 0
+				if aim_point.x < 0:
+					move_child(front_arm_hold,body.get_index() + 1)
+					move_child(held_item, body.get_index() + 2)
+					move_child(back_arm_hold,body.get_index() + 3)
+				else:
+					move_child(front_arm_hold,body.get_index() + 3)
+					move_child(held_item, body.get_index() + 2)
+					move_child(back_arm_hold,body.get_index() + 1)
 
 				front_arm_hold.flip_h = false
 				back_arm_hold.flip_h = false
@@ -137,9 +136,11 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				#print("east")
 				front_arm_hold.position = arm_pos_east[0]
 				back_arm_hold.position = arm_pos_east[1]
-				#front_arm_hold.z_index = 3
-				#back_arm_hold.z_index = 0
-
+				
+				move_child(front_arm_hold,body.get_index() + 2)
+				move_child(held_item, body.get_index() + 1)
+				move_child(back_arm_hold,body.get_index() - 1)
+				
 				if aim_point.x < 0:
 					front_arm_hold.flip_h = true
 					back_arm_hold.flip_h = false
@@ -152,10 +153,11 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.position = arm_pos_southeast[0]
 				back_arm_hold.position = arm_pos_southeast[1]
 				
-				front_arm_hold.texture.region = FRONT_ARM_FULL
+				move_child(front_arm_hold,body.get_index() + 2)
+				move_child(held_item, body.get_index() + 1)
+				move_child(back_arm_hold,body.get_index() - 1)
 				
-				#front_arm_hold.z_index = 3
-				#back_arm_hold.z_index = 0
+				front_arm_hold.texture.region = FRONT_ARM_FULL
 				
 				if aim_point.x < 0:
 					front_arm_hold.position = Vector2(-arm_pos_southeast[0].x, arm_pos_southeast[0].y)
@@ -171,9 +173,10 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 				front_arm_hold.texture.region = FRONT_ARM_MIN
 				back_arm_hold.texture.region = BACK_ARM_MID
 				
-				#head.z_index = 5
-				#front_arm_hold.z_index = 3
-				#back_arm_hold.z_index = 0
+				move_child(front_arm_hold,body.get_index() + 2)
+				move_child(held_item, body.get_index() - 2)
+				move_child(back_arm_hold,body.get_index() - 1)
+				
 				back_arm_hold.visible = false
 				
 				if aim_point.x < 0:
@@ -187,7 +190,7 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 					front_arm_hold.flip_h = false
 					back_arm_hold.flip_h = true
 
-		var rad_to_item = rad_to_deg(global_position.angle_to_point(look_direction))
+		var rad_to_item = rad_to_deg(global_position.angle_to_point(held_item.global_position + offset))
 
 		back_arm_hold.rotation_degrees = rad_to_item - 90
 		front_arm_hold.rotation_degrees = rad_to_item - 90
@@ -239,8 +242,6 @@ func determineDirection(inputDirection, inputLookDirection):
 		body.texture.region = Rect2(32,16,16,16)
 		head.texture.region = Rect2(32,0,16,16)
 		
-		
-	
 	if(inputDirection.y < 0):
 		unflipLegs()
 		if(abs(inputDirection.x) > 0):

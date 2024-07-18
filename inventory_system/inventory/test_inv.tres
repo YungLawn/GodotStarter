@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=45 format=3 uid="uid://cma2lr53e7v3o"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=49 format=3 uid="uid://cma2lr53e7v3o"]
 
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="1_1pcs5"]
 [ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/weapons/ranged/AR.tres" id="2_6olif"]
@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://cl70bnnnw012v" path="res://inventory_system/item/items/equippables/necklace.tres" id="2_yev0j"]
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="3_33d8w"]
 [ext_resource type="Resource" uid="uid://bg2r2j2g1kwqb" path="res://inventory_system/item/items/weapons/ranged/pistol.tres" id="4_fap1n"]
-[ext_resource type="Resource" uid="uid://dk81vm4p8qouv" path="res://inventory_system/item/items/weapons/ranged/heavy_machine_gun.tres" id="4_jgrr7"]
 [ext_resource type="Resource" uid="uid://bsea8pohejiaq" path="res://inventory_system/item/items/weapons/ranged/sportpistol.tres" id="4_qvwix"]
 [ext_resource type="Resource" uid="uid://chh7uvwc2dif" path="res://inventory_system/item/items/equippables/ring.tres" id="4_u16nx"]
 [ext_resource type="Resource" uid="uid://cv3y6jtis5a55" path="res://inventory_system/item/items/equippables/shoes.tres" id="5_f7vfp"]
@@ -17,12 +16,20 @@
 [ext_resource type="Resource" uid="uid://18ih8qu41rbx" path="res://inventory_system/item/items/weapons/ranged/revolver.tres" id="6_h8fek"]
 [ext_resource type="Resource" uid="uid://bm71l3uwebkx8" path="res://inventory_system/item/items/weapons/ranged/AK.tres" id="7_6jk5e"]
 [ext_resource type="Resource" uid="uid://dv0sxvkvd2d1i" path="res://inventory_system/item/items/consumables/health_potion.tres" id="8_glaxn"]
-[ext_resource type="Resource" uid="uid://be011kyv3rthb" path="res://inventory_system/item/items/weapons/ranged/lever_gun.tres" id="9_m7qp6"]
 [ext_resource type="Resource" uid="uid://fs23tbhpygdq" path="res://inventory_system/item/items/weapons/melee/metal_pipe.tres" id="12_a6pot"]
 [ext_resource type="Resource" uid="uid://dcl7tw6ooqcji" path="res://inventory_system/item/items/weapons/ranged/rail_gun.tres" id="19_anqtv"]
 [ext_resource type="Resource" uid="uid://0wftw3jw4axr" path="res://inventory_system/item/items/weapons/melee/sledgehammer.tres" id="22_cjmaq"]
+[ext_resource type="Resource" uid="uid://d111aiurijgut" path="res://inventory_system/item/items/weapons/ranged/sawed_off_shotgun.tres" id="22_relxv"]
 [ext_resource type="Resource" uid="uid://nbla6hg5wnrm" path="res://inventory_system/item/items/weapons/melee/meat_cleaver.tres" id="22_xryna"]
+[ext_resource type="Resource" uid="uid://b2kr47su4md0r" path="res://inventory_system/item/items/weapons/ranged/double_barrel_shotgun.tres" id="23_1od44"]
+[ext_resource type="Resource" uid="uid://cajb70andl0dv" path="res://inventory_system/item/items/weapons/ranged/auto_shotgun.tres" id="24_bklya"]
+[ext_resource type="Resource" uid="uid://dcajrau8v8tcr" path="res://inventory_system/item/items/weapons/ranged/pump_action_shotgun.tres" id="25_pq7is"]
 [ext_resource type="Resource" uid="uid://b2fcfmfb6ig5q" path="res://inventory_system/item/items/weapons/melee/sword.tres" id="26_p1erd"]
+
+[sub_resource type="Resource" id="Resource_0ggr1"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("12_a6pot")
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_qnfjt"]
 script = ExtResource("3_33d8w")
@@ -44,14 +51,14 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("6_5la0o")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_wsiq1"]
+[sub_resource type="Resource" id="Resource_gtc0f"]
 script = ExtResource("3_33d8w")
-item_data = ExtResource("2_6olif")
+item_data = ExtResource("22_cjmaq")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_u0gin"]
+[sub_resource type="Resource" id="Resource_fjhrc"]
 script = ExtResource("3_33d8w")
-item_data = ExtResource("9_m7qp6")
+item_data = ExtResource("22_xryna")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_jnhnt"]
@@ -89,16 +96,6 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("4_fap1n")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_bolpi"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("4_jgrr7")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_gtc0f"]
-script = ExtResource("3_33d8w")
-item_data = ExtResource("22_cjmaq")
-quantity = 1
-
 [sub_resource type="Resource" id="Resource_w8dub"]
 script = ExtResource("3_33d8w")
 item_data = ExtResource("2_nakjw")
@@ -114,14 +111,29 @@ script = ExtResource("3_33d8w")
 item_data = ExtResource("4_qvwix")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_0ggr1"]
+[sub_resource type="Resource" id="Resource_wsiq1"]
 script = ExtResource("3_33d8w")
-item_data = ExtResource("12_a6pot")
+item_data = ExtResource("2_6olif")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_fjhrc"]
+[sub_resource type="Resource" id="Resource_u0gin"]
 script = ExtResource("3_33d8w")
-item_data = ExtResource("22_xryna")
+item_data = ExtResource("22_relxv")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mlcoq"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("23_1od44")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_8nsci"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("24_bklya")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_bolpi"]
+script = ExtResource("3_33d8w")
+item_data = ExtResource("25_pq7is")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_016o0"]
@@ -131,4 +143,4 @@ quantity = 1
 
 [resource]
 script = ExtResource("1_1pcs5")
-slot_datas = Array[ExtResource("3_33d8w")]([SubResource("Resource_qnfjt"), SubResource("Resource_1psc3"), SubResource("Resource_3v8rq"), SubResource("Resource_fa5k7"), SubResource("Resource_wsiq1"), null, null, null, SubResource("Resource_u0gin"), SubResource("Resource_jnhnt"), SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_amggn"), null, SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_bolpi"), SubResource("Resource_gtc0f"), SubResource("Resource_w8dub"), SubResource("Resource_ksi6u"), SubResource("Resource_o1nu3"), SubResource("Resource_0ggr1"), SubResource("Resource_fjhrc"), null, null, SubResource("Resource_016o0")])
+slot_datas = Array[ExtResource("3_33d8w")]([SubResource("Resource_0ggr1"), SubResource("Resource_qnfjt"), SubResource("Resource_1psc3"), SubResource("Resource_3v8rq"), SubResource("Resource_fa5k7"), SubResource("Resource_gtc0f"), SubResource("Resource_fjhrc"), null, null, null, SubResource("Resource_jnhnt"), SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_amggn"), null, SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_rffwy"), SubResource("Resource_w8dub"), SubResource("Resource_ksi6u"), SubResource("Resource_o1nu3"), SubResource("Resource_wsiq1"), SubResource("Resource_u0gin"), SubResource("Resource_mlcoq"), SubResource("Resource_8nsci"), SubResource("Resource_bolpi"), SubResource("Resource_016o0")])

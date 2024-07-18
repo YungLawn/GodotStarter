@@ -3,8 +3,6 @@ extends CharacterBody2D
 signal toggle_inventory()
 
 var rng = RandomNumberGenerator.new()
-const SMOKE = preload("res://assets/FX/smoke.tscn")
-const BULLET_CASING = preload("res://assets/FX/bullet_casing.tscn")
 
 @onready var label = $Label
 @onready var label_2 = $Label2
@@ -20,7 +18,7 @@ const BULLET_CASING = preload("res://assets/FX/bullet_casing.tscn")
 @onready var attack_effect_spawn_point = %attack_effect_spawn_point
 @onready var ranged_ray = %ranged_ray
 @onready var melee_hit_area = %melee_hit_area
-@onready var line_trail = %line_trail
+#@onready var line_trail = %line_trail
 
 @export var inventorydata: InventoryData
 @export var equip_inventorydata: InventoryDataEquip
@@ -89,9 +87,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if held_item_data.has_method("reload"):
 			held_item_data.reload(self)
 	if Input.is_action_just_pressed("test1"):
+		#pass
 		$BaseSprite/Body.offset.y -= 1
 		$BaseSprite/Body.position.y += 1
 	if Input.is_action_just_pressed("test2"):
+		#pass
 		$BaseSprite/Body.offset.y += 1
 		$BaseSprite/Body.position.y -= 1
 	if targets_in_range:
@@ -113,31 +113,11 @@ func interact() -> void:
 		
 func heal(heal_value: int) -> void:
 	var random_number = randf_range(-1, 1)
-	health += heal_value
 	if held_item_data.has_method("heal"):
 		var tween = create_tween()
 		tween.tween_property(held_item, "rotation", held_item.rotation + (random_number * 1.5), 0.15).set_ease(Tween.EASE_OUT)
 		tween.tween_property(base_sprite, "modulate", base_sprite.modulate, 0.15).from(Color(2,2,2,1)).set_ease(Tween.EASE_OUT)
-
-func weapon_fired():
-	var smoke = SMOKE.instantiate()
-	get_tree().root.add_child(smoke)
-	smoke.global_position = attack_effect_spawn_point.global_position
-	smoke.rotation = projectile_spawn_point.rotation
-	smoke.amount = (held_item_data.recoil_strength.x) * 2
-	smoke.process_material.scale_max = (held_item_data.recoil_strength.x)
-	smoke.process_material.initial_velocity_max = (held_item_data.recoil_strength.x) * 10
-	smoke.emitting = true
-	smoke.finished.connect(func (): smoke.queue_free() )
-	
-	if held_item_data.ejects_casing:
-		var casing = BULLET_CASING.instantiate()
-		get_tree().root.add_child(casing)
-		casing.global_position = held_item.global_position
-		casing.rotation = projectile_spawn_point.rotation
-		casing.process_material.direction.y = item_position_flipper
-		casing.emitting = true
-		casing.finished.connect(func(): casing.queue_free())
+		health += heal_value
 
 func _physics_process(delta):
 	velocity = direction.normalized() * (SPEED * SPEED_MULTIPLER)
@@ -145,9 +125,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	direction = Input.get_vector("move_west", "move_east", "move_north", "move_south")
-	
-	label.text = str($BaseSprite/Body.offset.y)
-	label_2.text = str($BaseSprite/Body.position.y)
+
 	lookDirection = get_local_mouse_position()
 
 	lerp_strength = delta * (35- (held_item_weight * 5))
@@ -158,17 +136,16 @@ func _process(delta):
 	if held_item_data:
 		handle_held_item(delta)
 		
-	base_sprite.animate(direction, aim_point.position, SPEED_MULTIPLER)
-	base_sprite.handle_hands(hands_empty, held_item.global_position, aim_point.position)
+	base_sprite.animate(direction, aim_point.position - base_sprite.position, SPEED_MULTIPLER)
+	base_sprite.handle_hands(hands_empty, held_item.global_position, aim_point.position - base_sprite.position, held_item_data.hold_offset, lerp_strength)
 
 func handle_held_item(delta):
-	line_trail.pos = melee_hit_area.global_position
 	var local_item_pos: Vector2
 	var local_item_rot: float
 
 	#if aim_point.position.normalized().y < 0:
-		#arms.z_index = 0
-	#else: arms.z_index = 1
+		#base_sprite.move_child(bo)
+	#else: print("front")
 
 	if held_item_data.has_method("attack"):
 		if aim_point.position.normalized().x < 0:
@@ -181,7 +158,7 @@ func handle_held_item(delta):
 			item_position_flipper = -1
 		
 		if(held_item_data.has_method("shoot")):
-			held_item.offset.y = held_item_data.hold_point * item_position_flipper
+			held_item.offset.y = item_position_flipper * 0.5
 			local_item_rot = rad_to_deg(held_item.global_position.angle_to_point((aim_point.global_position + Vector2(0,1)))) - (held_item_data.rotation_offset * item_rotation_flipper)
 			local_item_pos = get_point_on_radius(pivot_point.global_position, aim_point.global_position,
 				(held_item_data.item_offset * item_position_flipper) * PI, held_item_data.hold_distance)
@@ -189,12 +166,12 @@ func handle_held_item(delta):
 			melee_hit_area.monitoring = false
 			ranged_ray.enabled = true
 			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.015 if held_item_data.muzzle_velocity < 3250 else position.distance_to(aim_point.position)
-			ranged_ray.position.y = item_position_flipper * 2
-			projectile_spawn_point.position.y = item_position_flipper * 2
-			attack_effect_spawn_point.position.y = item_position_flipper * 2
-			projectile_spawn_point.position.x = -held_item_data.muzzle_flash_offset * 0.5
+			ranged_ray.position.y = item_position_flipper
+			attack_effect_spawn_point.position.y = item_position_flipper
 			attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset
-			projectile_spawn_point.rotation = held_item.global_rotation
+			projectile_spawn_point.position.x = attack_effect_spawn_point.position.x - 10
+			projectile_spawn_point.position.y = item_position_flipper
+			#projectile_spawn_point.rotation = held_item.global_rotation
 			
 		elif(held_item_data.has_method("swing")):
 			if held_item_data.is_attacking:
@@ -221,10 +198,10 @@ func handle_held_item(delta):
 		ranged_ray.enabled = false
 		melee_hit_area.monitoring = false
 
-	#held_item.rotation_degrees = local_item_rot
-	held_item.rotation = lerp_angle(held_item.rotation, deg_to_rad(local_item_rot), lerp_strength  * 0.75)
-	#held_item.position = local_item_pos
-	held_item.position =  lerp(held_item.position, local_item_pos, lerp_strength * 3)
+	held_item.rotation_degrees = local_item_rot
+	#held_item.rotation = lerp_angle(held_item.rotation, deg_to_rad(local_item_rot), lerp_strength  * 1.5)
+	held_item.position = local_item_pos
+	#held_item.position =  lerp(held_item.position, local_item_pos, lerp_strength * 3)
 
 func handle_aim_point(delta, lerp_strength):
 	if targets_in_range:
@@ -237,8 +214,8 @@ func handle_aim_point(delta, lerp_strength):
 			if held_item_data.has_method("shoot"):
 				if held_item_data.is_reloading:
 					lerp_strength = lerp_strength * 0.01
-				if held_item_data.is_attacking:
-					lerp_strength = lerp_strength * (held_item_data.recoil_strength.x) * 0.2
+				#if held_item_data.is_attacking:
+					#lerp_strength = lerp_strength * (held_item_data.recoil_strength.x) * 0.2
 				if held_item.position.distance_to(lookDirection) < held_item_data.effective_range:
 					if held_item.position.distance_to(lookDirection) < 40:
 						aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 40  + base_sprite.position, lerp_strength * 0.75)
@@ -252,7 +229,7 @@ func handle_aim_point(delta, lerp_strength):
 					lerp_strength = lerp_strength * 0
 				aim_point.position = lerp(aim_point.position, (lookDirection).normalized() * held_item_data.effective_range * 0.7 + base_sprite.position, lerp_strength)
 		else:
-			aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 20, lerp_strength)
+			aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 20 + base_sprite.position, lerp_strength)
 		
 
 func handle_lock_on(delta, lerp_strength):
@@ -269,7 +246,7 @@ func handle_lock_on(delta, lerp_strength):
 		aim_point.modulate = lerp(aim_point.modulate, Color(1,1,1,0.75), delta * 10)
 
 	if targets_in_range:
-		print(aim_point.global_position.distance_to(targets_in_range[0].global_position))
+		#print(aim_point.global_position.distance_to(targets_in_range[0].global_position))
 		for target in targets_in_range:
 			if targets_in_range.find(target) == locked_target_index:
 				target.indicator.modulate = lerp(target.indicator.modulate, Color(1,1,0,0.75), delta * 10)

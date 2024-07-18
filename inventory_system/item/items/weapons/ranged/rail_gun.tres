@@ -5,9 +5,9 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2k27s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3tgr"]
 atlas = SubResource("CompressedTexture2D_wur4w")
-region = Rect2(159, 8, 1, 1)
+region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12x2j"]
 atlas = SubResource("CompressedTexture2D_wur4w")
@@ -17,23 +17,24 @@ region = Rect2(80, 16, 16, 16)
 script = ExtResource("1_1lwee")
 fire_mode = 1
 fire_rate = 10
+projectiles_per_shot = 1
 muzzle_velocity = 3250
 max_capacity = 1
 current_capacity = 1
 accuracy = 99.0
 reload_time = 5.0
 ejects_casing = true
-recoil_strength = Vector2(2, 1)
-muzzle_flash_offset = 8.0
-ammo_sprite = SubResource("AtlasTexture_2k27s")
+recoil_strength = Vector2(2, 0.25)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_t3tgr")
 damage = 95
 effective_range = 250.0
 name = "rail gun"
 description = "very cool"
 stackable = false
 rotatable = true
-item_offset = -0.025
-hold_point = 0.0
+item_offset = 0.0
+hold_offset = Vector2(0, 2)
 texture = SubResource("AtlasTexture_12x2j")
 rotation_offset = 0.0
 hold_distance = 9.0

@@ -3,9 +3,11 @@ class_name  ItemDataRangedWeapon
 
 const MUZZLE_FLASH = preload("res://assets/FX/GPU_muzzle_flash.tscn")
 const PROJECTILE = preload("res://inventory_system/item/items/weapons/ranged/projectile.tscn")
+const SMOKE = preload("res://assets/FX/smoke.tscn")
 
 @export var fire_mode: int
 @export var fire_rate: int
+@export var projectiles_per_shot: int = 1
 @export var muzzle_velocity: int
 @export var max_capacity: int
 @export var current_capacity: int
@@ -17,12 +19,13 @@ const PROJECTILE = preload("res://inventory_system/item/items/weapons/ranged/pro
 @export var muzzle_flash_offset: float
 @export var ammo_sprite: AtlasTexture
 
-var projectile: projectile
-var muzzle_flash: GPUParticles2D
+#var projectile: projectile
+#var muzzle_flash: GPUParticles2D
 var can_reload: bool = true
 var is_reloading: bool = false
 
 func use(target) -> void:
+	#print(target.get_node("BaseSprite").get_node("held_item"))
 	if can_attack:
 		shoot(target)
 
@@ -49,39 +52,50 @@ func shoot(target):
 	if current_capacity <= 0:
 		return
 	else:
-		target.weapon_fired()
 		can_attack = false
 		can_reload = false
 		is_attacking = true
 		current_capacity -= 1
-		
-		animate_shoot(target, target.held_item)
-		#animate_shoot(target, target.hold_point)
-		
-		projectile = PROJECTILE.instantiate()
-		target.get_tree().root.add_child(projectile)
-		muzzle_flash = MUZZLE_FLASH.instantiate()
-		target.get_tree().root.add_child(muzzle_flash)
-		
-		muzzle_flash.position = target.attack_effect_spawn_point.global_position
-		muzzle_flash.rotation = target.projectile_spawn_point.rotation
+
+		var muzzle_flash = MUZZLE_FLASH.instantiate()
+		target.held_item.add_child(muzzle_flash)
+		muzzle_flash.global_position = target.attack_effect_spawn_point.global_position
+		#muzzle_flash.rotation = target.projectile_spawn_point.rotation
 		muzzle_flash.amount = (recoil_strength.x) * 5
 		muzzle_flash.process_material.scale_max = (recoil_strength.x) * 0.25
 		muzzle_flash.process_material.initial_velocity_max = (recoil_strength.x) * 75
 		muzzle_flash.emitting = true
 		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
-		projectile.global_position = target.attack_effect_spawn_point.global_position 
-		projectile.sprite.texture = ammo_sprite
-		projectile.rotation = target.held_item.global_rotation
-		projectile.accuracy = accuracy * 0.01
-		projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
-		projectile.damage = damage
-		projectile.velocity = muzzle_velocity
+		var smoke = SMOKE.instantiate()
+		target.held_item.add_child(smoke)
+		smoke.global_position = target.attack_effect_spawn_point.global_position
+		#smoke.rotation = target.held_item.rotation
+		smoke.amount = (target.held_item_data.recoil_strength.x) * 2
+		smoke.process_material.scale_max = (target.held_item_data.recoil_strength.x)
+		smoke.process_material.initial_velocity_max = (target.held_item_data.recoil_strength.x) * 10
+		smoke.emitting = true
+		smoke.finished.connect(func (): smoke.queue_free() )
 		
-		if target.ranged_ray.is_colliding():
-			projectile.hit(target.ranged_ray.get_collider(), damage, projectile.direction)
+		for i in projectiles_per_shot :
+			var projectile = PROJECTILE.instantiate()
+			target.get_tree().root.add_child(projectile)
+			projectile.global_position = target.projectile_spawn_point.global_position 
+			projectile.sprite.texture = ammo_sprite
+			projectile.rotation = target.held_item.global_rotation
+			projectile.accuracy = accuracy
+			#projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)\
+				#+ target.aim_point.position * randf_range(-100 + accuracy, 100 - accuracy) * 0.0001
+			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
+			projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
+			projectile.damage = damage
+			projectile.velocity = muzzle_velocity
+		
+			#if target.ranged_ray.is_colliding():
+				#projectile.hit(target.ranged_ray.get_collider(), damage, projectile.direction)
 
+		animate_shoot(target, target.held_item)
+		
 		await target.get_tree().create_timer(fire_rate_time).timeout
 		can_attack = true
 		can_reload = true
@@ -89,7 +103,7 @@ func shoot(target):
 			
 		if fire_mode == 2:
 			if target.is_pressed:
-				use(target)
+				shoot(target)
 
 func animate_shoot(target, item):
 	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
@@ -99,7 +113,7 @@ func animate_shoot(target, item):
 	tween.set_parallel(true)
 	
 	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
-		 item.rotation + ((muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb)) * abs(target.aim_point.position.normalized().x))
+		 item.rotation + (muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
 	
 	tween.tween_property(item, "position", item.position, 0.15).from(
 		item.position - ranged_recoil )

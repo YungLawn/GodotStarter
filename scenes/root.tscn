@@ -19,7 +19,7 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ffvkc"]
 noise_type = 0
-seed = 1
+seed = 2
 frequency = 0.002
 fractal_octaves = 4
 fractal_lacunarity = 3.0

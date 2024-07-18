@@ -52,6 +52,7 @@ atlas = SubResource("CompressedTexture2D_wur4w")
 region = Rect2(167, 7, 2, 1)
 
 [node name="bullet_casing" type="GPUParticles2D"]
+y_sort_enabled = true
 position = Vector2(481, 257)
 rotation = 1.5708
 emitting = false

@@ -85,7 +85,6 @@ script = ExtResource("3_2c66w")
 
 [node name="pivot_point" type="Sprite2D" parent="BaseSprite"]
 unique_name_in_owner = true
-visible = false
 modulate = Color(1, 0, 1, 1)
 z_index = 5
 y_sort_enabled = true
@@ -133,17 +132,12 @@ texture = SubResource("AtlasTexture_chsx2")
 
 [node name="projectile_spawn_point" type="Sprite2D" parent="BaseSprite/held_item"]
 unique_name_in_owner = true
-visible = false
-z_index = 1
-position = Vector2(-10, 0)
-scale = Vector2(0.25, 0.25)
+position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_7js0h")
 
 [node name="attack_effect_spawn_point" type="Sprite2D" parent="BaseSprite/held_item"]
 unique_name_in_owner = true
-visible = false
-z_index = 1
-scale = Vector2(0.25, 0.25)
+position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_7js0h")
 
 [node name="ranged_ray" type="RayCast2D" parent="BaseSprite/held_item"]
@@ -218,7 +212,7 @@ offset = Vector2(0, -8)
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 2
 offset = Vector2(0, -10)
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="interact_ray" type="RayCast2D" parent="Camera2D"]
 target_position = Vector2(0, 100)

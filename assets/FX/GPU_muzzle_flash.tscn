@@ -38,7 +38,7 @@ atlas = SubResource("CompressedTexture2D_skvuc")
 region = Rect2(165, 7, 5, 5)
 
 [node name="GPU_muzzle_flash" type="GPUParticles2D"]
-z_index = 3
+show_behind_parent = true
 texture_filter = 1
 position = Vector2(358, 218)
 emitting = false

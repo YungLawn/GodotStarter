@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://b2kr47su4md0r"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_n0rc8"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnknd"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1v0a"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(16, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_n0rc8")
+fire_mode = 1
+fire_rate = 1000
+projectiles_per_shot = 10
+muzzle_velocity = 2000
+max_capacity = 2
+current_capacity = 2
+accuracy = 50.0
+reload_time = 3.5
+ejects_casing = false
+recoil_strength = Vector2(3, 0.25)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_gnknd")
+damage = 5
+effective_range = 80.0
+name = "Double Barrel Shotgun"
+description = "boomstick"
+stackable = false
+rotatable = true
+item_offset = 0.0
+hold_offset = Vector2(0, 2)
+texture = SubResource("AtlasTexture_l1v0a")
+rotation_offset = 0.0
+hold_distance = 9.0
+weight = 4.0

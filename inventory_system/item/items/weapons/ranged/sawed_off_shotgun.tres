@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://d111aiurijgut"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_vlor4"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_508vp"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ugex2"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5msu"]
+atlas = SubResource("CompressedTexture2D_ugex2")
+region = Rect2(32, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_vlor4")
+fire_mode = 1
+fire_rate = 1000
+projectiles_per_shot = 10
+muzzle_velocity = 1500
+max_capacity = 2
+current_capacity = 2
+accuracy = 1.0
+reload_time = 3.5
+ejects_casing = false
+recoil_strength = Vector2(3, 1)
+muzzle_flash_offset = 8.0
+ammo_sprite = SubResource("AtlasTexture_508vp")
+damage = 5
+effective_range = 60.0
+name = "Sawed Off Shotgun"
+description = "lil boomstick"
+stackable = false
+rotatable = true
+item_offset = 0.0
+hold_offset = Vector2(0, 4)
+texture = SubResource("AtlasTexture_h5msu")
+rotation_offset = 0.0
+hold_distance = 12.0
+weight = 3.5

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="ItemDataRangedWeapon" load_steps=6 format=3 uid="uid://cajb70andl0dv"]
+
+[ext_resource type="Script" path="res://inventory_system/item/items/weapons/ranged/item_data_ranged_weapon.gd" id="1_vstbc"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ecq5"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ugex2"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4cgn"]
+atlas = SubResource("CompressedTexture2D_ugex2")
+region = Rect2(48, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_vstbc")
+fire_mode = 2
+fire_rate = 100
+projectiles_per_shot = 10
+muzzle_velocity = 2000
+max_capacity = 12
+current_capacity = 12
+accuracy = 70.0
+reload_time = 2.5
+ejects_casing = true
+recoil_strength = Vector2(2, 0.25)
+muzzle_flash_offset = 9.0
+ammo_sprite = SubResource("AtlasTexture_5ecq5")
+damage = 3
+effective_range = 100.0
+name = ""
+description = ""
+stackable = false
+rotatable = true
+item_offset = 0.0
+hold_offset = Vector2(0, 3)
+texture = SubResource("AtlasTexture_g4cgn")
+rotation_offset = 0.0
+hold_distance = 9.0
+weight = 3.0
