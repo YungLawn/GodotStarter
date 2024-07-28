@@ -2,6 +2,8 @@ extends Node2D
 
 const TURN_LIMIT: float = 0.33
 
+@onready var player = $".."
+
 @onready var pivot_point = %pivot_point
 @onready var back_arm = $BackArm
 @onready var front_arm = $FrontArm
@@ -10,6 +12,7 @@ const TURN_LIMIT: float = 0.33
 @onready var back_arm_hold = %BackArmHold
 @onready var front_arm_hold = %FrontArmHold
 @onready var held_item = %held_item
+@onready var swing_peak = $swing_peak
 @onready var projectile_spawn_point = $Body/FrontArmHold/held_item/projectile_spawn_point
 @onready var attack_effect_spawn_point = $Body/FrontArmHold/held_item/attack_effect_spawn_point
 @onready var ranged_ray = $Body/FrontArmHold/held_item/ranged_ray
@@ -17,6 +20,9 @@ const TURN_LIMIT: float = 0.33
 @onready var collision_shape_2d = $Body/FrontArmHold/held_item/melee_hit_area/CollisionShape2D
 @onready var line_trail = $Body/FrontArmHold/held_item/melee_hit_area/line_trail
 @onready var legs = $Legs
+
+@onready var ik_back_arm = %ik_back_arm
+@onready var ik_front_arm = %ik_front_arm
 
 var idle_index: int = 30
 const TOTAL_FRAMES: int = 6
@@ -39,7 +45,7 @@ var arm_pos_east = [Vector2(0,-0), Vector2(0,-0)]
 var arm_pos_northeast = [Vector2(1.5,-0.5), Vector2(1.5,-0.5)]
 var arm_pos_southeast = [Vector2(-1.5,-0), Vector2(-1.5,-0)]
 var arm_pos_north = [Vector2(-3,-0), Vector2(3,-0)]
-var arm_pos_south = [Vector2(-3,-0), Vector2(3,-0)]
+var arm_pos_south = [Vector2(-4,-0), Vector2(4,-0)]
 
 func _ready():
 	back_arm.frame = idle_index
@@ -88,112 +94,153 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 	if hand_sempty:
 		back_arm.visible = true
 		front_arm.visible = true
-		back_arm_hold.visible = false
-		front_arm_hold.visible = false
+		ik_back_arm.visible = false
+		ik_front_arm.visible = false
 		
 	else:
 		back_arm.visible = false
 		front_arm.visible = false
-		back_arm_hold.visible = true
-		front_arm_hold.visible = true
+		ik_back_arm.visible = true
+		ik_front_arm.visible = true
 		
-		front_arm_hold.texture.region = FRONT_ARM_MID
-		back_arm_hold.texture.region = BACK_ARM_MID
+		#front_arm_hold.texture.region = FRONT_ARM_MID
+		#back_arm_hold.texture.region = BACK_ARM_MID
 
 		#move_child(held_item, body.get_index() + 1)
+		
+		#ik_back_arm.scale.x = 1
+		#ik_front_arm.scale.x = 1
 		
 		match y_frame_top:
 			0: 
 				#print("north")
-				front_arm_hold.position = arm_pos_north[0]
-				back_arm_hold.position = arm_pos_north[1]
+				#front_arm_hold.position = arm_pos_north[0]
+				#back_arm_hold.position = arm_pos_north[1]
 				
-				move_child(front_arm_hold,body.get_index() - 1)
+				ik_front_arm.position = arm_pos_north[0]
+				ik_back_arm.position = arm_pos_north[1]
+				
+				#if aim_point.x < 0:
+					#ik_back_arm.scale.x = -1
+					#ik_front_arm.scale.x = 1
+					#
+				#else:
+					#ik_back_arm.scale.x = 1
+					#ik_front_arm.scale.x = -1
+				
+				move_child(ik_front_arm,body.get_index() - 1)
 				move_child(held_item, body.get_index() - 2)
-				move_child(back_arm_hold,body.get_index() - 1)
+				move_child(ik_back_arm,body.get_index() - 1)
 				
-				front_arm_hold.flip_h = true
-				back_arm_hold.flip_h = true
+				#front_arm_hold.flip_h = true
+				#back_arm_hold.flip_h = true
 
 			4: 
 				#print("south")
-				front_arm_hold.position = arm_pos_south[0]
-				back_arm_hold.position = arm_pos_south[1]
+				#front_arm_hold.position = arm_pos_south[0]
+				#back_arm_hold.position = arm_pos_south[1]
+				
+				ik_front_arm.position = arm_pos_south[0]
+				ik_back_arm.position = arm_pos_south[1]
 
 				if aim_point.x < 0:
-					move_child(front_arm_hold,body.get_index() + 1)
+					#ik_back_arm.scale.x = 1
+					#ik_front_arm.scale.x = -1
+					
+					move_child(ik_front_arm,body.get_index() + 1)
 					move_child(held_item, body.get_index() + 2)
-					move_child(back_arm_hold,body.get_index() + 3)
+					move_child(ik_back_arm,body.get_index() + 3)
 				else:
-					move_child(front_arm_hold,body.get_index() + 3)
+					#ik_back_arm.scale.x = -1
+					#ik_front_arm.scale.x = 1
+					
+					move_child(ik_front_arm,body.get_index() + 3)
 					move_child(held_item, body.get_index() + 2)
-					move_child(back_arm_hold,body.get_index() + 1)
+					move_child(ik_back_arm,body.get_index() + 1)
 
-				front_arm_hold.flip_h = false
-				back_arm_hold.flip_h = false
+				#front_arm_hold.flip_h = false
+				#back_arm_hold.flip_h = false
 
 			2: 
 				#print("east")
-				front_arm_hold.position = arm_pos_east[0]
-				back_arm_hold.position = arm_pos_east[1]
+				#front_arm_hold.position = arm_pos_east[0]
+				#back_arm_hold.position = arm_pos_east[1]
 				
-				move_child(front_arm_hold,body.get_index() + 2)
+				ik_front_arm.position = arm_pos_east[0]
+				ik_back_arm.position = arm_pos_east[1]
+				
+				move_child(ik_front_arm,body.get_index() + 2)
 				move_child(held_item, body.get_index() + 1)
-				move_child(back_arm_hold,body.get_index() - 1)
+				move_child(ik_back_arm,body.get_index() - 1)
 				
-				if aim_point.x < 0:
-					front_arm_hold.flip_h = true
-					back_arm_hold.flip_h = false
-				else:
-					front_arm_hold.flip_h = false
-					back_arm_hold.flip_h = true
+				#if aim_point.x < 0:
+					#front_arm_hold.flip_h = true
+					#back_arm_hold.flip_h = false
+				#else:
+					#front_arm_hold.flip_h = false
+					#back_arm_hold.flip_h = true
 
 			3: 
 				#print("southeast")
-				front_arm_hold.position = arm_pos_southeast[0]
-				back_arm_hold.position = arm_pos_southeast[1]
+				#front_arm_hold.position = arm_pos_southeast[0]
+				#back_arm_hold.position = arm_pos_southeast[1]
 				
-				move_child(front_arm_hold,body.get_index() + 2)
+				ik_front_arm.position = arm_pos_southeast[0]
+				ik_back_arm.position = arm_pos_southeast[1]
+				
+				move_child(ik_front_arm,body.get_index() + 2)
 				move_child(held_item, body.get_index() + 1)
-				move_child(back_arm_hold,body.get_index() - 1)
+				move_child(ik_back_arm,body.get_index() - 1)
 				
 				front_arm_hold.texture.region = FRONT_ARM_FULL
 				
 				if aim_point.x < 0:
-					front_arm_hold.position = Vector2(-arm_pos_southeast[0].x, arm_pos_southeast[0].y)
-					back_arm_hold.position = Vector2(-arm_pos_southeast[1].x, arm_pos_southeast[1].y)
-					front_arm_hold.flip_h = true
-					back_arm_hold.flip_h = false
+					ik_front_arm.position = Vector2(-arm_pos_southeast[0].x, arm_pos_southeast[0].y)
+					ik_back_arm.position = Vector2(-arm_pos_southeast[1].x, arm_pos_southeast[1].y)
+					#front_arm_hold.flip_h = true
+					#back_arm_hold.flip_h = false
 				else:
-					front_arm_hold.flip_h = false
-					back_arm_hold.flip_h = true
+					pass
+					#front_arm_hold.flip_h = false
+					#back_arm_hold.flip_h = true
 
 			1: 
 				#print("northeast")
-				front_arm_hold.texture.region = FRONT_ARM_MIN
-				back_arm_hold.texture.region = BACK_ARM_MID
+				#front_arm_hold.texture.region = FRONT_ARM_MIN
+				#back_arm_hold.texture.region = BACK_ARM_MID
 				
-				move_child(front_arm_hold,body.get_index() + 2)
+				move_child(ik_front_arm,body.get_index() + 2)
 				move_child(held_item, body.get_index() - 2)
-				move_child(back_arm_hold,body.get_index() - 1)
+				move_child(ik_back_arm,body.get_index() - 1)
 				
 				back_arm_hold.visible = false
 				
 				if aim_point.x < 0:
-					front_arm_hold.position = Vector2(-arm_pos_northeast[0].x, arm_pos_northeast[0].y)
-					back_arm_hold.position = Vector2(-arm_pos_northeast[1].x, arm_pos_northeast[1].y)
-					front_arm_hold.flip_h = true
-					back_arm_hold.flip_h = true
+					#front_arm_hold.position = Vector2(-arm_pos_northeast[0].x, arm_pos_northeast[0].y)
+					#back_arm_hold.position = Vector2(-arm_pos_northeast[1].x, arm_pos_northeast[1].y)
+					
+					ik_front_arm.position = Vector2(-arm_pos_northeast[0].x, arm_pos_northeast[0].y)
+					ik_back_arm.position = Vector2(-arm_pos_northeast[1].x, arm_pos_northeast[1].y)
+				
+					#front_arm_hold.flip_h = true
+					#back_arm_hold.flip_h = true
 				else:
-					front_arm_hold.position = arm_pos_northeast[0]
-					back_arm_hold.position = arm_pos_northeast[1]
-					front_arm_hold.flip_h = false
-					back_arm_hold.flip_h = true
+					#front_arm_hold.position = arm_pos_northeast[0]
+					#back_arm_hold.position = arm_pos_northeast[1]
+					
+					ik_front_arm.position = arm_pos_northeast[0]
+					ik_back_arm.position = arm_pos_northeast[1]
+					
+					#front_arm_hold.flip_h = false
+					#back_arm_hold.flip_h = true
 
-		var rad_to_item = rad_to_deg(global_position.angle_to_point(held_item.global_position + offset))
+		#var rad_to_item = rad_to_deg(global_position.angle_to_point(held_item.global_position + offset))
+		
+		ik_back_arm.target = held_item.position - ik_back_arm.position
+		ik_front_arm.target = held_item.position - ik_front_arm.position
 
-		back_arm_hold.rotation_degrees = rad_to_item - 90
-		front_arm_hold.rotation_degrees = rad_to_item - 90
+		#back_arm_hold.rotation_degrees = rad_to_item - 90
+		#front_arm_hold.rotation_degrees = rad_to_item - 90
 
 func determineDirection(inputDirection, inputLookDirection):
 	if inputLookDirection.x < 0:

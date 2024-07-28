@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://cphd0ys0gei33"]
+
+[ext_resource type="Script" path="res://inverse_kinematics_test.gd" id="1_iwn7p"]
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_gqm0o"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(461, 251)
+script = ExtResource("1_iwn7p")
+
+[node name="center" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 1, 1)
+texture_filter = 1
+texture = ExtResource("2_gqm0o")
+
+[node name="hand_position" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+texture_filter = 1
+position = Vector2(0, 32)
+texture = ExtResource("2_gqm0o")
+
+[node name="arms" type="Node2D" parent="."]
+
+[node name="r_arm" type="Node2D" parent="arms"]
+unique_name_in_owner = true
+
+[node name="r_bicep" type="Line2D" parent="arms/r_arm"]
+unique_name_in_owner = true
+visible = false
+points = PackedVector2Array(24, 0, 0, 0)
+width = 5.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="r_forearm" type="Line2D" parent="arms/r_arm"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(24, 0)
+points = PackedVector2Array(24, 0, 0, 0)
+width = 5.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="r_shoulder" type="Sprite2D" parent="arms/r_arm"]
+unique_name_in_owner = true
+modulate = Color(0, 0.635294, 0.556863, 1)
+texture_filter = 1
+texture = ExtResource("2_gqm0o")
+
+[node name="r_elbow" type="Sprite2D" parent="arms/r_arm"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 0, 1)
+texture_filter = 1
+position = Vector2(24, 12)
+texture = ExtResource("2_gqm0o")
+
+[node name="r_hand" type="Sprite2D" parent="arms/r_arm"]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+position = Vector2(48, 0)
+texture = ExtResource("2_gqm0o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)

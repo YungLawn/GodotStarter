@@ -29,16 +29,16 @@ func use(target) -> void:
 	if can_attack:
 		shoot(target)
 
-func reload(target):
+func reload(target, direction_modifier):
 	if current_capacity < max_capacity and can_reload:
 		#print(target.held_item.flip_h, target.held_item.flip_v)
-		var reload_rotation_degrees = target.held_item.rotation_degrees - 360
+		#var reload_rotation_degrees = target.held_item.rotation_degrees + 90
 		var reload_multiplier = 0.5
 		can_reload = false
 		can_attack = false
 		is_reloading = true
 		var tween = target.create_tween()
-		tween.tween_property(target.held_item, "rotation_degrees", reload_rotation_degrees, reload_time * reload_multiplier).set_ease(Tween.EASE_OUT_IN)
+		tween.tween_property(target.held_item, "rotation_degrees", target.held_item.rotation_degrees - (360 * direction_modifier), reload_time * reload_multiplier).set_ease(Tween.EASE_OUT_IN)
 		await target.get_tree().create_timer(reload_time * reload_multiplier).timeout
 		current_capacity = max_capacity
 		can_attack = true
