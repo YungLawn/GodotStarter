@@ -19,6 +19,8 @@ func _process(_delta):
 	if player.held_item_data:
 		if player.held_item_data.has_method("shoot"):
 			ammo_count.text = str(player.held_item_data.current_capacity) + "/" + str(player.held_item_data.max_capacity)
+		else: ammo_count.text = ""
+			
 
 func _ready():
 	player.toggle_inventory.connect(toggle_inventory_interface)

@@ -47,7 +47,7 @@ TODO
 - items
 	- weapons
 		- ranged
-			- variation
+			*- accuracy
 			- check inv for ammo
 			*- recoil strength as Vector2 = hor and vert recoil adjusted independently
 			*- fire mode
@@ -60,7 +60,7 @@ TODO
 				*- targeting
 				*- damage
 				*- hit effect (shader?)
-				- shotgun
+				*- shotgun
 				- explosive projectile
 			*- reload
 				- better animation
@@ -70,7 +70,7 @@ TODO
 			- attack commitment
 				*- lock look direction while attacking
 				*- reduce movement speed while attacking
-				- slight forward movement on swing
+				*- slight forward movement on swing
 			*- swing
 				*- animation
 				*- direction

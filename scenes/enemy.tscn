@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://5nhvucguf0hj"]
 
 [ext_resource type="Script" path="res://scripts/enemy_controller.gd" id="1_6b4lo"]
-[ext_resource type="Script" path="res://scripts/SpriteAnimator.gd" id="2_yl2l7"]
+[ext_resource type="Script" path="res://scripts/sprite_animator.gd" id="2_yl2l7"]
 [ext_resource type="Texture2D" uid="uid://vvdq87fgim4y" path="res://assets/character/back_arm.tres" id="3_tkib5"]
 [ext_resource type="Texture2D" uid="uid://cfevufgcnqg5w" path="res://assets/character/front_arm.tres" id="4_mn5nu"]
 [ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="5_nnccr"]

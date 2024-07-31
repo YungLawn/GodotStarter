@@ -13,6 +13,7 @@ region = Rect2(160, 16, 16, 16)
 script = ExtResource("1_di4es")
 speed = 90.0
 handle_offset = 6.0
+hit_point = Vector2(7, 5)
 damage = 30
 effective_range = 14.0
 name = "meat cleaver"

@@ -13,6 +13,7 @@ region = Rect2(176, 32, 16, 16)
 script = ExtResource("1_0wwfn")
 speed = 70.0
 handle_offset = 5.0
+hit_point = Vector2(10, 8)
 damage = 70
 effective_range = 21.0
 name = "sledgehammer"

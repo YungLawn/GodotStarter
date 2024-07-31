@@ -13,6 +13,7 @@ region = Rect2(208, 16, 16, 16)
 script = ExtResource("1_1l6vc")
 speed = 80.0
 handle_offset = 6.0
+hit_point = Vector2(8, 8)
 damage = 30
 effective_range = 19.0
 name = "Metal Pipe"

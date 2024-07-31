@@ -24,6 +24,7 @@ PlayerManager="*res://player/player_manager.gd"
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/size/initial_position_type=0
+window/stretch/scale_mode="integer"
 
 [input]
 
@@ -120,5 +121,6 @@ cycle_target_down={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 viewport/hdr_2d=true

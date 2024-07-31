@@ -2,18 +2,18 @@
 
 [ext_resource type="Script" path="res://assets/FX/line_trail.gd" id="1_0yjal"]
 
-[sub_resource type="Curve" id="Curve_eh2uy"]
+[sub_resource type="Curve" id="Curve_fue7t"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_b6e5j"]
-colors = PackedColorArray(1, 1, 1, 0.0392157, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_ex5ei"]
+colors = PackedColorArray(1, 1, 1, 0.196078, 1, 1, 1, 0)
 
 [node name="line_trail" type="Line2D"]
 show_behind_parent = true
 width = 1.5
-width_curve = SubResource("Curve_eh2uy")
-gradient = SubResource("Gradient_b6e5j")
+width_curve = SubResource("Curve_fue7t")
+gradient = SubResource("Gradient_ex5ei")
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2

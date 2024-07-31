@@ -13,6 +13,7 @@ region = Rect2(176, 16, 16, 16)
 script = ExtResource("1_t0p7g")
 speed = 110.0
 handle_offset = 0.0
+hit_point = Vector2(10, 12)
 damage = 20
 effective_range = 25.0
 name = "Bow Staff"
