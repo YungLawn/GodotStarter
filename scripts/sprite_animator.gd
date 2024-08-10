@@ -73,7 +73,7 @@ func animate(inputDirection, inputLookDirection, SPEED) -> void:
 		front_arm.frame_coords = coords_top
 		legs.frame_coords = coords_bottom
 
-func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2, offset: Vector2, lerp_strength: float):
+func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2, offset: Vector2):
 	#print(aim_point.normalized())
 	if hand_sempty:
 		back_arm.visible = true
@@ -86,10 +86,21 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 		front_arm.visible = false
 		ik_back_arm.visible = true
 		ik_front_arm.visible = true
+		
+		if aim_point.x < 0:
+			ik_back_arm.flipped = true
+			ik_front_arm.flipped = true
+		else:
+			ik_back_arm.flipped = false
+			ik_front_arm.flipped = false
 
 		match y_frame_top:
 			0: 
 				#print("north")
+				
+				ik_front_arm.flipped = true
+				ik_back_arm.flipped = false
+				
 				ik_front_arm.position = arm_pos_north[0]
 				ik_back_arm.position = arm_pos_north[1]
 
@@ -99,6 +110,10 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 
 			4: 
 				#print("south")
+				
+				ik_front_arm.flipped = false
+				ik_back_arm.flipped = true
+				
 				ik_front_arm.position = arm_pos_south[0]
 				ik_back_arm.position = arm_pos_south[1]
 

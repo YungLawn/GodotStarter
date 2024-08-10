@@ -24,8 +24,6 @@ var rng = RandomNumberGenerator.new()
 @onready var line_trail = %line_trail
 
 @onready var pivot_point = %pivot_point
-@onready var aim_point = %aim_point
-@onready var crosshair = %crosshair
 @onready var lock_on_zone = $lock_on_zone
 @onready var collision_shape_2d = $lock_on_zone/CollisionShape2D
 
@@ -48,16 +46,15 @@ var locked_target_index: int = 0
 var is_pressed: bool
 var can_press: bool = true
 
-var health: int = 5
+var health: int = 0
 var hands_empty: bool = true
 var held_item_data: ItemData
 var held_item_weight: float = 0.0
 var item_rotation_flipper: int
 var item_position_flipper: int
-var lerp_strength: float
+var lerp_strength: float = 0.1
 
 var direction: Vector2 = Vector2(0,0)
-var lookDirection: Vector2 = Vector2(0,0)
 
 var swing_size: float
 
@@ -65,7 +62,6 @@ var test_bool: bool
 
 func _ready():
 	PlayerManager.player = self
-	#aim_point.global_position = lock_on_zone.global_position
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -121,26 +117,23 @@ func heal(heal_value: int) -> void:
 
 func _physics_process(delta):
 	direction = Input.get_vector("move_west", "move_east", "move_north", "move_south")
-
-	lookDirection = get_local_mouse_position()
 	
 	velocity = lerp(velocity, direction.normalized() * (SPEED * SPEED_MULTIPLER), delta * 50)
 	#velocity = direction.normalized() * (SPEED * SPEED_MULTIPLER)
 	move_and_slide()
 
 func _process(delta):
-
+	#print((Crosshair.global_position - global_position).normalized(), get_local_mouse_position().normalized())
 
 	lerp_strength = delta * (35- (held_item_weight * 5))
 
-	handle_aim_point(delta, lerp_strength)
-	handle_lock_on(delta, lerp_strength)
+	#handle_lock_on(delta)
 	
 	if held_item_data:
 		handle_held_item(delta)
 		
-	base_sprite.animate(direction, aim_point.position - base_sprite.position, SPEED_MULTIPLER)
-	base_sprite.handle_hands(hands_empty, held_item.global_position, aim_point.position - base_sprite.position, held_item_data.hold_offset, lerp_strength)
+	base_sprite.animate(direction, Crosshair.global_position - pivot_point.global_position, SPEED_MULTIPLER)
+	base_sprite.handle_hands(hands_empty, held_item.global_position, Crosshair.global_position - pivot_point.global_position, held_item_data.hold_offset)
 
 func handle_held_item(delta):
 	var local_item_pos: Vector2
@@ -150,7 +143,7 @@ func handle_held_item(delta):
 	held_item.offset.x = held_item_data.hold_offset.x
 
 	if held_item_data.has_method("attack"):
-		if aim_point.position.normalized().x < 0:
+		if (Crosshair.global_position - pivot_point.global_position).normalized().x < 0:
 			#held_item.scale.y = lerp(held_item.scale.y, -1.0, delta * 20)
 			held_item.flip_v = true
 			item_rotation_flipper = -1
@@ -163,13 +156,13 @@ func handle_held_item(delta):
 		
 		if(held_item_data.has_method("shoot")):
 			local_item_rot = rad_to_deg((held_item.global_position - Vector2(0, held_item_data.hold_offset.y))
-				.angle_to_point(aim_point.global_position))
-			local_item_pos = get_point_on_radius(pivot_point.global_position, aim_point.global_position,
+				.angle_to_point(Crosshair.global_position))
+			local_item_pos = get_point_on_radius(pivot_point.global_position, Crosshair.global_position,
 				(held_item_data.item_offset * item_position_flipper) * PI, held_item_data.hold_distance)
 
 			melee_hit_area.monitoring = false
 			ranged_ray.enabled = true
-			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.015 if held_item_data.muzzle_velocity < 3250 else position.distance_to(aim_point.position)
+			ranged_ray.target_position.x = held_item_data.muzzle_velocity * 0.015
 			ranged_ray.position.y = item_position_flipper
 			attack_effect_spawn_point.position.y = held_item_data.hold_offset.y * item_position_flipper
 			attack_effect_spawn_point.position.x = held_item_data.muzzle_flash_offset + held_item_data.hold_offset.x
@@ -179,7 +172,7 @@ func handle_held_item(delta):
 		elif(held_item_data.has_method("swing")):
 			if held_item_data.is_attacking:
 				SPEED_MULTIPLER = 0.1
-				direction = lookDirection
+				direction = (Crosshair.global_position - global_position)
 			else:
 				SPEED_MULTIPLER = lerp(SPEED_MULTIPLER, 1.0, lerp_strength)
 			handle_swing_plane()
@@ -189,12 +182,12 @@ func handle_held_item(delta):
 			melee_hit_area.position = Vector2(held_item_data.hit_point.x, held_item_data.hit_point.y * item_position_flipper)
 			swing_size = (0.15 * item_rotation_flipper) * PI  
 			local_item_rot = rad_to_deg((held_item.global_position - Vector2(0, held_item_data.hold_offset.y))
-				.angle_to_point(aim_point.global_position)) - (held_item_data.rotation_offset * item_rotation_flipper)
-			local_item_pos = get_point_on_radius(base_sprite.global_position, aim_point.global_position, 
+				.angle_to_point(Crosshair.global_position)) - (held_item_data.rotation_offset * item_rotation_flipper)
+			local_item_pos = get_point_on_radius(base_sprite.global_position, Crosshair.global_position, 
 				(held_item_data.item_offset * item_position_flipper) * PI, held_item_data.hold_distance)
 
 	else:
-		local_item_pos = get_point_on_radius(pivot_point.global_position, aim_point.global_position,
+		local_item_pos = get_point_on_radius(pivot_point.global_position, Crosshair.global_position,
 			(held_item_data.item_offset * item_position_flipper) * PI, held_item_data.hold_distance)
 		held_item.rotation = 0
 		held_item.flip_v = false
@@ -206,35 +199,7 @@ func handle_held_item(delta):
 	#held_item.position = local_item_pos
 	held_item.position =  lerp(held_item.position, local_item_pos, lerp_strength * 2) 
 
-func handle_aim_point(delta, lerp_strength):
-	if targets_in_range:
-		aim_point.global_position = lerp(aim_point.global_position,
-			targets_in_range[locked_target_index].global_position - velocity * held_item_weight * 0.065, 
-			lerp_strength * pow(0.5,2))
-	else:
-		targets_in_range.clear()
-		if held_item_data.has_method("attack"):
-			if held_item_data.has_method("shoot"):
-				if held_item_data.is_reloading:
-					lerp_strength = lerp_strength * 0.01
-				#if held_item_data.is_attacking:
-					#lerp_strength = lerp_strength * (held_item_data.recoil_strength.x) * 0.2
-				if held_item.position.distance_to(lookDirection) < held_item_data.effective_range:
-					if held_item.position.distance_to(lookDirection) < 40:
-						aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 40  + base_sprite.position, lerp_strength * 0.75)
-					else:
-						aim_point.position = lerp(aim_point.position, lookDirection.normalized() *  held_item.position.distance_to(lookDirection) + base_sprite.position, lerp_strength)
-				else:
-					aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range + base_sprite.position, lerp_strength)
-					
-			elif held_item_data.has_method("swing"):
-				if held_item_data.is_attacking:
-					lerp_strength = lerp_strength * 0
-				aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range + base_sprite.position, lerp_strength)
-		else:
-			aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 20 + base_sprite.position, lerp_strength)
-
-func handle_lock_on(delta, lerp_strength):
+func handle_lock_on(delta):
 	if held_item_data.has_method("attack"):
 		collision_shape_2d.shape.radius = held_item_data.effective_range
 	else:
@@ -242,13 +207,12 @@ func handle_lock_on(delta, lerp_strength):
 
 	if can_lock_on and !hands_empty:
 		lock_on_zone.monitoring = true
-		aim_point.modulate = lerp(aim_point.modulate, Color(1,1,0,0.75), delta * 10)
+		Crosshair.modulate = lerp(Crosshair.modulate, Color(1,1,0,0.75), delta * 10)
 	else:
 		lock_on_zone.monitoring = false
-		aim_point.modulate = lerp(aim_point.modulate, Color(1,1,1,0.75), delta * 10)
+		Crosshair.modulate = lerp(Crosshair.modulate, Color(1,1,1,0.75), delta * 10)
 
 	if targets_in_range:
-		#print(aim_point.global_position.distance_to(targets_in_range[0].global_position))
 		for target in targets_in_range:
 			if targets_in_range.find(target) == locked_target_index:
 				target.indicator.modulate = lerp(target.indicator.modulate, Color(1,1,0,0.75), delta * 10)
@@ -256,11 +220,11 @@ func handle_lock_on(delta, lerp_strength):
 				target.indicator.modulate = lerp(target.indicator.modulate, Color(1,1,1,0.75), delta * 10)
 
 func handle_swing_plane():
-	swing_start.position = get_point_on_radius(pivot_point.global_position, aim_point.global_position, 
+	swing_start.position = get_point_on_radius(pivot_point.global_position, Crosshair.global_position, 
 		(swing_size ), held_item_data.hold_distance)
-	swing_peak.position = get_point_on_radius(pivot_point.global_position, aim_point.global_position,  
+	swing_peak.position = get_point_on_radius(pivot_point.global_position, Crosshair.global_position,  
 		0.0 * item_rotation_flipper, held_item_data.hold_distance * 1.1)
-	swing_end.position = get_point_on_radius(pivot_point.global_position, aim_point.global_position, 
+	swing_end.position = get_point_on_radius(pivot_point.global_position, Crosshair.global_position, 
 		(-swing_size), held_item_data.hold_distance * 0.9)
 
 func get_point_on_radius(center: Vector2, direction: Vector2, rotation_offset: float, radius):

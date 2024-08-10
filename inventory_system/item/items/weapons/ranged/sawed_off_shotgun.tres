@@ -41,4 +41,4 @@ hold_offset = Vector2(4, 2)
 texture = SubResource("AtlasTexture_h5msu")
 rotation_offset = 0.0
 hold_distance = 8.0
-weight = 3.5
+weight = 3.0

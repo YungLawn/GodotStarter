@@ -84,8 +84,6 @@ func shoot(target):
 			projectile.sprite.texture = ammo_sprite
 			projectile.rotation = target.held_item.global_rotation
 			projectile.accuracy = accuracy
-			#projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)\
-				#+ target.aim_point.position * randf_range(-100 + accuracy, 100 - accuracy) * 0.0001
 			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
 			projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
 			projectile.damage = damage
@@ -106,14 +104,15 @@ func shoot(target):
 				shoot(target)
 
 func animate_shoot(target, item):
-	var ranged_recoil = target.aim_point.position.normalized() * recoil_strength.x
-	var muzzle_climb = 0.15 * recoil_strength.y
+	var aim_point = (Crosshair.global_position - target.global_position).normalized()
+	var ranged_recoil = aim_point * recoil_strength.x
+	var muzzle_climb = 0.0 * recoil_strength.y
 	var tween = target.create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
 	
 	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
-		 item.rotation + (muzzle_climb if target.aim_point.position.normalized().x < 0 else -muzzle_climb))
+		 item.rotation + (muzzle_climb if aim_point.x < 0 else -muzzle_climb))
 	
 	tween.tween_property(item, "position", item.position, 0.15).from(
 		item.position - ranged_recoil )

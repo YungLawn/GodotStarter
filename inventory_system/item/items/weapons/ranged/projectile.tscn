@@ -12,7 +12,7 @@ region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="Gradient" id="Gradient_5ce1o"]
 offsets = PackedFloat32Array(0.00423729, 1)
-colors = PackedColorArray(1, 1, 1, 0.0392157, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0.0784314, 1, 1, 1, 0)
 
 [node name="projectile" type="Node2D"]
 show_behind_parent = true

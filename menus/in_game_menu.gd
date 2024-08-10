@@ -12,7 +12,7 @@ func _on_back_pressed():
 	get_tree().change_scene_to_file("res://menus/main_menu.tscn")
 	
 func _on_toggle_map_gen_pressed():
-	print(player)
+	#print(player)
 	var map_gen = $MarginContainer/VBoxContainer/map_gen_menu
 	if map_gen.visible:
 		map_gen.visible = false

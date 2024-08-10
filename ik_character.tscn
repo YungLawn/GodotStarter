@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://biq637ndpvvfg"]
+
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="1_gg6l8"]
+[ext_resource type="Script" path="res://ik_character.gd" id="1_lk5ex"]
+[ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="2_270en"]
+[ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://player/ik_leg.tscn" id="4_88xkp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnt8n"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oafka"]
+load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sqax"]
+atlas = SubResource("CompressedTexture2D_oafka")
+region = Rect2(64, 0, 16, 16)
+
+[node name="Node2D" type="CharacterBody2D"]
+position = Vector2(466, 248)
+script = ExtResource("1_lk5ex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dnt8n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="front_arm" parent="Sprite2D" instance=ExtResource("1_gg6l8")]
+
+[node name="back_arm" parent="Sprite2D" instance=ExtResource("1_gg6l8")]
+
+[node name="body" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("2_270en")
+
+[node name="head" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -9)
+texture = SubResource("AtlasTexture_6sqax")
+
+[node name="Node2D" type="Node2D" parent="Sprite2D"]
+
+[node name="front_leg" parent="Sprite2D/Node2D" instance=ExtResource("4_88xkp")]
+
+[node name="back_leg" parent="Sprite2D/Node2D" instance=ExtResource("4_88xkp")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)

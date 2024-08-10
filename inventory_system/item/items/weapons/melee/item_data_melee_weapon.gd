@@ -35,11 +35,6 @@ func swing(target):
 	can_attack = false
 	
 	animate_swing(target, target.held_item)
-	
-	
-func move_player(player):
-	var tween = player.create_tween()
-	tween.tween_property(player, "position", player.position + (player.aim_point.position - player.base_sprite.position).normalized(), 0.15)
 
 func move_item(value: float):
 	target.label.text = str(current_swing_time)
@@ -64,7 +59,7 @@ func animate_swing(target, item):
 		tween.tween_property(item, "rotation_degrees", item.rotation_degrees + (30 + rotation_offset) * target.item_rotation_flipper, 
 			swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT)
 			
-		tween.tween_property(target, "position", target.position + (target.aim_point.position - target.base_sprite.position).normalized() * weight * 0.75, swing_time * 2).set_delay(swing_time)
+		tween.tween_property(target, "position", target.position + (Crosshair.global_position - target.global_position).normalized() * weight * 0.75, swing_time * 2).set_delay(swing_time)
 		
 		tween.tween_method(move_item, 0.0, 1.0,
 			swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT).finished.connect(func(): 

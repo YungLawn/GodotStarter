@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://kn0cyyo34r6v"]
+[gd_scene load_steps=28 format=3 uid="uid://kn0cyyo34r6v"]
 
 [ext_resource type="Script" path="res://player/player_controller.gd" id="1_2jdc0"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://scripts/sprite_animator.gd" id="4_txr6b"]
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
-[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="8_fm3pl"]
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://ik_arm.tscn" id="9_x1r0c"]
 [ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="10_36vei"]
+[ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="13_j8sn6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]
 
@@ -124,10 +125,10 @@ hframes = 6
 vframes = 6
 frame = 12
 
-[node name="ik_back_arm" parent="BaseSprite" instance=ExtResource("8_fm3pl")]
+[node name="ik_back_arm" parent="BaseSprite" instance=ExtResource("9_x1r0c")]
 unique_name_in_owner = true
 position = Vector2(4, 0)
-segment_width = 4.0
+arm_width = 4.0
 color = Color(1, 0, 0.443137, 1)
 segment_length = 5.0
 
@@ -185,10 +186,10 @@ position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_nbw1t")
 offset = Vector2(0, 7)
 
-[node name="ik_front_arm" parent="BaseSprite" instance=ExtResource("8_fm3pl")]
+[node name="ik_front_arm" parent="BaseSprite" instance=ExtResource("9_x1r0c")]
 unique_name_in_owner = true
 position = Vector2(-4, 0)
-segment_width = 4.0
+arm_width = 4.0
 color = Color(0.0431373, 0.462745, 1, 1)
 segment_length = 5.0
 
@@ -246,6 +247,15 @@ offset_right = 17.0
 offset_bottom = 34.0
 text = "Player"
 label_settings = SubResource("LabelSettings_cbyhx")
+
+[node name="aim_point" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 5
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, -3)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("13_j8sn6")
 
 [node name="lock_on_zone" type="Area2D" parent="."]
 z_index = 5
