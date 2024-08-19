@@ -40,5 +40,5 @@ item_offset = 0.0
 hold_offset = Vector2(3.5, 3)
 texture = SubResource("AtlasTexture_onw34")
 rotation_offset = 0.0
-hold_distance = 8.0
+hold_distance = 7.0
 weight = 3.5

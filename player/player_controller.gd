@@ -60,8 +60,8 @@ var swing_size: float
 
 var test_bool: bool
 
-func _ready():
-	PlayerManager.player = self
+#func _ready():
+	#PlayerManager.player = self
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -132,8 +132,8 @@ func _process(delta):
 	if held_item_data:
 		handle_held_item(delta)
 		
-	base_sprite.animate(direction, Crosshair.global_position - pivot_point.global_position, SPEED_MULTIPLER)
-	base_sprite.handle_hands(hands_empty, held_item.global_position, Crosshair.global_position - pivot_point.global_position, held_item_data.hold_offset)
+	base_sprite.animate(direction, Crosshair.global_position - pivot_point.global_position)
+	base_sprite.handle_hands(hands_empty, Crosshair.global_position - pivot_point.global_position, held_item.position)
 
 func handle_held_item(delta):
 	var local_item_pos: Vector2
@@ -232,7 +232,8 @@ func get_point_on_radius(center: Vector2, direction: Vector2, rotation_offset: f
 	return Vector2(radius * cos(radian), radius * sin(radian))
 	
 func _on_hot_bar_set_selected_slot(index):
-	if inventorydata.slot_datas[index]:
+	#print("!!")
+	if inventorydata.slot_datas[index]: 
 		held_item_data = inventorydata.slot_datas[index].item_data
 		hands_empty = false
 		held_item.texture = held_item_data.texture

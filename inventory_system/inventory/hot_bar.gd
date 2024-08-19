@@ -72,4 +72,3 @@ func populate_hot_bar(inventory_data: InventoryData) -> void:
 			slot.set_slot_data(slot_data)
 			#print(slot_data.quantity)
 			
-

@@ -81,4 +81,3 @@ func generate_world():
 	tile_map.set_cells_terrain_connect(ground_1_layer, sand_arr, 3,0)
 	tile_map.set_cells_terrain_connect(ground_1_layer, grass_arr, 1,0)
 	#tile_map.set_cells_terrain_connect(cliff_layer,cliff_arr, 4,0)
-

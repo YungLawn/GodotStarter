@@ -53,16 +53,16 @@ func unflipLookSprites():
 	front_arm.flip_h = false
 	body.flip_h = false
 
-func animate(inputDirection, inputLookDirection, SPEED) -> void:
+func animate(inputDirection, inputLookDirection) -> void:
 	if timer > framerate:
 		timer -= (framerate * framerate_multiplier)
-		if(inputDirection == Vector2.ZERO or SPEED == 0.0):
+		if(inputDirection == Vector2.ZERO):
 			x_frame = 3
 		else:
 			x_frame = (x_frame + 1) % TOTAL_FRAMES
 		
 	determineDirection(inputDirection, inputLookDirection.normalized())
-	if(inputDirection == Vector2.ZERO or SPEED == 0.0):
+	if(inputDirection == Vector2.ZERO):
 		back_arm.frame = idle_index
 		front_arm.frame = idle_index
 		legs.frame = idle_index
@@ -73,7 +73,7 @@ func animate(inputDirection, inputLookDirection, SPEED) -> void:
 		front_arm.frame_coords = coords_top
 		legs.frame_coords = coords_bottom
 
-func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2, offset: Vector2):
+func handle_hands(hand_sempty: bool, aim_point: Vector2, hand_target: Vector2):
 	#print(aim_point.normalized())
 	if hand_sempty:
 		back_arm.visible = true
@@ -161,8 +161,8 @@ func handle_hands(hand_sempty: bool, look_direction: Vector2, aim_point: Vector2
 					ik_front_arm.position = arm_pos_northeast[0]
 					ik_back_arm.position = arm_pos_northeast[1]
 
-		ik_back_arm.target = held_item.position - ik_back_arm.position
-		ik_front_arm.target = held_item.position - ik_front_arm.position
+		ik_back_arm.target = hand_target - ik_back_arm.position
+		ik_front_arm.target = hand_target - ik_front_arm.position
 
 func determineDirection(inputDirection, inputLookDirection):
 	if inputLookDirection.x < 0:
@@ -241,4 +241,3 @@ func determineDirection(inputDirection, inputLookDirection):
 		y_frame_bottom = 2
 		if(inputDirection.x < 0):
 			flipLegs()
-

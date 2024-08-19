@@ -82,7 +82,7 @@ func shoot(target):
 			target.get_tree().root.add_child(projectile)
 			projectile.global_position = target.projectile_spawn_point.global_position 
 			projectile.sprite.texture = ammo_sprite
-			projectile.rotation = target.held_item.global_rotation
+			projectile.rotation = target.held_item.rotation
 			projectile.accuracy = accuracy
 			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
 			projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
@@ -104,9 +104,9 @@ func shoot(target):
 				shoot(target)
 
 func animate_shoot(target, item):
-	var aim_point = (Crosshair.global_position - target.global_position).normalized()
+	var aim_point = (Crosshair.global_position - item.global_position).normalized()
 	var ranged_recoil = aim_point * recoil_strength.x
-	var muzzle_climb = 0.0 * recoil_strength.y
+	var muzzle_climb = 0.1 * recoil_strength.y
 	var tween = target.create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)

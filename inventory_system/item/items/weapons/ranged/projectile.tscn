@@ -33,6 +33,7 @@ collide_with_areas = true
 
 [node name="sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0.705882, 1)
+y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 texture = SubResource("AtlasTexture_3ylpj")
 

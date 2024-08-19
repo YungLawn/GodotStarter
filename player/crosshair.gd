@@ -40,4 +40,3 @@ func _process(delta):
 				#aim_point.position = lerp(aim_point.position, lookDirection.normalized() * held_item_data.effective_range + base_sprite.position, lerp_strength)
 		#else:
 			#aim_point.position = lerp(aim_point.position, lookDirection.normalized() * 20 + base_sprite.position, lerp_strength)
-

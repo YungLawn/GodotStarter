@@ -40,7 +40,3 @@ func bezier(t, p0, p1, p2):
 func swing(value: float):
 	current_time = value
 	sprite.position = bezier(current_time, p0, p1, p2)
-
-
-
-

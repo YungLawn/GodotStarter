@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://biq637ndpvvfg"]
+
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="1_gg6l8"]
+[ext_resource type="Script" path="res://ik_character.gd" id="1_lk5ex"]
+[ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="2_270en"]
+[ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://player/ik_leg.tscn" id="4_88xkp"]
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="5_nykaw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnt8n"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oafka"]
+load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sqax"]
+atlas = SubResource("CompressedTexture2D_oafka")
+region = Rect2(64, 0, 16, 16)
+
+[node name="Node2D" type="CharacterBody2D"]
+position = Vector2(466, 248)
+script = ExtResource("1_lk5ex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dnt8n")
+
+[node name="main_sprite" type="Sprite2D" parent="."]
+
+[node name="body" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+texture = ExtResource("2_270en")
+
+[node name="front_arm" parent="main_sprite" instance=ExtResource("1_gg6l8")]
+unique_name_in_owner = true
+position = Vector2(-4, -6)
+segment_length = 5.0
+
+[node name="back_arm" parent="main_sprite" instance=ExtResource("1_gg6l8")]
+unique_name_in_owner = true
+position = Vector2(4, -6)
+segment_length = 5.0
+
+[node name="head" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+position = Vector2(0, -9)
+texture = SubResource("AtlasTexture_6sqax")
+
+[node name="front_leg" parent="main_sprite" instance=ExtResource("4_88xkp")]
+unique_name_in_owner = true
+position = Vector2(-2, 2)
+
+[node name="back_leg" parent="main_sprite" instance=ExtResource("4_88xkp")]
+unique_name_in_owner = true
+position = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="hand_target" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_nykaw")

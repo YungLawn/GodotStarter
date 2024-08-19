@@ -2,7 +2,7 @@ extends Node2D
 
 const PickUp = preload("res://assets/pickups/pick_up.tscn")
 
-@onready var player = $player
+@onready var player = $ik_player
 @onready var inventory_interface = $UI/inventory_interface
 @onready var hot_bar = $UI/HotBar
 @onready var label = $UI/Label
@@ -47,6 +47,8 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 
 func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PickUp.instantiate()
+	pick_up.position = player.pivot_point.global_position
+	pick_up.target_pos = player.pivot_point.global_position + player.look_direction.normalized() * 30
 	pick_up.slot_data = slot_data
-	pick_up.position = player.position + Vector2(10,-10)
+	#pick_up.position = player.position + Vector2(20,-20)
 	add_child(pick_up)

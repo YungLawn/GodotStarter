@@ -4,18 +4,29 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ywpxg"]
 
-[node name="PickUp" type="Node2D"]
+[node name="PickUp" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 2
+mass = 0.01
+gravity_scale = 0.0
 script = ExtResource("1_u1dwv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+position = Vector2(0, 2)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_ywpxg")
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+scale = Vector2(1.16595, 1)
 shape = SubResource("CircleShape2D_ywpxg")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

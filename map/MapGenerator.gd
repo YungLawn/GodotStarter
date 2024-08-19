@@ -48,4 +48,3 @@ func generate_chunk(position, seed, size):
 	#set_cells_terrain_connect(0, water, 0, 1)
 
 	
-

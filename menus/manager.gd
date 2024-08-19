@@ -6,4 +6,3 @@ func _run():
 	var player = get_scene().get_child(1)
 	#get_scene().get_child(0).generate_chunk(player.position)
 	print("!!!")
-

@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=24 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dhptvycu3kb8x" path="res://map/proc_gen_world.tscn" id="2_eyhex"]
-[ext_resource type="PackedScene" uid="uid://kn0cyyo34r6v" path="res://player/player.tscn" id="2_m3hkl"]
-[ext_resource type="PackedScene" uid="uid://cy8wqhxqdmi03" path="res://player/player_camera.tscn" id="4_uk1wi"]
+[ext_resource type="PackedScene" uid="uid://biq637ndpvvfg" path="res://ik_character.tscn" id="4_2upl1"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="PackedScene" uid="uid://gp2oduhphuld" path="res://inventory_system/inventory/slot.tscn" id="8_dai3w"]
@@ -21,7 +20,7 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ffvkc"]
 noise_type = 0
-seed = 2
+seed = 420
 frequency = 0.002
 fractal_octaves = 4
 fractal_lacunarity = 3.0
@@ -58,10 +57,8 @@ script = ExtResource("1_1k8x1")
 position = Vector2(480, 270)
 noise_texture = SubResource("NoiseTexture2D_smkpp")
 
-[node name="player" parent="." instance=ExtResource("2_m3hkl")]
-unique_name_in_owner = true
-texture_filter = 1
-position = Vector2(416, 150)
+[node name="ik_player" parent="." instance=ExtResource("4_2upl1")]
+position = Vector2(456, 243)
 
 [node name="crosshair" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -72,12 +69,6 @@ position = Vector2(464, 141)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("11_7th5b")
 script = ExtResource("18_1y51b")
-
-[node name="player_camera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_uk1wi")]
-position = Vector2(416, 147)
-position_smoothing_speed = 50.0
-player = NodePath("../player")
-smoothing_factor = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -227,4 +218,4 @@ environment = SubResource("Environment_ctrkl")
 [connection signal="visibility_changed" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_visibility_changed"]
 [connection signal="mouse_entered" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_entered"]
 [connection signal="mouse_exited" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_exited"]
-[connection signal="set_selected_slot" from="UI/HotBar" to="player" method="_on_hot_bar_set_selected_slot"]
+[connection signal="set_selected_slot" from="UI/HotBar" to="ik_player" method="_on_hot_bar_set_selected_slot"]

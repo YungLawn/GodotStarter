@@ -19,15 +19,15 @@ load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5
 atlas = SubResource("CompressedTexture2D_wur4w")
 region = Rect2(0, 32, 16, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x86mg"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fs4rd"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7js0h"]
-atlas = SubResource("CompressedTexture2D_x86mg")
+atlas = SubResource("CompressedTexture2D_fs4rd")
 region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ie6oe"]
-atlas = SubResource("CompressedTexture2D_x86mg")
+atlas = SubResource("CompressedTexture2D_fs4rd")
 region = Rect2(208, 32, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4rwh"]
@@ -47,15 +47,15 @@ load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc
 atlas = SubResource("CompressedTexture2D_gh26a")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e7jgt"]
 load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h3p3g"]
-atlas = SubResource("CompressedTexture2D_skvuc")
+atlas = SubResource("CompressedTexture2D_e7jgt")
 region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jl8fh"]
-atlas = SubResource("CompressedTexture2D_skvuc")
+atlas = SubResource("CompressedTexture2D_e7jgt")
 region = Rect2(165, 7, 5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67ayr"]
@@ -90,7 +90,6 @@ script = ExtResource("4_txr6b")
 
 [node name="pivot_point" type="Sprite2D" parent="BaseSprite"]
 unique_name_in_owner = true
-visible = false
 modulate = Color(1, 0, 1, 1)
 z_index = 5
 y_sort_enabled = true
