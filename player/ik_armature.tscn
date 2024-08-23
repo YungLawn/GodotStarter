@@ -21,6 +21,7 @@ unique_name_in_owner = true
 
 [node name="segment_1" type="Line2D" parent="armature"]
 unique_name_in_owner = true
+use_parent_material = true
 points = PackedVector2Array(0, 0, 0, 0)
 width_curve = SubResource("Curve_ewfjf")
 begin_cap_mode = 2
@@ -28,6 +29,7 @@ end_cap_mode = 2
 
 [node name="segment_2" type="Line2D" parent="armature"]
 unique_name_in_owner = true
+use_parent_material = true
 points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0
 width_curve = SubResource("Curve_jdtki")

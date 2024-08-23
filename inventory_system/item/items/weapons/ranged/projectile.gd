@@ -3,9 +3,7 @@ extends Node2D
 class_name projectile
 
 @onready var rng = RandomNumberGenerator.new()
-
-@onready var traveling_ray = $traveling_ray
-@onready var sprite = $sprite
+@onready var hit_detection: RayCast2D = %hit_detection
 
 var velocity: int
 var direction: Vector2
@@ -13,13 +11,12 @@ var damage: int
 var texture: AtlasTexture
 var accuracy: float
 var accuracy_modifier
-
-func _ready():
-	sprite.visible = false
+#func _ready():
+	#visible = false
 
 func _process(delta):
 	var calc_velo: float = velocity * delta * 0.6
-	move(calc_velo, traveling_ray)
+	move(calc_velo)
 	
 func hit(target, damage, direction):
 	#print(target.name)
@@ -29,17 +26,16 @@ func hit(target, damage, direction):
 		target.take_damage(damage, direction)
 	queue_free()
 
-func move(velo: float, ray: RayCast2D):
+func move(velo: float):
 	global_position += (direction  * velo)
-	ray.target_position.x = velo * 2
+	hit_detection.target_position.x = velo * 1.5
 	#ray.position.x = -velo * 1.5
-	await get_tree().create_timer(0.01).timeout
-	sprite.visible = true
-	if traveling_ray.is_colliding():
-		hit(traveling_ray.get_collider(), damage, direction)
+	await get_tree().create_timer(abs(velocity - 6000) * 0.0000125).timeout
+	visible = true
+	if hit_detection.is_colliding():
+		hit(hit_detection.get_collider(), damage, direction)
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	#print("gone")
-	await get_tree().create_timer(5).timeout
 	queue_free()

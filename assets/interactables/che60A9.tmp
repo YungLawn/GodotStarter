@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdh05i8slqqbg"]
+
+[ext_resource type="Script" path="res://scripts/chest.gd" id="1_denjq"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_x7vaj"]
+[ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="2_1e82x"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttdde"]
+atlas = SubResource("CompressedTexture2D_wur4w")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66bhq"]
+shader = ExtResource("1_x7vaj")
+shader_parameter/outline_color = Color(1, 1, 0.352941, 1)
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7c6yi"]
+radius = 20.0
+
+[node name="Chest" type="StaticBody2D" groups=["damageable", "external_inventory"]]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_denjq")
+
+[node name="indicator" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, 8)
+scale = Vector2(1.80119, 1.67995)
+texture = SubResource("AtlasTexture_ttdde")
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_66bhq")
+position = Vector2(0, 10.6667)
+texture = ExtResource("2_1e82x")
+offset = Vector2(0, -10.6667)
+hframes = 16
+vframes = 22
+frame = 270
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-12, 2.66667, -12, 6.66667, -2.66667, 10.6667, 6.66667, 12, 12, 9.33333, 12, 2.66667, 9.33333, 1.33333, -8, 1.33333)
+
+[node name="hit_box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hit_box"]
+visible = false
+polygon = PackedVector2Array(-12, -4, -12, 6.66667, -2.66667, 10.6667, 6.66667, 12, 12, 9.33333, 12, -4, 9.33333, -6.66667, -2.66667, -10.6667, -8, -10.6667)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7c6yi")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

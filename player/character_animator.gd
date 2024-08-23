@@ -134,7 +134,7 @@ func handle_hands(direction: Vector2, look_direction: Vector2):
 				
 		"ne":
 			#print("ne")
-			move_child(held_item, body.get_index() - 2)
+			move_child(held_item, body.get_index() - 1)
 			if direction.y > 0:
 				front_leg.back_pedal = true
 				back_leg.back_pedal = true
@@ -142,14 +142,14 @@ func handle_hands(direction: Vector2, look_direction: Vector2):
 				if direction.x > 0:
 					front_leg.back_pedal = true
 					back_leg.back_pedal = true
-				move_child(front_arm,body.get_index() - 1)
+				move_child(front_arm,body.get_index() - 2)
 				move_child(back_arm,body.get_index() + 1)
 			else:
 				if direction.x < 0:
 					front_leg.back_pedal = true
 					back_leg.back_pedal = true
 				move_child(front_arm,body.get_index() + 1)
-				move_child(back_arm,body.get_index() - 1)
+				move_child(back_arm,body.get_index() - 2)
 		"se":
 			#print("se")
 			move_child(held_item, body.get_index() + 1)

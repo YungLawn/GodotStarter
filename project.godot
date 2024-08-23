@@ -120,9 +120,7 @@ cycle_target_down={
 
 [physics]
 
-common/physics_ticks_per_second=240
-common/max_physics_steps_per_frame=48
-common/physics_jitter_fix=0.0
+common/physics_ticks_per_second=120
 2d/physics_engine="GodotPhysics2D"
 
 [rendering]

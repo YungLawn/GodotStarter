@@ -2,12 +2,9 @@ extends Control
 
 func _ready():
 	visible = false
-	var map_gen = $MarginContainer/VBoxContainer/map_gen_menu
-	map_gen.visible = false
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://menus/main_menu.tscn")
-	
 	
 func _input(event):
 		if(event.is_action_pressed("toggle_menu")):

@@ -14,7 +14,7 @@ var current_swing_time: float = 0.5
 var can_damage: bool = false
 
 func use(target) -> void:
-	if can_attack:
+	if can_attack and not target.inventory_open:
 		#print("BOOBOO")
 		self.target = target
 		swing(target)

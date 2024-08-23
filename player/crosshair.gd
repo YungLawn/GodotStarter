@@ -3,16 +3,17 @@ extends Sprite2D
 var distance_to_player: float
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if PlayerManager.player && is_instance_valid(PlayerManager.player):
-		distance_to_player = PlayerManager.player.pivot_point.global_position.distance_to(get_global_mouse_position())
-		var direction: Vector2 = (get_global_mouse_position() - PlayerManager.player.pivot_point.global_position).normalized()
-		#print(direction)
-		if distance_to_player > 30:
-			position = lerp(position, get_global_mouse_position(), PlayerManager.player.lerp_strength)
+		if !PlayerManager.player.inventory_open:
+			visible = true
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+			position = lerp(position, get_global_mouse_position(), delta * 30)
+			#position = get_global_mouse_position()
 		else:
-			position = lerp(position, PlayerManager.player.pivot_point.global_position + (direction) * 30, PlayerManager.player.lerp_strength)
-	
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			visible = false
+
 #func handle_aim_point(delta, lerp_strength):
 	#if targets_in_range:
 		#aim_point.global_position = lerp(aim_point.global_position,

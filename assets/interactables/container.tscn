@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdh05i8slqqbg"]
+
+[ext_resource type="Script" path="res://scripts/container.gd" id="1_denjq"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_x7vaj"]
+[ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="2_1e82x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gy7y"]
+resource_local_to_scene = true
+shader = ExtResource("1_x7vaj")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/is_outlined = null
+shader_parameter/is_hit = null
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7c6yi"]
+radius = 15.0
+
+[node name="Container" type="StaticBody2D" groups=["damageable", "external_inventory"]]
+texture_filter = 1
+material = SubResource("ShaderMaterial_3gy7y")
+scale = Vector2(0.75, 0.75)
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_denjq")
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+texture_filter = 1
+use_parent_material = true
+position = Vector2(0, 10.6667)
+texture = ExtResource("2_1e82x")
+offset = Vector2(0, -10.6667)
+hframes = 16
+vframes = 22
+frame = 270
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-12, 2.66667, -12, 6.66667, -2.66667, 10.6667, 6.66667, 12, 12, 9.33333, 12, 2.66667, 9.33333, 1.33333, -8, 1.33333)
+
+[node name="hit_box" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hit_box"]
+visible = false
+polygon = PackedVector2Array(-12, -4, -12, 6.66667, -2.66667, 10.6667, 6.66667, 12, 12, 9.33333, 12, -4, 9.33333, -6.66667, -2.66667, -10.6667, -8, -10.6667)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7c6yi")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

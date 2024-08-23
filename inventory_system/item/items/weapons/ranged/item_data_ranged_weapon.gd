@@ -26,7 +26,7 @@ var is_reloading: bool = false
 
 func use(target) -> void:
 	#print(target.get_node("BaseSprite").get_node("held_item"))
-	if can_attack:
+	if can_attack and not target.inventory_open:
 		shoot(target)
 
 func reload(target, direction_modifier):
@@ -80,8 +80,7 @@ func shoot(target):
 		for i in projectiles_per_shot :
 			var projectile = PROJECTILE.instantiate()
 			target.get_tree().root.add_child(projectile)
-			projectile.global_position = target.projectile_spawn_point.global_position 
-			projectile.sprite.texture = ammo_sprite
+			projectile.global_position = target.projectile_spawn_point.global_position + target.velocity * 0.05
 			projectile.rotation = target.held_item.rotation
 			projectile.accuracy = accuracy
 			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
@@ -89,8 +88,8 @@ func shoot(target):
 			projectile.damage = damage
 			projectile.velocity = muzzle_velocity
 		
-			#if target.ranged_ray.is_colliding():
-				#projectile.hit(target.ranged_ray.get_collider(), damage, projectile.direction)
+			if target.ranged_ray.is_colliding():
+				projectile.hit(target.ranged_ray.get_collider(), damage, projectile.direction)
 
 		animate_shoot(target, target.held_item)
 		
@@ -106,13 +105,13 @@ func shoot(target):
 func animate_shoot(target, item):
 	var aim_point = (Crosshair.global_position - item.global_position).normalized()
 	var ranged_recoil = aim_point * recoil_strength.x
-	var muzzle_climb = 0.1 * recoil_strength.y
+	#var muzzle_climb = 0.05 * recoil_strength.y
 	var tween = target.create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
 	
-	tween.tween_property(item, "rotation", item.rotation, 0.15).from(
-		 item.rotation + (muzzle_climb if aim_point.x < 0 else -muzzle_climb))
+	#tween.tween_property(item, "rotation", item.rotation, 0.15).from(
+		 #item.rotation + (muzzle_climb if aim_point.x < 0 else -muzzle_climb))
 	
 	tween.tween_property(item, "position", item.position, 0.15).from(
 		item.position - ranged_recoil )

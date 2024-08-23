@@ -34,6 +34,7 @@ func _ready():
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	inventory_interface.visible = not inventory_interface.visible
+	player.inventory_open = inventory_interface.visible
 	
 	if inventory_interface.visible:
 		hot_bar.hide()

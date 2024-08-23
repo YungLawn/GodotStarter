@@ -31,10 +31,14 @@ func _unhandled_input(event):
 func _physics_process(delta: float) -> void:
 	if grabbedslot.visible:
 		grabbedslot.global_position = get_global_mouse_position() + Vector2(5,5)
-	
+		
 	if external_inventory_owner \
-			and external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 25:
+			and not external_inventory_owner.material.get_shader_parameter("is_outlined"):
 		force_close.emit()
+	
+	#if external_inventory_owner \
+			#and external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 25:
+		#force_close.emit()
 	
 func indicate_selected_slot(index: int):
 	var adjusted_index = index + player_inventory.item_grid.get_children().size() - 9
