@@ -14,6 +14,7 @@ var mouse_over: bool = false
 @onready var grabbedslot: PanelContainer = $grabbedslot
 @onready var external_inventory = $external_inventory
 @onready var equip_inventory = $equip_inventory
+@onready var hot_bar: PanelContainer = $"../HotBar"
 
 func _ready():
 	equip_inventory.item_grid.columns = 1
@@ -22,11 +23,14 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("test1"):
 		for slot in PlayerManager.player.equip_inventorydata.slot_datas:
 			print(slot.item_data.name)
+	#if event is InputEventMouseButton:
+		#player_inventory.indicate_selected_slot()
+		#hot_bar.indicate_selected_slot()
 
-#func _process(delta):
-		#for slot in equip_inventory.item_grid.get_children():
-			#slot.rotation = -90
-			#print(slot.rotation)
+func _process(delta):
+	print(mouse_over)
+	hot_bar.indicate_selected_slot()
+	player_inventory.indicate_selected_slot()
 
 func _physics_process(delta: float) -> void:
 	if grabbedslot.visible:
@@ -35,20 +39,6 @@ func _physics_process(delta: float) -> void:
 	if external_inventory_owner \
 			and not external_inventory_owner.material.get_shader_parameter("is_outlined"):
 		force_close.emit()
-	
-	#if external_inventory_owner \
-			#and external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 25:
-		#force_close.emit()
-	
-func indicate_selected_slot(index: int):
-	var adjusted_index = index + player_inventory.item_grid.get_children().size() - 9
-	#print(player_inventory.item_grid.get_children().size())
-	for slot_index in player_inventory.item_grid.get_children().size():
-		var slot = player_inventory.item_grid.get_child(slot_index)
-		if slot_index == adjusted_index:
-			slot.add_theme_stylebox_override ("panel", SLOT_THEME_SELECTED)
-		else:
-			slot.add_theme_stylebox_override ("panel", SLOT_THEME)
 	
 func set_player_inventory_data(inventorydata: InventoryData) -> void:
 	inventorydata.inventory_interact.connect(on_inventory_interact)
@@ -115,7 +105,7 @@ func _on_mouse_entered():
 	mouse_over = false;
 
 func _on_mouse_exited():
-	mouse_over = 	true;
+	mouse_over = true;
 
 func _on_visibility_changed():
 	if !visible and grabbed_slot_data:

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy8wqhxqdmi03"]
+
+[ext_resource type="Script" path="res://legacy/player_camera.gd" id="1_kt5bk"]
+[ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_lx868"]
+
+[node name="player_camera" type="Camera2D"]
+texture_filter = 1
+offset = Vector2(0, -10)
+zoom = Vector2(4, 4)
+position_smoothing_speed = 1.0
+script = ExtResource("1_kt5bk")
+
+[node name="interact_ray" type="RayCast2D" parent="."]
+target_position = Vector2(0, 100)
+collision_mask = 12
+script = ExtResource("2_lx868")

@@ -49,7 +49,7 @@ func animate(direction: Vector2, look_direction: Vector2):
 		#front_leg.position.y = clamp(abs(abs(look_direction.normalized().x) - 1) * 5, 2, 5)
 		
 	body.scale.x = abs(abs(look_direction.normalized().x * 0.5) - 1)
-	head.position.x = look_direction.normalized().x
+	head.position.x = look_direction.normalized().x * 0.75
 		
 	face.position.x = look_direction.normalized().x * 4
 	face.scale.x = clamp(abs(abs(look_direction.normalized().x) - 1), 0, 0.75)

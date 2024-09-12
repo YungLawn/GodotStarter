@@ -1,0 +1,335 @@
+[gd_scene load_steps=30 format=3 uid="uid://dlfot17owh0rt"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_fbymc"]
+[ext_resource type="Script" path="res://player/ik_character_sm_test.gd" id="2_w628j"]
+[ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="3_2n807"]
+[ext_resource type="Resource" uid="uid://bkqm0jc4t3aeb" path="res://inventory_system/inventory/test_equip_inv.tres" id="4_cwy1o"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="5_h7e57"]
+[ext_resource type="Script" path="res://player/character_animator.gd" id="5_jjvtj"]
+[ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="6_bbpt8"]
+[ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://player/ik_leg.tscn" id="7_jtq2k"]
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="8_pmxxb"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_0occs"]
+[ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="9_tnpg3"]
+[ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="10_2n6ef"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_8liah"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_onoxu"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="13_epobd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="15_dc68r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_13xaq"]
+resource_local_to_scene = true
+shader = ExtResource("1_fbymc")
+shader_parameter/outline_color = null
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnt8n"]
+radius = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x86mg"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x257m"]
+atlas = SubResource("CompressedTexture2D_x86mg")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pnxw"]
+radius = 2.0
+
+[sub_resource type="Curve" id="Curve_dycqy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_mj2fj"]
+colors = PackedColorArray(1, 1, 1, 0.196078, 1, 1, 1, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_skvuc"]
+load_path = "res://.godot/imported/Items-Sheet.png-84f9584974883c2f04816c090dcc5be2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wawqc"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uddpa"]
+atlas = SubResource("CompressedTexture2D_skvuc")
+region = Rect2(165, 7, 5, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oafka"]
+load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljjl2"]
+atlas = SubResource("CompressedTexture2D_oafka")
+region = Rect2(2, 0, 12, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3m80k"]
+radius = 12.5
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+material = SubResource("ShaderMaterial_13xaq")
+collision_layer = 2
+collision_mask = 14
+script = ExtResource("2_w628j")
+inventorydata = ExtResource("3_2n807")
+equip_inventorydata = ExtResource("4_cwy1o")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("5_h7e57")]
+z_index = 10
+offset_left = 49.0
+offset_top = -90.0
+offset_right = 269.0
+offset_bottom = 268.0
+scale = Vector2(0.5, 0.5)
+initial_node_to_watch = NodePath("../StateChart")
+
+[node name="ground collider" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_dnt8n")
+
+[node name="main_sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -11)
+script = ExtResource("5_jjvtj")
+
+[node name="pivot_point" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+modulate = Color(0.494118, 0, 0.494118, 1)
+z_index = 10
+position = Vector2(0, -5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bbpt8")
+
+[node name="back_leg" parent="main_sprite" instance=ExtResource("7_jtq2k")]
+unique_name_in_owner = true
+position = Vector2(2, 2)
+segment_width = 4.0
+color = Color(0.65098, 0.164706, 0.564706, 1)
+segment_length = 4.0
+
+[node name="front_leg" parent="main_sprite" instance=ExtResource("7_jtq2k")]
+unique_name_in_owner = true
+position = Vector2(-2, 2)
+segment_width = 4.0
+color = Color(0, 0.243137, 1, 1)
+segment_length = 4.0
+
+[node name="back_arm" parent="main_sprite" instance=ExtResource("8_pmxxb")]
+unique_name_in_owner = true
+position = Vector2(4, -5.5)
+segment_width = 4.0
+color = Color(0.878431, 0.341176, 0.564706, 1)
+segment_length = 4.0
+
+[node name="held_item" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+texture_filter = 1
+
+[node name="projectile_spawn_point" type="Sprite2D" parent="main_sprite/held_item"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+position = Vector2(-10, 0)
+scale = Vector2(0.25, 0.25)
+texture = SubResource("AtlasTexture_x257m")
+
+[node name="attack_effect_spawn_point" type="Sprite2D" parent="main_sprite/held_item"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+scale = Vector2(0.25, 0.25)
+texture = SubResource("AtlasTexture_x257m")
+
+[node name="ranged_ray" type="RayCast2D" parent="main_sprite/held_item"]
+unique_name_in_owner = true
+target_position = Vector2(0, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="melee_hit_area" type="Area2D" parent="main_sprite/held_item"]
+unique_name_in_owner = true
+show_behind_parent = true
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="main_sprite/held_item/melee_hit_area"]
+shape = SubResource("CircleShape2D_4pnxw")
+
+[node name="line_trail" parent="main_sprite/held_item/melee_hit_area" instance=ExtResource("9_tnpg3")]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+width = 5.0
+width_curve = SubResource("Curve_dycqy")
+gradient = SubResource("Gradient_mj2fj")
+joint_mode = 0
+begin_cap_mode = 0
+end_cap_mode = 0
+MAX_LENGTH = 10
+
+[node name="body" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+use_parent_material = true
+texture = ExtResource("10_2n6ef")
+
+[node name="front_arm" parent="main_sprite" instance=ExtResource("8_pmxxb")]
+unique_name_in_owner = true
+position = Vector2(-4, -5.5)
+segment_width = 4.0
+color = Color(0, 0.521569, 1, 1)
+segment_length = 4.0
+
+[node name="swing_start" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_wawqc")
+
+[node name="swing_peak" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_wawqc")
+
+[node name="swing_end" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0, 1, 1)
+z_index = 3
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_uddpa")
+
+[node name="head" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+use_parent_material = true
+position = Vector2(0, -10.5)
+scale = Vector2(0.6, 0.75)
+texture = SubResource("AtlasTexture_ljjl2")
+
+[node name="face" type="Sprite2D" parent="main_sprite/head"]
+unique_name_in_owner = true
+modulate = Color(0.788235, 0.941176, 1, 1)
+use_parent_material = true
+position = Vector2(0, 1)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("AtlasTexture_ljjl2")
+
+[node name="hand_target" type="Sprite2D" parent="main_sprite"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0, 1, 1)
+z_index = 5
+position = Vector2(0, 5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bbpt8")
+
+[node name="interaction_zone" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -12)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_zone"]
+shape = SubResource("CircleShape2D_3m80k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -128.0
+offset_top = -76.0
+offset_right = -88.0
+offset_bottom = -53.0
+text = "!!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -128.0
+offset_top = -60.0
+offset_right = -88.0
+offset_bottom = -37.0
+text = "!!
+"
+horizontal_alignment = 1
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("9_0occs")
+
+[node name="root" type="Node" parent="StateChart"]
+script = ExtResource("13_epobd")
+
+[node name="lower_body_states" type="Node" parent="StateChart/root"]
+script = ExtResource("10_8liah")
+initial_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateChart/root/lower_body_states"]
+script = ExtResource("11_onoxu")
+
+[node name="to_walk" type="Node" parent="StateChart/root/lower_body_states/idle"]
+script = ExtResource("15_dc68r")
+to = NodePath("../../walk")
+event = &"to_walk"
+delay_in_seconds = "0.0"
+
+[node name="walk" type="Node" parent="StateChart/root/lower_body_states"]
+script = ExtResource("11_onoxu")
+
+[node name="to_idle" type="Node" parent="StateChart/root/lower_body_states/walk"]
+script = ExtResource("15_dc68r")
+to = NodePath("../../idle")
+event = &"to_idle"
+delay_in_seconds = "0.0"
+
+[node name="upper_body_states" type="Node" parent="StateChart/root"]
+script = ExtResource("10_8liah")
+initial_state = NodePath("hands_empty")
+
+[node name="item_test" type="Node" parent="StateChart/root/upper_body_states"]
+script = ExtResource("10_8liah")
+initial_state = NodePath("ranged_item")
+
+[node name="ranged_item" type="Node" parent="StateChart/root/upper_body_states/item_test"]
+script = ExtResource("11_onoxu")
+
+[node name="melee_item" type="Node" parent="StateChart/root/upper_body_states/item_test"]
+script = ExtResource("11_onoxu")
+
+[node name="static_item" type="Node" parent="StateChart/root/upper_body_states/item_test"]
+script = ExtResource("11_onoxu")
+
+[node name="to_hands_empty" type="Node" parent="StateChart/root/upper_body_states/item_test"]
+script = ExtResource("15_dc68r")
+to = NodePath("../../hands_empty")
+event = &"to_handsEmpty"
+delay_in_seconds = "0.0"
+
+[node name="hands_empty" type="Node" parent="StateChart/root/upper_body_states"]
+script = ExtResource("11_onoxu")
+
+[node name="to_held_item" type="Node" parent="StateChart/root/upper_body_states/hands_empty"]
+script = ExtResource("15_dc68r")
+to = NodePath("../../item_held")
+event = &"to_held_item"
+delay_in_seconds = "0.0"
+
+[node name="item_held" type="Node" parent="StateChart/root/upper_body_states"]
+script = ExtResource("11_onoxu")
+
+[node name="to_hands_empty" type="Node" parent="StateChart/root/upper_body_states/item_held"]
+script = ExtResource("15_dc68r")
+to = NodePath("../../hands_empty")
+event = &"to_hands_empty"
+delay_in_seconds = "0.0"
+
+[connection signal="area_entered" from="main_sprite/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]
+[connection signal="state_entered" from="StateChart/root/lower_body_states/idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/root/lower_body_states/walk" to="." method="_on_walk_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/root/lower_body_states/walk" to="." method="_on_walk_state_physics_processing"]
+[connection signal="event_received" from="StateChart/root/upper_body_states/item_test" to="." method="_on_item_test_event_received"]
+[connection signal="state_entered" from="StateChart/root/upper_body_states/item_test" to="." method="_on_item_test_state_entered"]
+[connection signal="state_entered" from="StateChart/root/upper_body_states/hands_empty" to="." method="_on_hands_empty_state_entered"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/item_held" to="." method="_on_item_held_state_processing"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cphd0ys0gei33"]
+[gd_scene load_steps=8 format=3 uid="uid://cphd0ys0gei33"]
 
 [ext_resource type="Script" path="res://player/ik_armature.gd" id="1_2w3nb"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_2dsj4"]
@@ -13,11 +13,24 @@ _data = [Vector2(0, 0.8), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vecto
 point_count = 3
 metadata/_snap_enabled = true
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wc57j"]
+load_path = "res://.godot/imported/armsholding.png-74f4223dcea89e4c3f8e1f8ac3999b88.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obrqi"]
+atlas = SubResource("CompressedTexture2D_wc57j")
+region = Rect2(0, 0, 6, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_682ws"]
+atlas = SubResource("CompressedTexture2D_wc57j")
+region = Rect2(0, 0, 6, 4)
+
 [node name="armature" type="Node2D"]
+use_parent_material = true
 script = ExtResource("1_2w3nb")
 
 [node name="armature" type="Node2D" parent="."]
 unique_name_in_owner = true
+use_parent_material = true
 
 [node name="segment_1" type="Line2D" parent="armature"]
 unique_name_in_owner = true
@@ -46,15 +59,33 @@ texture = ExtResource("2_2dsj4")
 [node name="joint_1" type="Sprite2D" parent="armature"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 1, 0, 1)
 texture_filter = 1
+use_parent_material = true
 position = Vector2(24, 12)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_2dsj4")
 
 [node name="joint_2" type="Sprite2D" parent="armature"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 0, 0, 1)
 texture_filter = 1
+use_parent_material = true
 position = Vector2(48, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_2dsj4")
+
+[node name="segment_1_test" type="Sprite2D" parent="armature"]
+unique_name_in_owner = true
+visible = false
+use_parent_material = true
+position = Vector2(-2, 6)
+texture = SubResource("AtlasTexture_obrqi")
+offset = Vector2(2.5, 0)
+
+[node name="segment_2_test" type="Sprite2D" parent="armature"]
+unique_name_in_owner = true
+visible = false
+use_parent_material = true
+position = Vector2(-2, 0)
+texture = SubResource("AtlasTexture_682ws")
+offset = Vector2(2.5, 0)

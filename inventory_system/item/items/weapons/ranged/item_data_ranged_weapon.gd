@@ -80,7 +80,7 @@ func shoot(target):
 		for i in projectiles_per_shot :
 			var projectile = PROJECTILE.instantiate()
 			target.get_tree().root.add_child(projectile)
-			projectile.global_position = target.projectile_spawn_point.global_position + target.velocity * 0.05
+			projectile.global_position = target.projectile_spawn_point.global_position + target.velocity * 0.075
 			projectile.rotation = target.held_item.rotation
 			projectile.accuracy = accuracy
 			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01

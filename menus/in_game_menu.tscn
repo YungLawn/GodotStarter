@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://0mbj5q6wkl3l"]
+[gd_scene load_steps=2 format=3 uid="uid://0mbj5q6wkl3l"]
 
 [ext_resource type="Script" path="res://menus/in_game_menu.gd" id="1_0o1ea"]
-[ext_resource type="PackedScene" uid="uid://crhy42col2y6i" path="res://map/map_gen_menu.tscn" id="2_fp6o8"]
 
 [node name="in_game_menu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -231.0
@@ -24,14 +24,4 @@ layout_mode = 2
 layout_mode = 2
 text = "Back"
 
-[node name="toggle_map_gen" type="Button" parent="MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Map Generation"
-
-[node name="map_gen_menu" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_fp6o8")]
-visible = false
-layout_mode = 2
-
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/toggle_map_gen" to="." method="_on_toggle_map_gen_pressed"]

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="3_olxtx"]
 
 [node name="leg" type="Node2D"]
+use_parent_material = true
 position = Vector2(483, 278)
 script = ExtResource("1_n3smf")
 

@@ -2,9 +2,20 @@ extends PanelContainer
 
 signal slot_clicked(index: int, button: int)
 
+const SLOT_THEME = preload("res://inventory_system/inventory/slot_theme.tres")
+const SLOT_THEME_SELECTED = preload("res://inventory_system/inventory/slot_theme_selected.tres")
+
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var quantity_label = $quantity_label
 @onready var number_label = $number_label
+
+var selected: bool
+
+func _process(delta: float) -> void:
+	if selected: 
+		add_theme_stylebox_override ("panel", SLOT_THEME_SELECTED)
+	else:
+		add_theme_stylebox_override ("panel", SLOT_THEME)
 
 func set_slot_data(slotdata: SlotData) -> void:
 	var item_data = slotdata.item_data

@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://biq637ndpvvfg"]
+[gd_scene load_steps=25 format=3 uid="uid://biq637ndpvvfg"]
 
 [ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="1_gg6l8"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_hq1hp"]
 [ext_resource type="Script" path="res://player/ik_character.gd" id="1_lk5ex"]
 [ext_resource type="Script" path="res://player/character_animator.gd" id="2_8hfdf"]
 [ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="2_270en"]
@@ -9,6 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://player/ik_leg.tscn" id="4_88xkp"]
 [ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="5_0rcw8"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="5_nykaw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_13xaq"]
+resource_local_to_scene = true
+shader = ExtResource("1_hq1hp")
+shader_parameter/outline_color = null
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dnt8n"]
 radius = 5.0
@@ -50,12 +58,13 @@ load_path = "res://.godot/imported/Head+Body.png-ceb1cf6f062ab8d0b2c06e5ee679ffc
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ljjl2"]
 atlas = SubResource("CompressedTexture2D_oafka")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(2, 0, 12, 11)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3m80k"]
 radius = 12.5
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
+material = SubResource("ShaderMaterial_13xaq")
 collision_layer = 2
 collision_mask = 14
 script = ExtResource("1_lk5ex")
@@ -67,6 +76,7 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_dnt8n")
 
 [node name="main_sprite" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -11)
 script = ExtResource("2_8hfdf")
 
@@ -80,7 +90,6 @@ texture = ExtResource("5_nykaw")
 
 [node name="back_leg" parent="main_sprite" instance=ExtResource("4_88xkp")]
 unique_name_in_owner = true
-use_parent_material = true
 position = Vector2(2, 2)
 segment_width = 4.0
 color = Color(0.65098, 0.164706, 0.564706, 1)
@@ -88,7 +97,6 @@ segment_length = 4.0
 
 [node name="front_leg" parent="main_sprite" instance=ExtResource("4_88xkp")]
 unique_name_in_owner = true
-use_parent_material = true
 position = Vector2(-2, 2)
 segment_width = 4.0
 color = Color(0, 0.243137, 1, 1)
@@ -96,7 +104,6 @@ segment_length = 4.0
 
 [node name="back_arm" parent="main_sprite" instance=ExtResource("1_gg6l8")]
 unique_name_in_owner = true
-use_parent_material = true
 position = Vector2(4, -5.5)
 segment_width = 4.0
 color = Color(0.878431, 0.341176, 0.564706, 1)
@@ -156,7 +163,6 @@ texture = ExtResource("2_270en")
 
 [node name="front_arm" parent="main_sprite" instance=ExtResource("1_gg6l8")]
 unique_name_in_owner = true
-use_parent_material = true
 position = Vector2(-4, -5.5)
 segment_width = 4.0
 color = Color(0, 0.521569, 1, 1)
@@ -187,13 +193,15 @@ texture = SubResource("AtlasTexture_uddpa")
 [node name="head" type="Sprite2D" parent="main_sprite"]
 unique_name_in_owner = true
 use_parent_material = true
-position = Vector2(0, -8)
+position = Vector2(0, -10.5)
 scale = Vector2(0.6, 0.75)
 texture = SubResource("AtlasTexture_ljjl2")
 
 [node name="face" type="Sprite2D" parent="main_sprite/head"]
 unique_name_in_owner = true
 modulate = Color(0.788235, 0.941176, 1, 1)
+use_parent_material = true
+position = Vector2(0, 1)
 scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_ljjl2")
 
@@ -216,7 +224,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_3m80k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true

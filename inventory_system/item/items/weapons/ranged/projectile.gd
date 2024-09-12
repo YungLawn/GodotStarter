@@ -11,6 +11,7 @@ var damage: int
 var texture: AtlasTexture
 var accuracy: float
 var accuracy_modifier
+
 #func _ready():
 	#visible = false
 
@@ -28,13 +29,12 @@ func hit(target, damage, direction):
 
 func move(velo: float):
 	global_position += (direction  * velo)
-	hit_detection.target_position.x = velo * 1.5
-	#ray.position.x = -velo * 1.5
+	hit_detection.target_position.x = velo * 2
+	hit_detection.position.x = -velo * 1.5
 	await get_tree().create_timer(abs(velocity - 6000) * 0.0000125).timeout
 	visible = true
 	if hit_detection.is_colliding():
 		hit(hit_detection.get_collider(), damage, direction)
-
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	#print("gone")

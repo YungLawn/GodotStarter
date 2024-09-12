@@ -13,11 +13,12 @@ extends Node2D
 @onready var anchor = %anchor
 @onready var joint_1 = %joint_1
 @onready var joint_2 = %joint_2
-
+@onready var segment_1_test: Sprite2D = %segment_1_test
+@onready var segment_2_test: Sprite2D = %segment_2_test
 
 @export var segment_width: float = 5
 @export var color: Color = '#ffffff'
-@export var segment_length: float = 20
+@export var segment_length: float = 10
 
 var target: Vector2
 var distance: float
@@ -33,6 +34,9 @@ func apply_values(segment_length: float, segment_width: float, color: Color):
 	segment_1.width = segment_width
 	segment_2.width = segment_width
 	
+	segment_1_test.modulate = color
+	segment_2_test.modulate = color
+	
 	segment_1.modulate = color
 	segment_2.modulate = color
 	
@@ -45,12 +49,18 @@ func _process(delta):
 	distance = clamp(anchor.position.distance_to(target),segment_length * 0.5, segment_length * 2)
 	height = lerp(height,((sqrt(pow(segment_length,2) - pow(distance/2,2))) * rotation_multiplier * flipper), delta * 30)
 	
-	joint_2.position.x = distance
 	joint_1.position = Vector2(distance/2,height)
+	joint_2.position.x = distance
+	
+	
+	#segment_1_test.position = anchor.position
+	#segment_1_test.rotation = segment_1_test.position.angle_to_point(joint_1.position)
+	#segment_2_test.position = joint_1.position
+	#segment_2_test.rotation = segment_2_test.position.angle_to_point(joint_2.position)
 	
 	segment_1.points[0] = anchor.position
 	segment_1.points[1] = joint_1.position
 	segment_2.points[0] = joint_1.position
 	segment_2.points[1] = joint_2.position
 	
-	armature.rotation_degrees = rad_to_deg(armature.position.angle_to_point(target))
+	armature.rotation = armature.position.angle_to_point(target)

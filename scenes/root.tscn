@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=35 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dhptvycu3kb8x" path="res://map/proc_gen_world.tscn" id="2_eyhex"]
-[ext_resource type="PackedScene" uid="uid://biq637ndpvvfg" path="res://player/ik_character.tscn" id="4_2upl1"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
+[ext_resource type="PackedScene" uid="uid://dlfot17owh0rt" path="res://player/ik_character_state_machine_test.tscn" id="5_b2bvg"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="PackedScene" uid="uid://gp2oduhphuld" path="res://inventory_system/inventory/slot.tscn" id="8_dai3w"]
 [ext_resource type="PackedScene" uid="uid://b0p2p75fvro13" path="res://inventory_system/inventory/hot_bar.tscn" id="9_4q1vj"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://ctmfrl3461srm" path="res://inventory_system/item/items/weapons/ranged/smg.tres" id="17_ycdju"]
 [ext_resource type="Script" path="res://player/crosshair.gd" id="18_1y51b"]
 [ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/weapons/ranged/AR.tres" id="19_p3kh8"]
+[ext_resource type="Resource" uid="uid://nbla6hg5wnrm" path="res://inventory_system/item/items/weapons/melee/meat_cleaver.tres" id="21_ejq8v"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ffvkc"]
 noise_type = 0
@@ -33,6 +34,13 @@ cellular_return_type = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_smkpp"]
 noise = SubResource("FastNoiseLite_ffvkc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pw6m4"]
+resource_local_to_scene = true
+shader = ExtResource("14_k11pi")
+shader_parameter/outline_color = null
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8oibr"]
 resource_local_to_scene = true
@@ -79,6 +87,11 @@ quantity = 1
 script = ExtResource("11_bj8mf")
 slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_yp6e5"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
+[sub_resource type="Resource" id="Resource_y0hu7"]
+script = ExtResource("13_i1e6e")
+item_data = ExtResource("21_ejq8v")
+quantity = 1
+
 [node name="root" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_1k8x1")
@@ -86,9 +99,6 @@ script = ExtResource("1_1k8x1")
 [node name="proc_gen_world" parent="." instance=ExtResource("2_eyhex")]
 position = Vector2(480, 270)
 noise_texture = SubResource("NoiseTexture2D_smkpp")
-
-[node name="ik_player" parent="." instance=ExtResource("4_2upl1")]
-position = Vector2(456, 243)
 
 [node name="crosshair" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -208,7 +218,6 @@ theme_override_styles/panel = ExtResource("9_jugdt")
 script = ExtResource("10_i1ksk")
 
 [node name="in_game_menu" parent="UI" instance=ExtResource("12_lvmfb")]
-visible = false
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 0.0
@@ -216,6 +225,10 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 2
+
+[node name="player" parent="." instance=ExtResource("5_b2bvg")]
+material = SubResource("ShaderMaterial_pw6m4")
+position = Vector2(434, 229)
 
 [node name="Chest" parent="." instance=ExtResource("10_5mgrt")]
 y_sort_enabled = true
@@ -235,6 +248,10 @@ material = SubResource("ShaderMaterial_d0r53")
 position = Vector2(378, 260)
 inventory_data = SubResource("Resource_7cq6c")
 
+[node name="PickUp2" parent="." instance=ExtResource("14_f1fuy")]
+position = Vector2(436, 276)
+slot_data = SubResource("Resource_y0hu7")
+
 [connection signal="drop_slot_data" from="UI/inventory_interface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_gui_input"]
 [connection signal="mouse_entered" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_mouse_entered"]
@@ -242,4 +259,3 @@ inventory_data = SubResource("Resource_7cq6c")
 [connection signal="visibility_changed" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_visibility_changed"]
 [connection signal="mouse_entered" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_entered"]
 [connection signal="mouse_exited" from="UI/inventory_interface/external_inventory" to="UI/inventory_interface" method="_on_external_inventory_mouse_exited"]
-[connection signal="set_selected_slot" from="UI/HotBar" to="ik_player" method="_on_hot_bar_set_selected_slot"]

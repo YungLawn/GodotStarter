@@ -4,15 +4,16 @@ var distance_to_player: float
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if PlayerManager.player && is_instance_valid(PlayerManager.player):
-		if !PlayerManager.player.inventory_open:
-			visible = true
-			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	if Global.player && is_instance_valid(Global.player):
+		if not Global.external_inventory.visible:
 			position = lerp(position, get_global_mouse_position(), delta * 30)
-			#position = get_global_mouse_position()
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			
+		if Global.player.inventory_open:
 			visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+			visible = true
 
 #func handle_aim_point(delta, lerp_strength):
 	#if targets_in_range:
