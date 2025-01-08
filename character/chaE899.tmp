@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://dlfot17owh0rt"]
+[gd_scene load_steps=32 format=3 uid="uid://dlfot17owh0rt"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_fbymc"]
-[ext_resource type="Script" path="res://player/ik_character_sm_test.gd" id="2_w628j"]
+[ext_resource type="Script" path="res://player/character_manager.gd" id="2_w628j"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="3_2n807"]
 [ext_resource type="Resource" uid="uid://bkqm0jc4t3aeb" path="res://inventory_system/inventory/test_equip_inv.tres" id="4_cwy1o"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="5_h7e57"]
+[ext_resource type="Script" path="res://player/character_state_manager.gd" id="5_hso2v"]
 [ext_resource type="Script" path="res://player/character_animator.gd" id="5_jjvtj"]
 [ext_resource type="Script" path="res://player/player_input_handler.gd" id="5_o5qqs"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="6_bbpt8"]
@@ -74,6 +75,9 @@ script = ExtResource("2_w628j")
 inventorydata = ExtResource("3_2n807")
 equip_inventorydata = ExtResource("4_cwy1o")
 
+[node name="state_manager" type="Node2D" parent="."]
+script = ExtResource("5_hso2v")
+
 [node name="player_input_handler" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_o5qqs")
@@ -93,6 +97,7 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_dnt8n")
 
 [node name="main_sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 use_parent_material = true
 position = Vector2(0, -11)
 script = ExtResource("5_jjvtj")
@@ -264,6 +269,7 @@ text = "!!
 horizontal_alignment = 1
 
 [node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("9_0occs")
 
 [node name="root" type="Node" parent="StateChart"]
@@ -343,14 +349,23 @@ delay_in_seconds = "0.0"
 
 [connection signal="area_entered" from="main_sprite/held_item/melee_hit_area" to="." method="_on_melee_hit_area_area_entered"]
 [connection signal="state_entered" from="StateChart/root/lower_body_states/idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/root/lower_body_states/idle" to="state_manager" method="_on_idle_state_entered"]
 [connection signal="state_processing" from="StateChart/root/lower_body_states/idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="StateChart/root/lower_body_states/idle" to="state_manager" method="_on_idle_state_processing"]
 [connection signal="state_entered" from="StateChart/root/lower_body_states/walk" to="." method="_on_walk_state_entered"]
+[connection signal="state_entered" from="StateChart/root/lower_body_states/walk" to="state_manager" method="_on_walk_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/root/lower_body_states/walk" to="." method="_on_walk_state_physics_processing"]
-[connection signal="state_processing" from="StateChart/root/upper_body_states/held_item" to="." method="_on_item_test_state_processing"]
+[connection signal="state_physics_processing" from="StateChart/root/lower_body_states/walk" to="state_manager" method="_on_walk_state_physics_processing"]
 [connection signal="state_processing" from="StateChart/root/upper_body_states/held_item" to="." method="_on_held_item_state_processing"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/held_item" to="state_manager" method="_on_held_item_state_processing"]
 [connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/ranged_item" to="." method="_on_ranged_item_state_processing"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/ranged_item" to="state_manager" method="_on_ranged_item_state_processing"]
 [connection signal="state_unhandled_input" from="StateChart/root/upper_body_states/held_item/ranged_item" to="player_input_handler" method="_on_ranged_item_state_unhandled_input"]
 [connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/melee_item" to="." method="_on_melee_item_state_processing"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/melee_item" to="state_manager" method="_on_melee_item_state_processing"]
 [connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/static_item" to="." method="_on_static_item_state_processing"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/held_item/static_item" to="state_manager" method="_on_static_item_state_processing"]
 [connection signal="state_entered" from="StateChart/root/upper_body_states/hands_empty" to="." method="_on_hands_empty_state_entered"]
+[connection signal="state_entered" from="StateChart/root/upper_body_states/hands_empty" to="state_manager" method="_on_hands_empty_state_entered"]
 [connection signal="state_processing" from="StateChart/root/upper_body_states/hands_empty" to="." method="_on_hands_empty_state_processing"]
+[connection signal="state_processing" from="StateChart/root/upper_body_states/hands_empty" to="state_manager" method="_on_hands_empty_state_processing"]

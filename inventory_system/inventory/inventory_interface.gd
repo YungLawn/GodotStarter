@@ -21,14 +21,13 @@ func _ready():
 	
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("test1"):
-		for slot in PlayerManager.player.equip_inventorydata.slot_datas:
+		for slot in Global.player.equip_inventory_data.slot_datas:
 			print(slot.item_data.name)
 	#if event is InputEventMouseButton:
 		#player_inventory.indicate_selected_slot()
 		#hot_bar.indicate_selected_slot()
 
 func _process(delta):
-	print(mouse_over)
 	hot_bar.indicate_selected_slot()
 	player_inventory.indicate_selected_slot()
 
@@ -40,14 +39,14 @@ func _physics_process(delta: float) -> void:
 			and not external_inventory_owner.material.get_shader_parameter("is_outlined"):
 		force_close.emit()
 	
-func set_player_inventory_data(inventorydata: InventoryData) -> void:
-	inventorydata.inventory_interact.connect(on_inventory_interact)
-	player_inventory.set_inventory_data(inventorydata)
+func set_player_inventory_data(inventory_data: InventoryData) -> void:
+	inventory_data.inventory_interact.connect(on_inventory_interact)
+	player_inventory.set_inventory_data(inventory_data)
 	
-func set_equip_inventory_data(inventorydata: InventoryData) -> void:
+func set_equip_inventory_data(inventory_data: InventoryData) -> void:
 	print("set_equip_initial")
-	inventorydata.inventory_interact.connect(on_inventory_interact)
-	equip_inventory.set_inventory_data(inventorydata)
+	inventory_data.inventory_interact.connect(on_inventory_interact)
+	equip_inventory.set_inventory_data(inventory_data)
 
 func set_external_inventory(_external_inventory_owner) -> void:
 	external_inventory_owner = _external_inventory_owner
@@ -68,19 +67,19 @@ func clear_external_inventory() -> void:
 		external_inventory.hide()
 		external_inventory_owner = null
 	
-func on_inventory_interact(inventorydata: InventoryData,
+func on_inventory_interact(inventory_data: InventoryData,
 	 index: int, button: int) -> void:
 	
 	match [grabbed_slot_data, button]:
 		[null, MOUSE_BUTTON_LEFT]:
-			grabbed_slot_data = inventorydata.grab_slot_data(index)
+			grabbed_slot_data = inventory_data.grab_slot_data(index)
 		[_, MOUSE_BUTTON_LEFT]:
-			grabbed_slot_data = inventorydata.drop_slot_data(grabbed_slot_data, index)
+			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index)
 		[null, MOUSE_BUTTON_RIGHT]:
-			if !inventorydata.slot_datas[index].item_data.has_method("attack"):
-				inventorydata.use_slot_data(index)
+			if !inventory_data.slot_datas[index].item_data.has_method("attack"):
+				inventory_data.use_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
-			grabbed_slot_data = inventorydata.drop_single_slot_data(grabbed_slot_data, index)
+			grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
 			
 	update_grabbed_slot()
 	

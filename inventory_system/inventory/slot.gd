@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 
 func set_slot_data(slotdata: SlotData) -> void:
 	var item_data = slotdata.item_data
+	#print(item_data)
 	texture_rect.texture = item_data.texture
 	tooltip_text = "%s\n%s" % [item_data.name, item_data.description]
 	

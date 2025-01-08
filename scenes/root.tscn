@@ -1,26 +1,27 @@
-[gd_scene load_steps=35 format=3 uid="uid://c2p8b3pxdmj5y"]
+[gd_scene load_steps=36 format=3 uid="uid://c2p8b3pxdmj5y"]
 
 [ext_resource type="Script" path="res://scripts/root.gd" id="1_1k8x1"]
 [ext_resource type="PackedScene" uid="uid://dhptvycu3kb8x" path="res://map/proc_gen_world.tscn" id="2_eyhex"]
 [ext_resource type="PackedScene" uid="uid://b5grmobsqyedb" path="res://inventory_system/inventory/inventory.tscn" id="5_4xb20"]
-[ext_resource type="PackedScene" uid="uid://dlfot17owh0rt" path="res://player/ik_character_state_machine_test.tscn" id="5_b2bvg"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_interface.gd" id="6_1wdlc"]
 [ext_resource type="PackedScene" uid="uid://gp2oduhphuld" path="res://inventory_system/inventory/slot.tscn" id="8_dai3w"]
 [ext_resource type="PackedScene" uid="uid://b0p2p75fvro13" path="res://inventory_system/inventory/hot_bar.tscn" id="9_4q1vj"]
 [ext_resource type="StyleBox" uid="uid://nexnm36tgloh" path="res://inventory_system/inventory/inventory_theme.tres" id="9_jugdt"]
-[ext_resource type="PackedScene" uid="uid://bdh05i8slqqbg" path="res://assets/interactables/container.tscn" id="10_5mgrt"]
+[ext_resource type="PackedScene" uid="uid://bdh05i8slqqbg" path="res://inventory_system/interactables/container.tscn" id="10_5mgrt"]
 [ext_resource type="Script" path="res://inventory_system/inventory/hot_bar.gd" id="10_i1ksk"]
 [ext_resource type="Texture2D" uid="uid://cqixo6okd6pf" path="res://assets/icons/crosshair.png" id="11_7th5b"]
 [ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="11_bj8mf"]
 [ext_resource type="PackedScene" uid="uid://0mbj5q6wkl3l" path="res://menus/in_game_menu.tscn" id="12_lvmfb"]
 [ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="13_i1e6e"]
-[ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://assets/pickups/pick_up.tscn" id="14_f1fuy"]
+[ext_resource type="PackedScene" uid="uid://bbvg8abfbr53w" path="res://inventory_system/pickups/pick_up.tscn" id="14_f1fuy"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="14_k11pi"]
 [ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/consumables/apple.tres" id="14_o7f01"]
-[ext_resource type="Resource" uid="uid://ctmfrl3461srm" path="res://inventory_system/item/items/weapons/ranged/smg.tres" id="17_ycdju"]
-[ext_resource type="Script" path="res://player/crosshair.gd" id="18_1y51b"]
-[ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/weapons/ranged/AR.tres" id="19_p3kh8"]
+[ext_resource type="PackedScene" uid="uid://c0xnqrie2vk1p" path="res://character/player/player.tscn" id="14_vfbrm"]
+[ext_resource type="Resource" uid="uid://bsea8pohejiaq" path="res://inventory_system/item/items/weapons/ranged/sportpistol.tres" id="17_w51jj"]
+[ext_resource type="Script" path="res://character/player/crosshair.gd" id="18_1y51b"]
+[ext_resource type="Resource" uid="uid://dv0sxvkvd2d1i" path="res://inventory_system/item/items/consumables/health_potion.tres" id="18_3g3y5"]
 [ext_resource type="Resource" uid="uid://nbla6hg5wnrm" path="res://inventory_system/item/items/weapons/melee/meat_cleaver.tres" id="21_ejq8v"]
+[ext_resource type="PackedScene" uid="uid://b5ous68upikb0" path="res://character/npc/npc.tscn" id="22_0tgks"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ffvkc"]
 noise_type = 0
@@ -35,13 +36,6 @@ cellular_return_type = 3
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_smkpp"]
 noise = SubResource("FastNoiseLite_ffvkc")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pw6m4"]
-resource_local_to_scene = true
-shader = ExtResource("14_k11pi")
-shader_parameter/outline_color = null
-shader_parameter/is_outlined = false
-shader_parameter/is_hit = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8oibr"]
 resource_local_to_scene = true
 shader = ExtResource("14_k11pi")
@@ -49,19 +43,24 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 shader_parameter/is_outlined = null
 shader_parameter/is_hit = null
 
-[sub_resource type="Resource" id="Resource_rayu8"]
+[sub_resource type="Resource" id="Resource_14l6p"]
 script = ExtResource("13_i1e6e")
-item_data = ExtResource("14_o7f01")
-quantity = 5
-
-[sub_resource type="Resource" id="Resource_mrjku"]
-script = ExtResource("13_i1e6e")
-item_data = ExtResource("17_ycdju")
+item_data = ExtResource("17_w51jj")
 quantity = 1
+
+[sub_resource type="Resource" id="Resource_sbxbr"]
+script = ExtResource("13_i1e6e")
+item_data = ExtResource("18_3g3y5")
+quantity = 3
+
+[sub_resource type="Resource" id="Resource_nc4uj"]
+script = ExtResource("13_i1e6e")
+item_data = ExtResource("18_3g3y5")
+quantity = 10
 
 [sub_resource type="Resource" id="Resource_25if6"]
 script = ExtResource("11_bj8mf")
-slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_rayu8"), SubResource("Resource_mrjku"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_14l6p"), SubResource("Resource_sbxbr"), SubResource("Resource_nc4uj"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_ev4h7"]
 script = ExtResource("13_i1e6e")
@@ -78,14 +77,14 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 shader_parameter/is_outlined = null
 shader_parameter/is_hit = null
 
-[sub_resource type="Resource" id="Resource_yp6e5"]
+[sub_resource type="Resource" id="Resource_kmc45"]
 script = ExtResource("13_i1e6e")
-item_data = ExtResource("19_p3kh8")
+item_data = ExtResource("17_w51jj")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_7cq6c"]
 script = ExtResource("11_bj8mf")
-slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_yp6e5"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("13_i1e6e")]([SubResource("Resource_kmc45"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_y0hu7"]
 script = ExtResource("13_i1e6e")
@@ -226,12 +225,10 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 2
 
-[node name="player" parent="." instance=ExtResource("5_b2bvg")]
-material = SubResource("ShaderMaterial_pw6m4")
-position = Vector2(434, 229)
+[node name="player" parent="." instance=ExtResource("14_vfbrm")]
+position = Vector2(435, 224)
 
 [node name="Chest" parent="." instance=ExtResource("10_5mgrt")]
-y_sort_enabled = true
 material = SubResource("ShaderMaterial_8oibr")
 position = Vector2(365, 230)
 inventory_data = SubResource("Resource_25if6")
@@ -251,6 +248,9 @@ inventory_data = SubResource("Resource_7cq6c")
 [node name="PickUp2" parent="." instance=ExtResource("14_f1fuy")]
 position = Vector2(436, 276)
 slot_data = SubResource("Resource_y0hu7")
+
+[node name="NPC" parent="." instance=ExtResource("22_0tgks")]
+position = Vector2(304, 169)
 
 [connection signal="drop_slot_data" from="UI/inventory_interface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/inventory_interface" to="UI/inventory_interface" method="_on_gui_input"]

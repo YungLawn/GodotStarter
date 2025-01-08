@@ -41,9 +41,12 @@ func reload(target, direction_modifier):
 		tween.tween_property(target.held_item, "rotation_degrees", target.held_item.rotation_degrees - (360 * direction_modifier), reload_time * reload_multiplier).set_ease(Tween.EASE_OUT_IN)
 		await target.get_tree().create_timer(reload_time * reload_multiplier).timeout
 		current_capacity = max_capacity
+		if not target.get_parent().is_in_group("player"):
+			await target.get_tree().create_timer(1).timeout
 		can_attack = true
 		can_reload = true
 		is_reloading = false
+
 
 func shoot(target):
 	var fire_rate_time = abs((fire_rate - 1500) * (0.00015 if fire_mode == 2 else 0.00025))
@@ -58,8 +61,8 @@ func shoot(target):
 		current_capacity -= 1
 
 		var muzzle_flash = MUZZLE_FLASH.instantiate()
-		target.held_item.add_child(muzzle_flash)
-		muzzle_flash.global_position = target.attack_effect_spawn_point.global_position
+		target.character.held_item.add_child(muzzle_flash)
+		muzzle_flash.global_position = target.character.attack_effect_spawn_point.global_position
 		#muzzle_flash.rotation = target.projectile_spawn_point.rotation
 		muzzle_flash.amount = (recoil_strength.x) * 5
 		muzzle_flash.process_material.scale_max = (recoil_strength.x) * 0.25
@@ -68,45 +71,44 @@ func shoot(target):
 		muzzle_flash.finished.connect(func (): muzzle_flash.queue_free() )
 		
 		var smoke = SMOKE.instantiate()
-		target.held_item.add_child(smoke)
-		smoke.global_position = target.attack_effect_spawn_point.global_position
+		target.character.held_item.add_child(smoke)
+		smoke.global_position = target.character.attack_effect_spawn_point.global_position
 		#smoke.rotation = target.held_item.rotation
-		smoke.amount = (target.held_item_data.recoil_strength.x) * 2
-		smoke.process_material.scale_max = (target.held_item_data.recoil_strength.x)
-		smoke.process_material.initial_velocity_max = (target.held_item_data.recoil_strength.x) * 10
+		smoke.amount = (target.character.held_item_data.recoil_strength.x) * 2
+		smoke.process_material.scale_max = (target.character.held_item_data.recoil_strength.x)
+		smoke.process_material.initial_velocity_max = (target.character.held_item_data.recoil_strength.x) * 10
 		smoke.emitting = true
 		smoke.finished.connect(func (): smoke.queue_free() )
 		
 		for i in projectiles_per_shot :
 			var projectile = PROJECTILE.instantiate()
 			target.get_tree().root.add_child(projectile)
-			projectile.global_position = target.projectile_spawn_point.global_position + target.velocity * 0.075
-			projectile.rotation = target.held_item.rotation
+			projectile.global_position = target.character.projectile_spawn_point.global_position + target.character.velocity * 0.075
+			projectile.rotation = target.character.held_item.rotation
 			projectile.accuracy = accuracy
-			target.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
-			projectile.direction = target.projectile_spawn_point.global_position.direction_to(target.attack_effect_spawn_point.global_position)
+			target.character.attack_effect_spawn_point.position.y += randf_range(-100 + accuracy, 100 - accuracy) * 0.01
+			projectile.direction = target.character.projectile_spawn_point.global_position.direction_to(target.character.attack_effect_spawn_point.global_position)
 			projectile.damage = damage
 			projectile.velocity = muzzle_velocity
 		
-			if target.ranged_ray.is_colliding():
-				projectile.hit(target.ranged_ray.get_collider(), damage, projectile.direction)
+			if target.character.ranged_ray.is_colliding():
+				projectile.hit(target.character.ranged_ray.get_collider(), damage, projectile.direction)
 
-		animate_shoot(target, target.held_item)
+		animate_shoot(target, target.character.held_item)
 		
-		await target.get_tree().create_timer(fire_rate_time).timeout
+		await target.character.get_tree().create_timer(fire_rate_time).timeout
 		can_attack = true
 		can_reload = true
 		is_attacking = false
 			
-		if fire_mode == 2:
-			if target.is_pressed:
-				shoot(target)
+		if fire_mode == 2 and Input.is_action_pressed("left_click"):
+			shoot(target)
 
 func animate_shoot(target, item):
-	var aim_point = (Crosshair.global_position - item.global_position).normalized()
-	var ranged_recoil = aim_point * recoil_strength.x
+	#var aim_point = (target.character.look_direction - item.global_position).normalized()
+	var ranged_recoil = target.character.look_direction.normalized() * recoil_strength.x
 	#var muzzle_climb = 0.05 * recoil_strength.y
-	var tween = target.create_tween()
+	var tween = target.character.create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
 	

@@ -1,13 +1,13 @@
 [gd_scene load_steps=25 format=3 uid="uid://biq637ndpvvfg"]
 
-[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="1_gg6l8"]
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://character/ik/ik_armature.tscn" id="1_gg6l8"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_hq1hp"]
-[ext_resource type="Script" path="res://player/ik_character.gd" id="1_lk5ex"]
-[ext_resource type="Script" path="res://player/character_animator.gd" id="2_8hfdf"]
+[ext_resource type="Script" path="res://legacy/ik_character.gd" id="1_lk5ex"]
+[ext_resource type="Script" path="res://character/character_animator.gd" id="2_8hfdf"]
 [ext_resource type="Texture2D" uid="uid://ysj4t5kmkbge" path="res://assets/character/head+body.tres" id="2_270en"]
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_x8ohx"]
 [ext_resource type="Resource" uid="uid://bkqm0jc4t3aeb" path="res://inventory_system/inventory/test_equip_inv.tres" id="3_8me7u"]
-[ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://player/ik_leg.tscn" id="4_88xkp"]
+[ext_resource type="PackedScene" uid="uid://dobu34wmq15rr" path="res://character/ik/ik_leg.tscn" id="4_88xkp"]
 [ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="5_0rcw8"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="5_nykaw"]
 

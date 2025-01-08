@@ -10,41 +10,41 @@
 [ext_resource type="Resource" uid="uid://na8svgd3e0lx" path="res://inventory_system/item/items/equippables/shirt.tres" id="8_k5tm4"]
 [ext_resource type="Resource" uid="uid://cv3y6jtis5a55" path="res://inventory_system/item/items/equippables/shoes.tres" id="9_ahfq6"]
 
-[sub_resource type="Resource" id="Resource_d2qfm"]
+[sub_resource type="Resource" id="Resource_stlui"]
 script = ExtResource("3_w8ix3")
 item_data = ExtResource("2_047jf")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_53h80"]
-script = ExtResource("3_w8ix3")
-item_data = ExtResource("7_ahwqj")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_qetbg"]
-script = ExtResource("3_w8ix3")
-item_data = ExtResource("5_jqewp")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_w8teq"]
-script = ExtResource("3_w8ix3")
-item_data = ExtResource("6_isgkf")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_g8ftj"]
-script = ExtResource("3_w8ix3")
-item_data = ExtResource("7_08v5l")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_67o4p"]
-script = ExtResource("3_w8ix3")
-item_data = ExtResource("8_k5tm4")
-quantity = 1
-
-[sub_resource type="Resource" id="Resource_wdioh"]
+[sub_resource type="Resource" id="Resource_ele3q"]
 script = ExtResource("3_w8ix3")
 item_data = ExtResource("9_ahfq6")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_ypm81"]
+script = ExtResource("3_w8ix3")
+item_data = ExtResource("7_ahwqj")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_s8bmf"]
+script = ExtResource("3_w8ix3")
+item_data = ExtResource("5_jqewp")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_ve7tt"]
+script = ExtResource("3_w8ix3")
+item_data = ExtResource("6_isgkf")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_8weq3"]
+script = ExtResource("3_w8ix3")
+item_data = ExtResource("7_08v5l")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_q3vk1"]
+script = ExtResource("3_w8ix3")
+item_data = ExtResource("8_k5tm4")
+quantity = 1
+
 [resource]
 script = ExtResource("1_p6m7k")
-slot_datas = Array[ExtResource("3_w8ix3")]([SubResource("Resource_d2qfm"), SubResource("Resource_53h80"), SubResource("Resource_qetbg"), SubResource("Resource_w8teq"), SubResource("Resource_g8ftj"), SubResource("Resource_67o4p"), SubResource("Resource_wdioh")])
+slot_datas = Array[ExtResource("3_w8ix3")]([SubResource("Resource_stlui"), SubResource("Resource_ele3q"), SubResource("Resource_ypm81"), SubResource("Resource_s8bmf"), SubResource("Resource_ve7tt"), SubResource("Resource_8weq3"), SubResource("Resource_q3vk1")])

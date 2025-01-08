@@ -34,35 +34,35 @@ func swing(target):
 
 	can_attack = false
 	
-	animate_swing(target, target.held_item)
+	animate_swing(target, target.character.held_item)
 
 func move_item(value: float):
-	target.label.text = str(current_swing_time)
+	target.character.label.text = str(current_swing_time)
 	current_swing_time = value
-	target.held_item.position = bezier(current_swing_time, target.swing_start.position, 
-		target.swing_peak.position, target.swing_end.position)
+	target.character.held_item.position = bezier(current_swing_time, target.character.swing_start.position, 
+		target.character.swing_peak.position, target.character.swing_end.position)
 
 func animate_swing(target, item):
 		swing_time = abs(speed - 150) * 0.0025
 
-		var tween = target.create_tween().set_parallel(true).set_trans(Tween.TRANS_QUINT)
+		var tween = target.character.create_tween().set_parallel(true).set_trans(Tween.TRANS_QUINT)
 		
 		tween.tween_method(move_item, 0.5, 0.0, 
 			swing_time).set_ease(Tween.EASE_IN_OUT).finished.connect(func(): 
 				can_damage = true
-				await target.get_tree().create_timer(0.01).timeout
-				target.line_trail.modulate = Color(1,1,1,1))
+				await target.character.get_tree().create_timer(0.01).timeout
+				target.character.line_trail.modulate = Color(1,1,1,1))
 		
 		tween.tween_property(item, "rotation_degrees",
-			item.rotation_degrees - 30 * target.item_rotation_flipper, swing_time).set_ease(Tween.EASE_IN_OUT)
+			item.rotation_degrees - 30 * target.character.item_rotation_flipper, swing_time).set_ease(Tween.EASE_IN_OUT)
 			
-		tween.tween_property(item, "rotation_degrees", item.rotation_degrees + (30 + rotation_offset) * target.item_rotation_flipper, 
+		tween.tween_property(item, "rotation_degrees", item.rotation_degrees + (30 + rotation_offset) * target.character.item_rotation_flipper, 
 			swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT)
 			
 		tween.tween_method(move_item, 0.0, 1.0,
 			swing_time).set_delay(swing_time).set_ease(Tween.EASE_OUT).finished.connect(func(): 
 				can_damage = false
-				target.line_trail.modulate = Color(1,1,1,0)
+				target.character.line_trail.modulate = Color(1,1,1,0)
 				)
 		
 		tween.tween_method(move_item, 1.0, 0.5, swing_time).set_delay(swing_time * 2).set_ease(Tween.EASE_IN_OUT)

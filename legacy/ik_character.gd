@@ -23,8 +23,8 @@ signal toggle_inventory()
 @onready var label = $Label
 @onready var label_2 = $Label2
 
-@export var inventorydata: InventoryData
-@export var equip_inventorydata: InventoryDataEquip
+@export var inventory_data: inventory_data
+@export var equip_inventory_data: inventory_dataEquip
 var inventory_open: bool
 var inventory_full: bool
 
@@ -50,8 +50,8 @@ var swing_size: float
 var accuracy_multiplier: float = 7
 
 func _ready():
-	inventory_full = not inventorydata.slot_datas.has(null)
-	PlayerManager.player = self
+	inventory_full = not inventory_data.slot_datas.has(null)
+	#PlayerManager.player = self
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -94,14 +94,14 @@ func _physics_process(delta):
 	else:
 		look_direction = (Crosshair.global_position - pivot_point.global_position)
 	
-	#label.text = "full: " + str(not inventorydata.slot_datas.has(null))
+	#label.text = "full: " + str(not inventory_data.slot_datas.has(null))
 	
 	velocity = lerp(velocity, direction.normalized() * walk_speed * 7.0, 0.05)
 
 	move_and_slide()
 	
 func _process(delta):
-	inventory_full = not inventorydata.slot_datas.has(null)
+	inventory_full = not inventory_data.slot_datas.has(null)
 	front_leg.walk_speed = walk_speed
 	back_leg.walk_speed = walk_speed
 	#label.text = str(abs(abs(look_direction.normalized().x) - 1))
@@ -181,8 +181,8 @@ func handle_swing_plane():
 		(-swing_size), held_item_data.hold_distance * 0.9)
 	
 func _on_hot_bar_set_selected_slot(index):
-	if inventorydata.slot_datas[index]:
-		held_item_data = inventorydata.slot_datas[index].item_data
+	if inventory_data.slot_datas[index]:
+		held_item_data = inventory_data.slot_datas[index].item_data
 		held_item.texture = held_item_data.texture
 	else:
 		held_item.texture = null

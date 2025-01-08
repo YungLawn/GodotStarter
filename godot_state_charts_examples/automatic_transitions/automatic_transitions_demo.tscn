@@ -136,6 +136,7 @@ editor_description = "This is an automatic transition that will transition to \"
 script = ExtResource("7_v4wmr")
 to = NodePath("../../Needs Rest")
 guard = SubResource("Resource_14sa2")
+delay_in_seconds = "0.0"
 
 [node name="Needs Rest" type="Node" parent="TheFrog/StateChart/ParallelState/Walking Control"]
 editor_description = "In this state the frog cannot move for 3 seconds."
@@ -145,7 +146,7 @@ script = ExtResource("5_ooc8l")
 editor_description = "This will automatically transition back to \"Can Walk\" after 3 seconds."
 script = ExtResource("7_v4wmr")
 to = NodePath("../../Can Walk")
-delay_seconds = 3.0
+delay_in_seconds = "3"
 
 [node name="Animation Control" type="Node" parent="TheFrog/StateChart/ParallelState"]
 editor_description = "This controls the pulsating red animation when the frog is exhausted. Note that you could also model this using state_entered and state_exited events on the \"Needs Rest\" state, which is simpler (and more performant). Its only done this way to show automatic events."
@@ -160,6 +161,7 @@ editor_description = "This is another example of an automatic transition. When t
 script = ExtResource("7_v4wmr")
 to = NodePath("../../Pulsating Red")
 guard = SubResource("Resource_m8fyc")
+delay_in_seconds = "0.0"
 
 [node name="Pulsating Red" type="Node" parent="TheFrog/StateChart/ParallelState/Animation Control"]
 script = ExtResource("5_ooc8l")
@@ -169,6 +171,7 @@ editor_description = "When the \"Needs Rest\" state becomes inactive, this will 
 script = ExtResource("7_v4wmr")
 to = NodePath("../../Normal")
 guard = SubResource("Resource_br5hd")
+delay_in_seconds = "0.0"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TheFrog"]
 unique_name_in_owner = true

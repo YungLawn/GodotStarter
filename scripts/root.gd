@@ -1,6 +1,6 @@
 extends Node2D
 
-const PickUp = preload("res://assets/pickups/pick_up.tscn")
+const PickUp = preload("res://inventory_system/pickups/pick_up.tscn")
 
 @onready var player = $player
 @onready var inventory_interface = $UI/inventory_interface
@@ -17,25 +17,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		#pass
 		player.toggle_inventory.emit()
 	if Input.is_action_just_pressed("interact"):
-		player.interact()
+		player.character.interact()
 
 # Called when the node enters the scene tree for the first time.
 func _process(_delta):
 	fps_counter.text = "FPS: " + str(Engine.get_frames_per_second())
-	health_label.text ="Health: " +  str(player.health)
-	if player.held_item_data:
-		if player.held_item_data.has_method("shoot"):
-			ammo_count.text = str(player.held_item_data.current_capacity) + "/" + str(player.held_item_data.max_capacity)
+	health_label.text ="Health: " +  str(player.character.health)
+	if player.character.held_item_data:
+		if player.character.held_item_data.has_method("shoot"):
+			ammo_count.text = str(player.character.held_item_data.current_capacity) + "/" + str(player.character.held_item_data.max_capacity)
 		else: ammo_count.text = ""
 
 func _ready():
 	Global.player = player
 	Global.external_inventory = external_inventory
 	player.toggle_inventory.connect(toggle_inventory_interface)
-	inventory_interface.set_player_inventory_data(player.inventorydata)
-	inventory_interface.set_equip_inventory_data(player.equip_inventorydata)
+	inventory_interface.set_player_inventory_data(player.character.inventory_data)
+	inventory_interface.set_equip_inventory_data(player.character.equip_inventory_data)
 	inventory_interface.force_close.connect(toggle_inventory_interface)
-	hot_bar.set_inventory_data(player.inventorydata)
+	hot_bar.set_inventory_data(player.character.inventory_data)
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
@@ -56,8 +56,8 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 
 func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PickUp.instantiate()
-	pick_up.position = player.pivot_point.global_position
-	pick_up.target_pos = player.pivot_point.global_position + player.look_direction.normalized() * 30
+	pick_up.position = player.character.pivot_point.global_position
+	pick_up.target_pos = player.character.pivot_point.global_position + player.character.look_direction.normalized() * 30
 	pick_up.slot_data = slot_data
 	#pick_up.position = player.position + Vector2(20,-20)
 	add_child(pick_up)

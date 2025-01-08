@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bpvhl1bedidqe"]
 
-[ext_resource type="Script" path="res://scripts/curve_test.gd" id="1_n2bpe"]
+[ext_resource type="Script" path="res://legacy/curve_test.gd" id="1_n2bpe"]
 [ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="2_1nj3j"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]

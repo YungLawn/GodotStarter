@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0xnqrie2vk1p"]
+
+[ext_resource type="Script" path="res://character/player/player_manager.gd" id="1_8ybqy"]
+[ext_resource type="PackedScene" uid="uid://dlfot17owh0rt" path="res://character/character.tscn" id="1_cbhvv"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="2_1p5ds"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2wbk"]
+resource_local_to_scene = true
+shader = ExtResource("2_1p5ds")
+shader_parameter/outline_color = null
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
+
+[node name="player" type="Node2D" groups=["player"]]
+y_sort_enabled = true
+script = ExtResource("1_8ybqy")
+
+[node name="character" parent="." instance=ExtResource("1_cbhvv")]
+material = SubResource("ShaderMaterial_o2wbk")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0

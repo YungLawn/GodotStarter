@@ -17,9 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerManager="*res://player/player_manager.gd"
-Crosshair="*res://player/crosshair.gd"
-Global="*res://Global.gd"
+Crosshair="*res://character/player/crosshair.gd"
+Global="*res://scripts/Global.gd"
 
 [display]
 

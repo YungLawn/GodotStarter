@@ -36,7 +36,18 @@ TODO
 	- inventory
 		- eqipped items visible in sprite
 		- equipped items/equipment
-	- attack
+	- behavior
+		- idle
+			- wander and pause ~ 5 sec
+		- alert
+			- follow target
+		- hostile
+			- attack
+				- ranged
+					- plant and shoot
+				- melee
+					- charge and attack
+						-will need pathfinding
 	- pathfinding
 - updates to map
 	- minimap

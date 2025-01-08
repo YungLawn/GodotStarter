@@ -18,11 +18,14 @@ func clear_inventory_data(inventory_data: InventoryData) -> void:
 	populate_item_grid(inventory_data)
 
 func populate_item_grid(inventory_data: InventoryData) -> void:
-	#print("populate_player_inv")
+	if inventory_data == Global.player.character.inventory_data:
+		print("populate_player_inv")
+	else:
+		print("populate_external_inv")
 	for child in item_grid.get_children():
 		child.queue_free()
 
-	#if inventory_data is InventoryDataEquip:
+	#if inventory_data is inventory_dataEquip:
 		#for slot in inventory_data.slot_datas:
 			#print(slot)
 
@@ -36,8 +39,17 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		
 		slot.slot_clicked.connect(inventory_data.on_slot_clicked)
 		
+		#if slot_data:
+			#if Global.player.character.local_inventory[index].item_data.name != slot_data.item_data.name:
+				#print("local: " + Global.player.character.local_inventory[index].item_data.name + "|" + "global: " + slot_data.item_data.name)
+				#slot.set_slot_data(Global.player.character.local_inventory[index])
+			#else:
+				#slot.set_slot_data(slot_data)
+				
 		if slot_data:
 			slot.set_slot_data(slot_data)
+			
+		#Global.player.character.localize_inventory()
 
 	#for slot_data in inventory_data.slot_datas:
 		#var slot = slot.instantiate()

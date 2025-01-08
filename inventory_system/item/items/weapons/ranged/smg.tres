@@ -17,10 +17,11 @@ atlas = SubResource("CompressedTexture2D_onvu5")
 region = Rect2(48, 16, 16, 16)
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_obxvq")
 fire_mode = 2
 fire_rate = 900
-projectiles_per_shot = 1
+projectiles_per_shot = null
 muzzle_velocity = 1500
 max_capacity = 500
 current_capacity = 500
@@ -34,11 +35,11 @@ damage = 15
 effective_range = 110.0
 name = "SMG"
 description = "Brrrrrrrrr"
-stackable = false
+stackable = null
 rotatable = true
-item_offset = 0.0
+item_offset = null
 hold_offset = Vector2(1, 1.5)
 texture = SubResource("AtlasTexture_kn6ea")
-rotation_offset = 0.0
+rotation_offset = null
 hold_distance = 6.0
 weight = 2.5

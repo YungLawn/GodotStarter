@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bdh05i8slqqbg"]
 
-[ext_resource type="Script" path="res://scripts/container.gd" id="1_denjq"]
+[ext_resource type="Script" path="res://inventory_system/interactables/container.gd" id="1_denjq"]
 [ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="1_x7vaj"]
 [ext_resource type="Texture2D" uid="uid://dbrd0dcacai77" path="res://assets/icons/#1 - Transparent Icons.png" id="2_1e82x"]
 
@@ -15,6 +15,7 @@ shader_parameter/is_hit = null
 radius = 15.0
 
 [node name="Container" type="StaticBody2D" groups=["damageable", "external_inventory"]]
+y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_3gy7y")
 scale = Vector2(0.75, 0.75)

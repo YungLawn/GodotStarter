@@ -31,8 +31,8 @@ var rng = RandomNumberGenerator.new()
 @onready var swing_peak = $BaseSprite/swing_peak
 @onready var swing_end = $BaseSprite/swing_end
 
-@export var inventorydata: InventoryData
-@export var equip_inventorydata: InventoryDataEquip
+@export var inventory_data: inventory_data
+@export var equip_inventory_data: inventory_dataEquip
 @export var SPEED: float = 50
 
 var SPEED_MULTIPLER: float = 1.0
@@ -233,8 +233,8 @@ func get_point_on_radius(center: Vector2, direction: Vector2, rotation_offset: f
 	
 func _on_hot_bar_set_selected_slot(index):
 	#print("!!")
-	if inventorydata.slot_datas[index]: 
-		held_item_data = inventorydata.slot_datas[index].item_data
+	if inventory_data.slot_datas[index]: 
+		held_item_data = inventory_data.slot_datas[index].item_data
 		hands_empty = false
 		held_item.texture = held_item_data.texture
 		held_item_weight = held_item_data.weight

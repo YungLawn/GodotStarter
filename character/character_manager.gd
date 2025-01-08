@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
-signal toggle_inventory()
-
-@onready var player_input_handler: Node2D = %player_input_handler
 @onready var state_chart: StateChart = $StateChart
+@onready var ranged_item: AtomicState = $StateChart/root/upper_body_states/held_item/ranged_item
+@onready var melee_item: AtomicState = $StateChart/root/upper_body_states/held_item/melee_item
+@onready var static_item: AtomicState = $StateChart/root/upper_body_states/held_item/static_item
+@onready var held_item_state: CompoundState = $StateChart/root/upper_body_states/held_item
 
 @onready var main_sprite = $main_sprite
 @onready var front_arm = %front_arm
@@ -26,17 +27,14 @@ signal toggle_inventory()
 @onready var label = $Label
 @onready var label_2 = $Label2
 
-@export var inventorydata: InventoryData
-@export var equip_inventorydata: InventoryDataEquip
-var inventory_open: bool
+@export var inventory_data: InventoryData
+var local_inventory: Array[SlotData]
+@export var equip_inventory_data: InventoryDataEquip
 
 var direction: Vector2
 var look_direction: Vector2
 var walk_speed: float = 7.0
 var SPEED_MULTIPLER: float = 1.0
-
-var is_pressed: bool
-var can_press: bool = true
 
 var health: int = 0
 var held_item_data: ItemData
@@ -51,12 +49,28 @@ var swing_size: float
 
 var accuracy_multiplier: float = 5.0
 
+func localize_inventory():
+	#print("!!")
+	for i in inventory_data.slot_datas:
+		local_inventory.append(i.duplicate(true))
+		
+	#print(inventory_data.slot_datas[18].item_data.name)
+	#print(local_inventory[18].item_data.name)
+
+func _ready() -> void:
+	localize_inventory()
+	#for i in inventory_data.slot_datas:
+		#local_inventory.append(i.duplicate(true))
+		
+	#inventory_data.slot_datas = local_inventory
+
 func interact() -> void:
 	if interaction_zone.get_overlapping_areas():
 		if interaction_zone.get_overlapping_areas()[0].get_parent().is_in_group("external_inventory"):
 			interaction_zone.get_overlapping_areas()[0].get_parent().player_interact()
 
 func _process(delta):
+	label.text = str(look_direction)
 	main_sprite.animate(direction, look_direction)
 
 func _on_walk_state_entered() -> void:
@@ -164,10 +178,17 @@ func get_point_on_radius(center: Vector2, direction: Vector2, rotation_offset: f
 	var radian: float = (center).angle_to_point(direction) - rotation_offset
 	return Vector2(radius * cos(radian), radius * sin(radian))
 
+#func set_selected_item(index: int):
+	#if inventory_data.slot_datas[index]:
+		#held_item_data = inventory_data.slot_datas[index].item_data
+		#held_item.texture = held_item_data.texture
+		#state_chart.send_event("to_held_item")
+	#else:
+		#state_chart.send_event("to_hands_empty")
+		
 func set_selected_item(index: int):
-	#print("selected")
-	if inventorydata.slot_datas[index]:
-		held_item_data = inventorydata.slot_datas[index].item_data
+	if local_inventory[index]:
+		held_item_data = local_inventory[index].item_data
 		held_item.texture = held_item_data.texture
 		state_chart.send_event("to_held_item")
 	else:

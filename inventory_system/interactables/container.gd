@@ -31,9 +31,9 @@ func take_damage(damage: float, direction: Vector2):
 				)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent().is_in_group("player"):
+	if area.get_parent().get_parent().is_in_group("player"):
 		player_near = true
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	if area.get_parent().is_in_group("player"):
+	if area.get_parent().get_parent().is_in_group("player"):
 		player_near = false

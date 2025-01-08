@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cphd0ys0gei33"]
 
-[ext_resource type="Script" path="res://player/ik_armature.gd" id="1_2w3nb"]
+[ext_resource type="Script" path="res://character/ik/ik_armature.gd" id="1_2w3nb"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_2dsj4"]
 
 [sub_resource type="Curve" id="Curve_ewfjf"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjsunju3vqcsn"]
 
-[ext_resource type="Script" path="res://scripts/swing_test.gd" id="1_6nnql"]
+[ext_resource type="Script" path="res://legacy/swing_test.gd" id="1_6nnql"]
 [ext_resource type="Texture2D" uid="uid://8bou8p1g8qsa" path="res://assets/icons/items.tres" id="2_toup2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wur4w"]

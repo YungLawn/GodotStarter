@@ -2,10 +2,8 @@ extends InventoryData
 class_name InventoryDataEquip
 
 func drop_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
-	#print(grabbed_slot_data.item_data.type)
-	#print(PlayerManager.player.equip_inventorydata.slot_datas)
 	var types: Array
-	for slot in PlayerManager.player.equip_inventorydata.slot_datas:
+	for slot in Global.player.character.equip_inventory_data.slot_datas:
 		if slot:
 			types.push_front(slot.item_data.type)
 			#print(slot.item_data.name + ": " + slot.item_data.type)

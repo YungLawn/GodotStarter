@@ -27,14 +27,14 @@ func _physics_process(delta: float) -> void:
 	if locked_on:
 		position = lerp(position, player.interaction_zone.global_position, delta * 15)
 		scale = lerp(scale, Vector2.ZERO, delta * 10)
-		#if global_position.distance_to(player.interaction_zone.global_position) < 3.0 and player.inventorydata.pick_up_slot_data(slot_data):
+		#if global_position.distance_to(player.interaction_zone.global_position) < 3.0 and player.inventory_data.pick_up_slot_data(slot_data):
 		if global_position.distance_to(player.interaction_zone.global_position) < 3.0:
 			queue_free()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent().is_in_group("player"):
+	if area.get_parent().get_parent().is_in_group("player"):
 		player = area.get_parent()
-		#print(player.inventorydata.slot_datas.has(null))
-		#if player.inventorydata.slot_datas.has(null):
-		if player.inventorydata.pick_up_slot_data(slot_data):
+		#print(player.inventory_data.slot_datas.has(null))
+		#if player.inventory_data.slot_datas.has(null):
+		if player.inventory_data.pick_up_slot_data(slot_data):
 			locked_on = true

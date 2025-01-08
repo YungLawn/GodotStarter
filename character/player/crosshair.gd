@@ -1,12 +1,11 @@
 extends Sprite2D
 
-var distance_to_player: float
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if Global.player && is_instance_valid(Global.player):
 		if not Global.external_inventory.visible:
-			position = lerp(position, get_global_mouse_position(), delta * 30)
+			position = lerp(position, get_global_mouse_position(), delta * 40)
+			#position = get_global_mouse_position()
 			
 		if Global.player.inventory_open:
 			visible = false

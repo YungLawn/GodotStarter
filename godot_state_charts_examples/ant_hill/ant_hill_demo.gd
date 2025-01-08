@@ -6,4 +6,3 @@ func _ready():
 	randomize()
 	
 	
-

@@ -4,10 +4,10 @@
 [ext_resource type="Resource" uid="uid://cma2lr53e7v3o" path="res://inventory_system/inventory/test_inv.tres" id="2_1fo2k"]
 [ext_resource type="Resource" uid="uid://bkqm0jc4t3aeb" path="res://inventory_system/inventory/test_equip_inv.tres" id="3_asbfk"]
 [ext_resource type="Texture2D" uid="uid://bkc55gbdyd37x" path="res://assets/character/HumanBackArmCombined.png" id="4_fk1ah"]
-[ext_resource type="Script" path="res://scripts/sprite_animator.gd" id="4_txr6b"]
+[ext_resource type="Script" path="res://legacy/sprite_animator.gd" id="4_txr6b"]
 [ext_resource type="Texture2D" uid="uid://bv31mhy8ox3np" path="res://assets/character/HumanFrontArmCombined.png" id="6_urt3x"]
 [ext_resource type="Texture2D" uid="uid://bxr0yywl3f2rk" path="res://assets/character/HumanLegsCombined.png" id="7_c31yv"]
-[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://player/ik_armature.tscn" id="8_fm3pl"]
+[ext_resource type="PackedScene" uid="uid://cphd0ys0gei33" path="res://character/ik/ik_armature.tscn" id="8_fm3pl"]
 [ext_resource type="PackedScene" uid="uid://fnfi6vn2lv4q" path="res://assets/FX/line_trail.tscn" id="10_36vei"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hsne"]

@@ -1,0 +1,276 @@
+[gd_scene load_steps=67 format=3 uid="uid://b5ous68upikb0"]
+
+[ext_resource type="Script" path="res://character/npc/npc_manager.gd" id="1_dvitw"]
+[ext_resource type="PackedScene" uid="uid://dlfot17owh0rt" path="res://character/character.tscn" id="1_plabe"]
+[ext_resource type="Shader" path="res://scripts/shaders/outline.gdshader" id="2_kslaq"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="4_xoi6n"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_yurom"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_uweqq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="6_14h83"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_qkv1j"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_oonwq"]
+[ext_resource type="Script" path="res://inventory_system/inventory/inventory_data.gd" id="9_ptcer"]
+[ext_resource type="Script" path="res://inventory_system/inventory/slot_data.gd" id="10_344cm"]
+[ext_resource type="Resource" uid="uid://bkqm0jc4t3aeb" path="res://inventory_system/inventory/test_equip_inv.tres" id="10_bv2rk"]
+[ext_resource type="Resource" uid="uid://fs23tbhpygdq" path="res://inventory_system/item/items/weapons/melee/metal_pipe.tres" id="11_7ijc8"]
+[ext_resource type="Resource" uid="uid://bm71l3uwebkx8" path="res://inventory_system/item/items/weapons/ranged/AK.tres" id="12_ckuko"]
+[ext_resource type="Resource" uid="uid://cajb70andl0dv" path="res://inventory_system/item/items/weapons/ranged/auto_shotgun.tres" id="13_45eu7"]
+[ext_resource type="Resource" uid="uid://dk81vm4p8qouv" path="res://inventory_system/item/items/weapons/ranged/heavy_machine_gun.tres" id="14_qtvcj"]
+[ext_resource type="Resource" uid="uid://b3c54qv8kqlr8" path="res://inventory_system/item/items/equippables/gloves.tres" id="15_cs66w"]
+[ext_resource type="Resource" uid="uid://0wftw3jw4axr" path="res://inventory_system/item/items/weapons/melee/sledgehammer.tres" id="16_6eri5"]
+[ext_resource type="Resource" uid="uid://nbla6hg5wnrm" path="res://inventory_system/item/items/weapons/melee/meat_cleaver.tres" id="17_b0gyy"]
+[ext_resource type="Resource" uid="uid://be011kyv3rthb" path="res://inventory_system/item/items/weapons/ranged/lever_gun.tres" id="18_n8xe0"]
+[ext_resource type="Resource" uid="uid://bsea8pohejiaq" path="res://inventory_system/item/items/weapons/ranged/sportpistol.tres" id="19_6yl11"]
+[ext_resource type="Resource" uid="uid://dp8k50fwx5hjt" path="res://inventory_system/item/items/equippables/helmet.tres" id="20_nqdtx"]
+[ext_resource type="Resource" uid="uid://dv0sxvkvd2d1i" path="res://inventory_system/item/items/consumables/health_potion.tres" id="21_ufhfe"]
+[ext_resource type="Resource" uid="uid://18ih8qu41rbx" path="res://inventory_system/item/items/weapons/ranged/revolver.tres" id="22_7qw8h"]
+[ext_resource type="Resource" uid="uid://dcajrau8v8tcr" path="res://inventory_system/item/items/weapons/ranged/pump_action_shotgun.tres" id="23_m7i0b"]
+[ext_resource type="Resource" uid="uid://du1i4akjkqwyq" path="res://inventory_system/item/items/weapons/ranged/huntingrevolver.tres" id="24_if0tf"]
+[ext_resource type="Resource" uid="uid://btcn8tq6ji8x4" path="res://inventory_system/item/items/weapons/ranged/hunting_rifle.tres" id="25_cq28w"]
+[ext_resource type="Resource" uid="uid://dcl7tw6ooqcji" path="res://inventory_system/item/items/weapons/ranged/rail_gun.tres" id="26_8clvm"]
+[ext_resource type="Resource" uid="uid://bg2r2j2g1kwqb" path="res://inventory_system/item/items/weapons/ranged/pistol.tres" id="27_ebriy"]
+[ext_resource type="Resource" uid="uid://ctmfrl3461srm" path="res://inventory_system/item/items/weapons/ranged/smg.tres" id="28_hrmeb"]
+[ext_resource type="Resource" uid="uid://cwyl8kbqre48r" path="res://inventory_system/item/items/consumables/apple.tres" id="29_qbmac"]
+[ext_resource type="Resource" uid="uid://bqjee2hhliac7" path="res://inventory_system/item/items/weapons/ranged/AR.tres" id="30_oto1q"]
+[ext_resource type="Resource" uid="uid://d111aiurijgut" path="res://inventory_system/item/items/weapons/ranged/sawed_off_shotgun.tres" id="31_xxcwl"]
+[ext_resource type="Resource" uid="uid://b2kr47su4md0r" path="res://inventory_system/item/items/weapons/ranged/double_barrel_shotgun.tres" id="32_qpqk6"]
+[ext_resource type="Resource" uid="uid://b3bqkpo1xm68b" path="res://inventory_system/item/items/weapons/melee/bowstaff.tres" id="33_cqw0j"]
+[ext_resource type="Resource" uid="uid://b2fcfmfb6ig5q" path="res://inventory_system/item/items/weapons/melee/sword.tres" id="34_eebb7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ms1k"]
+resource_local_to_scene = true
+shader = ExtResource("2_kslaq")
+shader_parameter/outline_color = null
+shader_parameter/is_outlined = false
+shader_parameter/is_hit = false
+
+[sub_resource type="Resource" id="Resource_0ggr1"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("11_7ijc8")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_dq77p"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("12_ckuko")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_eyt53"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("13_45eu7")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_n0f5a"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("14_qtvcj")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_fa5k7"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("15_cs66w")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_gtc0f"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("16_6eri5")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_fjhrc"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("17_b0gyy")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_psfj7"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("18_n8xe0")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_jvvr2"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("14_qtvcj")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_uxdyn"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("19_6yl11")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_jnhnt"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("20_nqdtx")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mmg03"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("21_ufhfe")
+quantity = 99
+
+[sub_resource type="Resource" id="Resource_xjlv0"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("22_7qw8h")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_amggn"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("12_ckuko")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_bolpi"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("23_m7i0b")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_1vh37"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("24_if0tf")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_c5adm"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("25_cq28w")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_bfqcx"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("26_8clvm")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_rffwy"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("27_ebriy")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_w8dub"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("28_hrmeb")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_o1nu3"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("29_qbmac")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_wsiq1"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("30_oto1q")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_u0gin"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("31_xxcwl")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mlcoq"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("32_qpqk6")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_8nsci"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("13_45eu7")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_j0tnf"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("33_cqw0j")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_016o0"]
+script = ExtResource("10_344cm")
+item_data = ExtResource("34_eebb7")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mt3gr"]
+resource_local_to_scene = true
+script = ExtResource("9_ptcer")
+slot_datas = Array[ExtResource("10_344cm")]([SubResource("Resource_0ggr1"), SubResource("Resource_dq77p"), SubResource("Resource_eyt53"), SubResource("Resource_n0f5a"), SubResource("Resource_fa5k7"), SubResource("Resource_gtc0f"), SubResource("Resource_fjhrc"), SubResource("Resource_psfj7"), SubResource("Resource_jvvr2"), SubResource("Resource_uxdyn"), SubResource("Resource_jnhnt"), SubResource("Resource_mmg03"), SubResource("Resource_xjlv0"), SubResource("Resource_amggn"), SubResource("Resource_bolpi"), SubResource("Resource_1vh37"), SubResource("Resource_c5adm"), SubResource("Resource_bfqcx"), SubResource("Resource_rffwy"), SubResource("Resource_w8dub"), SubResource("Resource_o1nu3"), SubResource("Resource_wsiq1"), SubResource("Resource_u0gin"), SubResource("Resource_mlcoq"), SubResource("Resource_8nsci"), SubResource("Resource_j0tnf"), SubResource("Resource_016o0")])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88c66"]
+radius = 75.0
+
+[node name="NPC" type="Node2D"]
+script = ExtResource("1_dvitw")
+
+[node name="behavior_state_chart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_yurom")
+
+[node name="root" type="Node" parent="behavior_state_chart"]
+script = ExtResource("6_14h83")
+
+[node name="non_hostile_states" type="Node" parent="behavior_state_chart/root"]
+script = ExtResource("5_uweqq")
+initial_state = NodePath("idle_state")
+
+[node name="idle_state" type="Node" parent="behavior_state_chart/root/non_hostile_states"]
+script = ExtResource("6_qkv1j")
+
+[node name="to_alert" type="Node" parent="behavior_state_chart/root/non_hostile_states/idle_state"]
+script = ExtResource("7_oonwq")
+to = NodePath("../../alert_state")
+event = &"enemy_entered"
+delay_in_seconds = "0.0"
+
+[node name="alert_state" type="Node" parent="behavior_state_chart/root/non_hostile_states"]
+script = ExtResource("6_qkv1j")
+
+[node name="to_idle" type="Node" parent="behavior_state_chart/root/non_hostile_states/alert_state"]
+script = ExtResource("7_oonwq")
+to = NodePath("../../idle_state")
+event = &"enemy_exited"
+delay_in_seconds = "3.0"
+
+[node name="hostile_states" type="Node" parent="behavior_state_chart/root"]
+script = ExtResource("5_uweqq")
+initial_state = NodePath("normal")
+
+[node name="normal" type="Node" parent="behavior_state_chart/root/hostile_states"]
+script = ExtResource("6_qkv1j")
+
+[node name="to_attacking" type="Node" parent="behavior_state_chart/root/hostile_states/normal"]
+script = ExtResource("7_oonwq")
+to = NodePath("../../attacking")
+event = &"threat_detected"
+delay_in_seconds = "0.0"
+
+[node name="attacking" type="Node" parent="behavior_state_chart/root/hostile_states"]
+script = ExtResource("6_qkv1j")
+
+[node name="to_normal" type="Node" parent="behavior_state_chart/root/hostile_states/attacking"]
+script = ExtResource("7_oonwq")
+to = NodePath("../../normal")
+event = &"threat_over"
+delay_in_seconds = ""
+
+[node name="character" parent="." instance=ExtResource("1_plabe")]
+material = SubResource("ShaderMaterial_1ms1k")
+inventorydata = SubResource("Resource_mt3gr")
+equip_inventorydata = ExtResource("10_bv2rk")
+
+[node name="StateChartDebugger2" parent="character" instance=ExtResource("4_xoi6n")]
+z_index = 10
+offset_left = -159.0
+offset_top = -90.0
+offset_right = 213.0
+offset_bottom = 630.0
+scale = Vector2(0.25, 0.25)
+initial_node_to_watch = NodePath("../../behavior_state_chart")
+
+[node name="Label3" type="Label" parent="character"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="detection_area" type="Area2D" parent="character"]
+unique_name_in_owner = true
+position = Vector2(0, -12)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="character/detection_area"]
+shape = SubResource("CircleShape2D_88c66")
+
+[connection signal="state_entered" from="behavior_state_chart/root/non_hostile_states/idle_state" to="." method="_on_idle_state_state_entered"]
+[connection signal="state_exited" from="behavior_state_chart/root/non_hostile_states/alert_state" to="." method="_on_alert_state_state_exited"]
+[connection signal="state_physics_processing" from="behavior_state_chart/root/non_hostile_states/alert_state" to="." method="_on_alert_state_state_physics_processing"]
+[connection signal="state_processing" from="behavior_state_chart/root/hostile_states/attacking" to="." method="_on_attacking_state_processing"]
+[connection signal="area_entered" from="character/detection_area" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="character/detection_area" to="." method="_on_detection_area_area_exited"]
